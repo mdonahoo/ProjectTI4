@@ -2,8 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="TI4 Advisor">
+<meta name="theme-color" content="#080c12">
 <title>TI4 Strategy Advisor</title>
+<link rel="manifest" href="/manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -18,7 +24,7 @@ body{background:var(--deep);color:var(--text);font-family:'Rajdhani',sans-serif;
   background-image:radial-gradient(ellipse at 20% 50%,rgba(42,90,138,0.07) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(90,58,138,0.05) 0%,transparent 50%);}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   background-image:radial-gradient(1px 1px at 8% 12%,rgba(255,255,255,0.3) 0%,transparent 100%),radial-gradient(1px 1px at 22% 58%,rgba(255,255,255,0.2) 0%,transparent 100%),radial-gradient(1px 1px at 38% 28%,rgba(255,255,255,0.35) 0%,transparent 100%),radial-gradient(1px 1px at 68% 8%,rgba(255,255,255,0.3) 0%,transparent 100%),radial-gradient(1px 1px at 83% 43%,rgba(255,255,255,0.2) 0%,transparent 100%),radial-gradient(1px 1px at 58% 48%,rgba(255,255,255,0.15) 0%,transparent 100%);}
-.app{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:0 1rem 3rem;}
+.app{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:0 1rem 3rem;}@media(max-width:900px){.app{padding:0;}}
 
 /* HEADER */
 .header{text-align:center;padding:1.5rem 1rem 1.25rem;border-bottom:1px solid var(--border);margin-bottom:1.25rem;position:relative;}
@@ -26,7 +32,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .header h1{font-family:'Cinzel',serif;font-size:clamp(1.3rem,3.5vw,2.3rem);font-weight:700;color:var(--gold);letter-spacing:0.05em;line-height:1.1;}
 .header h1 span{color:var(--text-bright);}
 .header-sub{margin-top:0.3rem;font-size:0.78rem;color:var(--text-dim);letter-spacing:0.08em;text-transform:uppercase;}
-.header-actions{display:flex;gap:0.5rem;justify-content:center;margin-top:0.75rem;flex-wrap:wrap;}
+.header-actions{display:flex;gap:0.4rem;justify-content:center;margin-top:0.6rem;flex-wrap:wrap;}
 .hbtn{background:var(--panel2);border:1px solid var(--border);border-radius:3px;padding:0.3rem 0.8rem;cursor:pointer;font-family:'Cinzel',serif;font-size:0.6rem;color:var(--text-dim);letter-spacing:0.08em;text-transform:uppercase;transition:all 0.14s;}
 .hbtn:hover{border-color:var(--gold-dim);color:var(--gold);}
 .hbtn.primary{border-color:rgba(74,154,223,0.4);color:var(--blue-hi);}
@@ -36,7 +42,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 
 /* LAYOUT */
 .layout{display:grid;grid-template-columns:335px 1fr;gap:1.25rem;align-items:start;}
-@media(max-width:900px){.layout{grid-template-columns:1fr;}}
+@media(max-width:900px){.layout{grid-template-columns:1fr;padding-bottom:52px;}}
 
 /* PANEL */
 .panel{background:var(--panel);border:1px solid var(--border);border-radius:4px;overflow:hidden;}
@@ -267,14 +273,14 @@ select option{background:#0d1420;}
 .rsd{font-size:0.66rem;color:var(--text-dim);text-align:center;margin-top:0.28rem;}
 
 /* CHAT */
-.chat-panel{display:flex;flex-direction:column;height:780px;}
+.chat-panel{display:flex;flex-direction:column;height:780px;position:relative;}
 .chat-ph{background:var(--panel2);border-bottom:1px solid var(--border);padding:0.48rem 0.9rem;display:flex;align-items:center;gap:0.45rem;}
 .chat-ph .ptitle{font-family:'Cinzel',serif;font-size:0.65rem;color:var(--gold);letter-spacing:0.11em;text-transform:uppercase;font-weight:600;flex:1;}
 .spill{display:flex;align-items:center;gap:4px;font-size:0.58rem;color:var(--text-dim);letter-spacing:0.05em;text-transform:uppercase;}
 .sdot{width:5px;height:5px;border-radius:50%;background:var(--gold-dim);flex-shrink:0;}
 .sdot.live{background:#4caf82;animation:blink 1.5s ease-in-out infinite;}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
-.chat-msgs{flex:1;overflow-y:auto;padding:0.85rem;display:flex;flex-direction:column;gap:0.85rem;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+.chat-msgs{flex:1;overflow-y:auto;padding:0.85rem;display:flex;flex-direction:column;gap:0.85rem;scrollbar-width:thin;scrollbar-color:var(--border) transparent;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;}
 .chat-msgs::-webkit-scrollbar{width:3px;}
 .chat-msgs::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
 
@@ -328,7 +334,7 @@ select option{background:#0d1420;}
 .mic-btn:hover{background:rgba(42,90,188,0.22);border-color:rgba(74,154,223,0.55);}
 .mic-btn.recording{background:rgba(200,50,50,0.18);border-color:rgba(230,80,80,0.7);color:#ef6a6a;animation:micpulse 1s ease-in-out infinite;}
 @keyframes micpulse{0%,100%{box-shadow:0 0 0 0 rgba(220,60,60,0.4)}50%{box-shadow:0 0 0 5px rgba(220,60,60,0)}}
-.input-area textarea{flex:1;background:var(--deep);border:1px solid var(--border);color:var(--text-bright);font-family:'Rajdhani',sans-serif;font-size:0.83rem;padding:0.38rem 0.6rem;border-radius:3px;resize:none;min-height:36px;max-height:110px;outline:none;transition:border-color 0.14s;line-height:1.5;}
+.input-area textarea{flex:1;background:var(--deep);border:1px solid var(--border);color:var(--text-bright);font-family:'Rajdhani',sans-serif;font-size:0.83rem;padding:0.38rem 0.6rem;border-radius:3px;resize:none;min-height:36px;max-height:110px;outline:none;transition:border-color 0.14s;line-height:1.5;-webkit-appearance:none;}
 .input-area textarea::placeholder{color:var(--text-dim);}
 .input-area textarea:focus{border-color:var(--gold-dim);}
 .send-btn{background:rgba(201,168,76,0.12);border:1px solid var(--gold-dim);color:var(--gold);font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.07em;padding:0 0.82rem;border-radius:3px;cursor:pointer;transition:all 0.13s;white-space:nowrap;height:36px;text-transform:uppercase;}
@@ -452,15 +458,245 @@ select option{background:#0d1420;}
 .opp-vp-ctr .resctr-btn { width:20px; height:20px; }
 .opp-vp-ctr .resctr-val { font-size:0.85rem; min-width:22px; }
 
-/* ── MOBILE BOTTOM NAV ── */
+/* ══════════════════════════════════════════
+   MOBILE-FIRST RESPONSIVE DESIGN
+   ══════════════════════════════════════════ */
+
+/* --- Mobile layout: stacked, chat-first --- */
 @media(max-width:900px) {
-  .tab-bar { position:sticky; bottom:0; z-index:20; border-top:1px solid var(--border); border-bottom:none; order:999; }
-  .sidebar { flex-direction:column-reverse; }
-  .tab-content.active { order:-1; }
-  .tab-btn { padding:0.55rem 0.15rem 0.4rem; }
-  .chat-panel { height:60vh; min-height:340px; }
-  .layout { gap:0.75rem; }
-  .quick-strip { flex-wrap:nowrap; }
+  /* Remove desktop padding, use full width */
+  .app { padding:0 0 0 0; }
+
+  /* Stack layout vertically, chat on top */
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Chat panel comes first on mobile */
+  .chat-panel {
+    order: 1;
+    height: calc(100dvh - 52px); /* full viewport minus bottom nav */
+    min-height: 0;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+  }
+
+  /* Sidebar sits below chat, accessible via bottom nav */
+  .sidebar {
+    order: 2;
+    flex-direction: column;
+    /* hidden until tab selected */
+  }
+
+  /* --- Header: ultra-compact on mobile --- */
+  .header {
+    padding: 0.65rem 1rem 0.55rem;
+    margin-bottom: 0;
+    border-radius: 0;
+  }
+  .header .header-deco { display: none; }
+  .header h1 { font-size: 1.1rem; letter-spacing: 0.03em; }
+  .header-sub { font-size: 0.65rem; margin-top: 0.1rem; display: none; }
+  .header-actions {
+    gap: 0.3rem;
+    margin-top: 0.45rem;
+  }
+  .hbtn {
+    font-size: 0.62rem;
+    padding: 0.25rem 0.55rem;
+  }
+
+  /* Game status bar replaces header on mobile when active */
+  .header.game-active h1,
+  .header.game-active .header-actions { display: none; }
+  .header.game-active { padding: 0.4rem 0.75rem; }
+  .game-status-bar { gap: 0.35rem; }
+  .gs-chip { font-size: 0.68rem; padding: 0.2rem 0.5rem; }
+  .round-advance-btn { font-size: 0.65rem; padding: 0.2rem 0.55rem; }
+
+  /* --- Bottom tab navigation (iOS/Android style) --- */
+  .tab-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    border-top: 1px solid var(--border);
+    border-bottom: none;
+    background: rgba(13,20,32,0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding-bottom: env(safe-area-inset-bottom, 0); /* iPhone notch */
+    height: 52px;
+  }
+  .tab-btn {
+    padding: 0.3rem 0.1rem 0.2rem;
+    font-size: 0.58rem;
+    border-right: none;
+    border-bottom: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1px;
+  }
+  .tab-btn .ticon { font-size: 16px; margin-bottom: 0; }
+  .tab-btn.active {
+    border-bottom: none;
+    border-top: 2px solid var(--gold);
+    color: var(--gold);
+  }
+
+  /* --- Sidebar panel: slides up from bottom when tab selected --- */
+  .sidebar .panel {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    max-height: 65vh;
+    overflow-y: auto;
+  }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Drawer overlay when sidebar is open */
+  .sidebar-drawer {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 89;
+    display: none;
+    backdrop-filter: blur(2px);
+  }
+  .sidebar-drawer.open { display: block; }
+  .sidebar.drawer-open {
+    position: fixed !important;
+    bottom: 52px !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 90 !important;
+    max-height: 72vh !important;
+    overflow-y: auto !important;
+    border-radius: 12px 12px 0 0 !important;
+    border: 1px solid var(--border) !important;
+    border-bottom: none !important;
+    box-shadow: 0 -8px 32px rgba(0,0,0,0.55) !important;
+    animation: slideUp 0.22s cubic-bezier(0.4,0,0.2,1) !important;
+    order: 0 !important;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(30px); opacity:0.5; }
+    to   { transform: translateY(0);    opacity:1; }
+  }
+
+  /* --- Chat: full-height, thumb-friendly --- */
+  .chat-ph { padding: 0.5rem 0.85rem; }
+  .chat-msgs { padding: 0.6rem 0.75rem; gap: 0.7rem; }
+  .msgbub { font-size: 0.88rem; padding: 0.55rem 0.8rem; }
+
+  /* Bigger input area for fat fingers */
+  .input-area {
+    padding: 0.5rem 0.65rem;
+    gap: 0.35rem;
+    padding-bottom: calc(0.5rem + env(safe-area-inset-bottom, 0));
+  }
+  .input-area textarea {
+    font-size: 0.9rem;
+    min-height: 40px;
+  }
+  .send-btn { height: 40px; font-size: 0.68rem; padding: 0 0.85rem; }
+  .scan-btn { height: 40px; padding: 0 0.6rem; font-size: 0.72rem; }
+  .mic-btn  { width: 40px; height: 40px; font-size: 16px; }
+
+  /* Quick strip: horizontally scrollable, no wrap */
+  .quick-strip {
+    padding: 0.35rem 0.6rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 5px;
+  }
+  .qs-btn {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.65rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  /* Faction grid: bigger tap targets */
+  .fgrid { grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); gap: 4px; }
+  .fbtn { padding: 0.42rem 0.25rem; font-size: 0.76rem; }
+  .fbtn .fi { font-size: 14px; }
+
+  /* Forms: full-width, larger touch targets */
+  .fp { padding: 0.65rem 0.75rem; gap: 0.6rem; }
+  select, input[type=number], input[type=text] { font-size: 0.92rem; padding: 0.45rem 0.65rem; }
+  .lbl { font-size: 0.76rem; }
+  .r2 { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+
+  /* Sections: easier to read headers */
+  .sec-hdr { padding: 0.55rem 0.85rem; }
+  .sec-title { font-size: 0.8rem; }
+  .sec-sum { font-size: 0.72rem; }
+
+  /* Opponents: larger VP counters */
+  .opp-vp-ctr .resctr-btn { width: 28px; height: 28px; font-size: 14px; }
+  .opp-vp-ctr .resctr-val { font-size: 1rem; min-width: 28px; }
+
+  /* Tech: slightly more breathing room */
+  .techname { font-size: 0.82rem; }
+  .techitem { padding: 0.28rem 0.4rem; }
+
+  /* Action cards */
+  .acname-in { font-size: 0.84rem; }
+  .actag { font-size: 0.7rem; padding: 0.1rem 0.38rem; }
+
+  /* Journal */
+  .journal-event-in { font-size: 0.86rem; }
+  .jbtn { font-size: 0.75rem; padding: 0.38rem 0.6rem; }
+
+  /* Threat monitor: compact on mobile */
+  .threat-monitor { padding: 0.35rem 0.75rem; }
+  .threat-name { min-width: 72px; font-size: 0.68rem; }
+  .threat-eta { font-size: 0.64rem; min-width: 46px; }
+
+  /* Welcome screen */
+  .welcome { padding: 1.5rem 1rem; }
+  .welcome h2 { font-size: 0.85rem; }
+  .qbtns { gap: 5px; }
+  .qbtn { font-size: 0.76rem; padding: 0.3rem 0.6rem; }
+
+  /* Section padding reduction */
+  .objsec, .scgrid, .vpboard, .oppslots, .acsec, .agsec, .restable,
+  .pn-ledger, .journal-pad, .techgrid { padding-left: 0.75rem; padding-right: 0.75rem; }
+
+  /* Resources table: scrollable */
+  .restable { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .restable table { min-width: 280px; }
+  .resctr-btn { width: 20px; height: 20px; }
+
+  /* Scroll to bottom: position for mobile */
+  .scroll-to-bottom { bottom: 0.5rem; right: 0.5rem; width: 32px; height: 32px; font-size: 13px; }
+}
+
+/* --- Very small phones (≤380px) --- */
+@media(max-width:380px) {
+  .header h1 { font-size: 0.95rem; }
+  .hbtn { font-size: 0.58rem; padding: 0.22rem 0.45rem; }
+  .tab-btn { font-size: 0.52rem; }
+  .tab-btn .ticon { font-size: 14px; }
+  .fgrid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
+  .gs-chip { font-size: 0.62rem; padding: 0.18rem 0.4rem; }
+}
+
+/* --- Tablet (901px–1100px): tighter sidebar --- */
+@media(min-width:901px) and (max-width:1100px) {
+  .layout { grid-template-columns: 295px 1fr; gap: 0.85rem; }
+  .chat-panel { height: 760px; }
 }
 
 /* ── SECTION COLLAPSE VISUAL POLISH ── */
@@ -494,9 +730,10 @@ select option{background:#0d1420;}
 </header>
 
 <div class="layout">
+<div class="sidebar-drawer" id="sidebarDrawer" onclick="closeSidebarDrawer()"></div>
 
 <!-- SIDEBAR -->
-<div class="panel sidebar">
+<div class="panel sidebar" id="sidebarPanel">
   <div class="tab-bar">
     <button class="tab-btn active" onclick="switchTab('setup')" id="tab-setup"><span class="ticon">⬡</span>Setup</button>
     <button class="tab-btn" onclick="switchTab('table')" id="tab-table"><span class="ticon">◉</span>Table</button>
@@ -993,13 +1230,41 @@ let loading = false;
 // ════════════════════════════════════════
 // TABS
 // ════════════════════════════════════════
+function isMobile() { return window.innerWidth <= 900; }
+
 function switchTab(name) {
   renderQuickStrip(name);
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
   document.getElementById('tab-'+name).classList.add('active');
   document.getElementById('content-'+name).classList.add('active');
+
+  if (isMobile()) {
+    const sidebar = document.getElementById('sidebarPanel');
+    const drawer = document.getElementById('sidebarDrawer');
+    const isAlreadyOpen = sidebar?.classList.contains('drawer-open');
+    // If same tab tapped while open → close; otherwise open
+    if (isAlreadyOpen && _currentTab === name) {
+      closeSidebarDrawer();
+    } else {
+      sidebar?.classList.add('drawer-open');
+      drawer?.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+  _currentTab = name;
 }
+
+function closeSidebarDrawer() {
+  const sidebar = document.getElementById('sidebarPanel');
+  const drawer = document.getElementById('sidebarDrawer');
+  sidebar?.classList.remove('drawer-open');
+  drawer?.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Close drawer on Escape
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeSidebarDrawer(); });
 
 // ════════════════════════════════════════
 // COLLAPSIBLE
@@ -1640,10 +1905,14 @@ function buildDynamicPrompt() {
 }
 
 function buildSystemBlocks() {
-  return [
+  // IMPORTANT: Anthropic system array ONLY accepts type:'text' blocks.
+  // Documents/PDFs go in the messages array (handled server-side in api/chat.js).
+  const blocks = [
     { type: 'text', text: STATIC_SYSTEM, cache_control: { type: 'ephemeral' } },
     { type: 'text', text: buildDynamicPrompt() }
   ];
+  // Safety: filter out any non-text blocks to prevent API validation errors
+  return blocks.filter(b => b.type === 'text' && typeof b.text === 'string');
 }
 
 // ════════════════════════════════════════
