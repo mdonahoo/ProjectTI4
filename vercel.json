@@ -1,4 +1,10 @@
 {
+  "functions": {
+    "api/chat.js": {
+      "includeFiles": "data/**",
+      "maxDuration": 30
+    }
+  },
   "rewrites": [
     { "source": "/api/:path*", "destination": "/api/:path*" },
     { "source": "/(.*)", "destination": "/public/$1" }

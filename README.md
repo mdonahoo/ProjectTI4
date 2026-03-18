@@ -1,99 +1,66 @@
-# TI4 Strategy Advisor — Vercel Deployment
+# TI4 Strategy Advisor
 
-AI-powered Twilight Imperium 4 strategy advisor. Runs on Vercel with your Anthropic API key.
+AI-powered Twilight Imperium 4th Edition advisor, grounded in the actual rulebook and PoK Living Rules Reference via Anthropic's prompt caching API.
 
-## Structure
+## What makes this different
+
+- **Rulebook-grounded** — both the TI4 rulebook and PoK Living Rules Reference PDFs are sent to Claude on every query as authoritative documents. Rules answers cite actual text, not training memory.
+- **Prompt-cached** — the PDFs (~11MB, ~82K tokens) are cached after the first call. Subsequent calls pay 90% less for that context ($0.025/msg vs $0.31 uncached).
+- **Full game state** — tracks VP standings, strategy cards, objectives, technologies, action cards, resources, promissory notes, journal, and secret objectives.
+- **Board scan** — attach a photo of the board for Claude to analyze alongside the structured state.
+
+## Project structure
 
 ```
-ti4-vercel/
-├── vercel.json        # Routing: /api/* → serverless, /* → public/
-├── package.json       # Minimal Node config
+/
+├── vercel.json          # Routing + function config (bundles data/ with api/)
+├── package.json         # type:module for ESM imports
 ├── api/
-│   └── chat.js        # Serverless proxy — injects API key, enables prompt caching
+│   └── chat.js          # Serverless proxy: loads PDFs, prepends to system, injects API key
+├── data/
+│   ├── rulebook.pdf     # TI4 4th Edition Rulebook
+│   └── pok-lrr.pdf      # Prophecy of Kings Living Rules Reference v2.0
 └── public/
-    └── index.html     # The full app (single file, ~100KB)
+    └── index.html       # Full single-file app (~105KB)
 ```
 
-## Deploy to Vercel (5 minutes)
+## Deploy to Vercel
 
-### Option A — Vercel CLI (fastest)
+### Via GitHub (recommended)
 
-```bash
-npm install -g vercel
-cd ti4-vercel
-vercel deploy
-```
-
-When prompted, follow the interactive setup. After deploy, go to your Vercel dashboard:
-**Settings → Environment Variables → Add:**
-- Name:  `ANTHROPIC_API_KEY`
-- Value: `sk-ant-xxxxxxxx` (your key from console.anthropic.com)
-- Environments: Production, Preview, Development ✓
-
-Then redeploy: `vercel --prod`
-
-### Option B — GitHub + Vercel Dashboard (recommended for sharing)
-
-1. Push this folder to a GitHub repo:
-   ```bash
-   cd ti4-vercel
-   git init && git add . && git commit -m "TI4 advisor"
-   gh repo create ti4-advisor --public --push --source=.
-   ```
-
+1. Push this repo to GitHub
 2. Go to [vercel.com/new](https://vercel.com/new) → Import your repo
+3. Framework preset: **Other**
+4. Build command: *(empty)*
+5. Output directory: `public`
+6. Add environment variable: `ANTHROPIC_API_KEY` = your key from [console.anthropic.com](https://console.anthropic.com)
+7. Deploy
 
-3. In the Vercel deploy screen, open **Environment Variables** and add:
-   - `ANTHROPIC_API_KEY` = your key
-
-4. Click **Deploy**. You'll get a URL like `https://ti4-advisor-xyz.vercel.app`
-
-5. Share that URL with your game group — it works on mobile too.
-
-## Getting Your API Key
-
-1. Go to [console.anthropic.com](https://console.anthropic.com)
-2. API Keys → Create Key
-3. Copy the `sk-ant-...` value
-
-## Cost
-
-Model: `claude-sonnet-4-20250514` — $3/M input, $15/M output tokens.
-
-This app uses **prompt caching** — the static system prompt (~600 tokens of AI instructions)
-is cached at $0.30/M on hits (90% cheaper). The dynamic game state is always fresh.
-
-| Play style       | Messages | Photos | Est. cost |
-|------------------|----------|--------|-----------|
-| Light            | 10–15    | 0      | $0.20–$0.40 |
-| Typical game night | 20–30  | 1–2    | $0.80–$1.80 |
-| Heavy use        | 40–50    | 3–5    | $2.50–$5.00 |
-
-Cost grows with conversation length because full history is sent every call.
-Board photos are re-sent in history — use them selectively.
-
-To monitor spend: [console.anthropic.com/usage](https://console.anthropic.com/usage)
-
-## Local Development
+### Via Vercel CLI
 
 ```bash
-npm install -g vercel
-cd ti4-vercel
-vercel dev   # runs on http://localhost:3000
-```
-
-Set your API key locally:
-```bash
+npm i -g vercel
 vercel env add ANTHROPIC_API_KEY
-```
-Or create a `.env.local` file (git-ignored):
-```
-ANTHROPIC_API_KEY=sk-ant-xxxxxxxx
+vercel --prod
 ```
 
-## Security Notes
+## Cost model (per game session)
 
-- Your API key lives only in Vercel's encrypted environment variables — never in the HTML
-- The HTML is fully public; it contains zero secrets
-- The `/api/chat` proxy validates `POST` only and passes the body through as-is
-- To restrict access, add Vercel's password protection or deploy to a private repo
+| | Tokens | Cost |
+|---|---|---|
+| First message (cache write) | ~82K PDF + ~2K static | ~$0.31 |
+| Each subsequent message (cache hit) | ~82K cached + ~2K fresh | ~$0.025 |
+| 25-message game (1 write + 24 hits) | — | **~$0.91** |
+| 40-message game (1 write + 39 hits) | — | **~$1.28** |
+
+Board photos add ~2,500 tokens each and persist in history — use them selectively.
+
+Cache stats are logged to Vercel function logs: `hits=`, `writes=`, `cost=`, `saved=`.
+
+## Local dev
+
+```bash
+npm i -g vercel
+vercel dev          # http://localhost:3000
+# or set ANTHROPIC_API_KEY in .env.local
+```
