@@ -1,0 +1,273 @@
+TWILIGHT IMPERIUM 4 — OFFICIAL DANE BELTRAMI RULINGS & ERRATA
+==============================================================
+Source: ti4rules.github.io/faq, Twilight Imperium Fandom Wiki FAQ,
+        Unofficially Official FAQ (PoK), Dane Beltrami Discord/Twitter rulings.
+
+CRITICAL PRINCIPLE: These rulings OVERRIDE what the rulebooks say as written (RAW).
+When the rulebook and a Dane ruling conflict, THE RULING WINS.
+Always cite the ruling source, not just the rulebook, when these apply.
+
+══════════════════════════════════════════════════════════════
+OFFICIAL ERRATA — CARD TEXT CORRECTIONS
+══════════════════════════════════════════════════════════════
+
+Bribery (Action Card): "After the speaker votes on an agenda: Spend any number of trade goods. For each trade good spent, cast 1 additional vote for the outcome on which you voted." (Speaker votes first, then Bribery fires.)
+
+Devotion (Yin Brotherhood): "After each space battle round, you may destroy 1 of your cruisers or destroyers in the active system to produce 1 hit and assign it to 1 of your opponent's ships in that system."
+
+Diplomacy — Primary: "Choose 1 system other than Mecatol Rex that contains a planet you control; each other player places a command token from reinforcements in that system. Then, ready up to 2 exhausted planets you control."
+Diplomacy — Secondary: "Spend 1 token from your strategy pool to ready up to 2 exhausted planets you control."
+
+Direct Hit (Action Card): "After another player's ship uses 'Sustain Damage' to cancel a hit produced by your units or abilities: Destroy that ship."
+
+Harrow (L1Z1X): "At the end of each round of ground combat, your ships in the active system may use their bombardment abilities against your opponent's ground forces on the planet."
+
+Hegemonic Trade Policy (Winnu): "Exhaust this card when 1 or more of your units use 'Production'; swap the resource and influence values of 1 planet you control during that use of 'Production.'"
+
+Hyper Metabolism: "During the status phase, gain 3 command tokens instead of 2."
+
+Matriarch (Naalu): "During an invasion in this system, you may commit fighters to planets as if they were ground forces. When combat ends, return those units to the space area."
+
+Political Favor (Xxcha promissory): "When an agenda is revealed: Remove 1 token from the Xxcha player's strategy pool and return it to their reinforcements. Then, discard the revealed agenda and reveal 1 agenda from the top of the deck. Players vote on this agenda instead. Then, return this card to the Xxcha player."
+
+Unstable Planet (Action Card): "Action: Choose 1 hazardous planet. Exhaust that planet and destroy up to 3 infantry on it."
+
+Veto (Action Card): "Action: When an agenda is revealed: Discard that agenda and reveal 1 agenda from the top of the deck. Players vote on this agenda instead."
+
+══════════════════════════════════════════════════════════════
+SARDAKK N'ORR — G'HOM SEK'KUS COMMANDER RULINGS
+(*** These are the most frequently misplayed rules in the game ***)
+══════════════════════════════════════════════════════════════
+
+RULING — G'hom Sek'kus and anomalies/movement treatment:
+Q: Does a Ceasefire promissory note affect G'hom Sek'kus commits?
+A: YES. Dane ruled the LRR will be changed to say "move" instead of "commit" so that Ceasefire applies. CONSEQUENCE: G'hom Sek'kus commits ARE treated as movement for purposes of anomalies and travel laws. This means:
+  - Ground forces committed via G'hom Sek'kus FROM or THROUGH a gravity rift system MUST roll for the rift, even though they are not "ships" and are not "moving" in the traditional sense. The gravity rift roll applies because the commit is treated as movement.
+  - Ground forces cannot be committed via G'hom Sek'kus from planets in anomalies without appropriate technology (e.g., cannot commit from a supernova system without the right tech).
+  - If Enforced Travel Ban is law, G'hom Sek'kus commits cannot pass through wormholes.
+  - EXAMPLE: Committing ground forces from Cormund (gravity rift system) via G'hom Sek'kus requires rolling for the gravity rift.
+
+Q: Can G'hom Sek'kus be used without any ships moving into the active system?
+A: YES. The commander can commit ground forces even if no Sardakk ships moved in.
+
+Q: Can G'hom Sek'kus be used on defense?
+A: NO. Only the active player can commit ground forces. Sardakk cannot use G'hom Sek'kus when they are the defender.
+
+Q: Does Dominus Orb let Sardakk use G'hom Sek'kus from systems with command tokens?
+A: As of the most recent ruling — NO, G'hom Sek'kus explicitly prevents commits from systems with command tokens. (Note: An earlier ruling said YES; the NO ruling supersedes it.)
+
+══════════════════════════════════════════════════════════════
+GENERAL RULINGS
+══════════════════════════════════════════════════════════════
+
+Dice: The "0" face on the d10 = 10 result.
+
+Impossible combat (Non-Euclidean Shielding + Duranium Armor stalemate): The attacker must retreat.
+
+Fighters blocking movement: YES, fighters can block ship movement.
+
+Plasma Scoring: Only grants ONE additional die per Bombardment or Space Cannon roll across all units participating. The benefiting unit must be decided before rolling. Exception: Each separate planet's PDS Space Cannon in the same system each gets the bonus die.
+
+Planetary Shield vs X-89 Bacterial Weapon: X-89 is NOT bombardment, so Planetary Shield does NOT prevent it.
+
+Units transported when ship moves via ability (Skilled Retreat, Foresight, etc.): YES, any effect that moves a ship allows it to transport units if it has capacity.
+
+Revealing hidden information: YES, a player may voluntarily reveal their own action cards, secret objectives, etc. to others.
+
+Cards acquired during a timing window can be played immediately in that same window (e.g., a "start of turn" promissory note received during "start of turn" can be played immediately).
+
+Trade secondary used for free: The player who resolves it for free must still do so during the secondary resolution window (not primary), just without spending a CT.
+
+Trade Agreement played when commodities already maxed: YES, it can still be played even if the target gains zero commodities.
+
+Neural Motivator + Minister of Policy / Scheming: Neural Motivator only adds one card to the standard status phase draw. However, Yssaril Scheming triggers EACH TIME action cards are drawn.
+
+Political Secret vs passive/mandatory abilities: Political Secret only prevents abilities the player CHOOSES to use. It does NOT prevent passive/mandatory abilities like Letnev's Armada, faction techs, or agenda-granted abilities.
+
+══════════════════════════════════════════════════════════════
+PRODUCTION RULINGS
+══════════════════════════════════════════════════════════════
+
+Any unit produced by any ability must always be paid for.
+Sarween Tools applies ONLY to the "Production" unit ability — not to abilities that produce units outside of Production.
+
+══════════════════════════════════════════════════════════════
+AGENDA PHASE RULINGS
+══════════════════════════════════════════════════════════════
+
+Research Team agenda: The AGENDA is exhausted to ignore the prerequisite, not the planet.
+
+Casting 0 votes: Voting "For" or "Against" with 0 votes = abstaining. The player gains no effects of that outcome.
+
+Enforced Travel Ban: Does NOT prevent Space Cannon usage through wormholes. Only movement.
+
+Classified Document Leaks (if later discarded): Secret objective stays in play (those who scored it keep the point), but it's no longer a public objective and no additional players can score it.
+
+Miscount Disclosed revote: The law being re-voted on REMAINS IN PLAY during the revote.
+
+Ixthian Artifact + Quantum Entanglement: The Creuss's Quantum Entanglement does NOT cause other factions to lose ships in wormhole systems when Ixthian Artifact fires. Only units adjacent by standard rules are affected.
+
+Ixthian Artifact destruction order: All units destroyed by Ixthian Artifact are destroyed simultaneously.
+
+Political Secret + Veto on the same agenda: If the agenda is discarded by Veto after Political Secret was played, the player CAN vote and use faction abilities on the new revealed agenda.
+
+Holy Planet of Ixth / Shard of the Throne / Crown of Emphidia: If repealed by Judicial Abolishment, the player does NOT lose their VP. Points are only lost via the specific condition on the card.
+
+Minister of War trigger: "Performing any action" triggers Minister of War's ability.
+
+══════════════════════════════════════════════════════════════
+ACTION CARD RULINGS
+══════════════════════════════════════════════════════════════
+
+Skilled Retreat: NOT a retreat. Cannot be canceled by Intercept.
+
+Courageous to the End: Sustain Damage CANNOT be used against it (it doesn't produce hits).
+
+Two Direct Hit cards vs different targets in same round: YES, allowed.
+
+Shields Holding: Can be played by both players against their respective hits in the same timing window (different targets). Also cancels hits from Ambush, Dimensional Splicer, Devotion.
+
+Direct Hit + ability-produced hits: YES, Direct Hit can follow up hits from Ambush, Dimensional Splicer, Devotion, etc.
+
+Bribery timing: The "after the speaker votes" timing window exists even if the speaker abstains or cannot vote.
+
+Distinguished Councilor: ONLY playable after you personally vote during the Vote step. Bribery casting "additional votes" does NOT create a new window for Distinguished Councilor.
+
+Sabotage timing: After targets are decided, before effects/votes/dice.
+
+Lucky Shot and similar destruction cards: CANNOT be used against your own units/planets.
+
+Multiple Rider cards by same player: YES, allowed. They can even be on opposing outcomes.
+
+Upgrade action card: The cruiser MUST already be in the activated system.
+
+Experimental Battlestation: Must have ships actually move into the system. Can only target the active player's ships. Operates in the Space Cannon Offense window.
+
+Players who cannot vote (Nekro, Political Censure): CAN still play Rider action cards.
+
+══════════════════════════════════════════════════════════════
+ARBOREC RULINGS
+══════════════════════════════════════════════════════════════
+
+Warfare secondary + Letani Warriors: NO. Warfare secondary only triggers Space Docks, not Letani Warriors.
+
+Duha Menaimon (flagship) must be in a system when activated to use its Production ability.
+
+Multiple Letani Warriors in a system can combine Production value (e.g., 2 infantry = 2 warriors' production totaled).
+
+══════════════════════════════════════════════════════════════
+NEKRO VIRUS RULINGS
+══════════════════════════════════════════════════════════════
+
+Valefar Assimilator on printed faction units: NO. Printed faction units (like Prototype War Sun I) are not technologies. Not eligible.
+
+Alastor + infantry as ships: Infantry in space combat via Alastor count as ships for card effects but NOT against fleet supply. They continue fighting even if Alastor is destroyed. Assault Cannon can count them.
+
+Multiple unit upgrade techs of same type (Dreadnought II + Exotrireme II): Only ONE upgrade of a given type counts toward objectives (Develop Weaponry, Revolutionize Warfare).
+
+Winnu's Salai Sai Corian vs Alastor infantry: YES, Salai Sai Corian gets one extra die per Alastor infantry.
+
+══════════════════════════════════════════════════════════════
+HACAN RULINGS
+══════════════════════════════════════════════════════════════
+
+Initiating negotiations for non-neighbor transactions: Either player may suggest opening negotiations as long as the active player is involved.
+
+══════════════════════════════════════════════════════════════
+XXCHA RULINGS
+══════════════════════════════════════════════════════════════
+
+Peace Accords (from one planet to another in the same system): YES. A planet is adjacent to its own system.
+
+══════════════════════════════════════════════════════════════
+GHOSTS OF CREUSS RULINGS
+══════════════════════════════════════════════════════════════
+
+Creuss promissory note usable without Wormhole Generator researched: YES.
+
+Light/Wave Deflector + Hil Colish wormhole: YES, other factions can move through Hil Colish into Creuss home/gate.
+
+Hil Colish returned to reinforcements by gravity rift mid-movement: The delta wormhole ceases to exist immediately. Other ships cannot use it anymore.
+
+══════════════════════════════════════════════════════════════
+NAALU RULINGS
+══════════════════════════════════════════════════════════════
+
+Matriarch fighters + planet control: Fighters return to space after ground combat. Naalu CANNOT gain control of a planet with only fighters (no ground forces = draw = no control).
+
+Matriarch + Dacxive Animators + fighters only: Still cannot gain control. Combat ends in a draw, Dacxive does not trigger.
+
+Naalu 0 token: Stays with the Naalu (or Gift of Prescience recipient). Does NOT move with a strategy card if that card changes hands.
+
+══════════════════════════════════════════════════════════════
+CLAN OF SAAR RULINGS
+══════════════════════════════════════════════════════════════
+
+Chaos Mapping: Can be used at the start of each of Saar's turns during action phase, including the turn they pass. No limit per round.
+
+Floating Factories: CANNOT be targeted by Space Cannon Defense or assigned PDS hits.
+
+══════════════════════════════════════════════════════════════
+MENTAK COALITION RULINGS
+══════════════════════════════════════════════════════════════
+
+Salvage Operations + war sun without war sun tech: NO. Cannot produce a war sun without the technology.
+
+Salvage Operations + own flagship after destroying opponent flagship: YES. Both share the flagship unit type.
+
+Salvage Operations + Alastor infantry: NO. Infantry destroyed during Alastor combat do not count as ships after combat ends.
+
+Pillage + Lazax Gate Folding / Quantum Entanglement adjacency: YES. Even if the neighbor relationship is one-directional (Creuss-only), Mentak can Pillage.
+
+Pillage + Saar Scavenge on one turn: YES. Each time Saar gains trade goods from Scavenge, Pillage can trigger if conditions are met.
+
+══════════════════════════════════════════════════════════════
+PROPHECY OF KINGS — ADDITIONAL RULINGS
+══════════════════════════════════════════════════════════════
+
+Sardakk N'orr (see full section above — G'hom Sek'kus is THE most-ruled-on card):
+- Commits treated as movement for anomaly purposes
+- Ceasefire DOES affect G'hom Sek'kus commits
+- Enforced Travel Ban DOES prevent wormhole commits
+- Gravity rift DOES require a roll for commits from rift systems
+
+Valkyrie Particle Weave: Triggers even if the hits that caused it were subsequently cancelled.
+
+Titans of Ul — Coalescence: If a sleeper token is awoken or flagship deployed and turn ends (Mahact mech, Nullification Field, Minister of Peace), Coalescence forces combat steps. No other tactical action steps occur.
+
+Titans — Hel-Titans: Cannot be transported but CAN be moved by Transit Diodes ("remove" and "place" language). Can be bombarded (they count as ground forces). Structure limit (63.3) does NOT prevent Titans deploying a PDS — the limit applies to your own structures only.
+
+Titans Agent + Valkyrie Particle Weave: If the Titans agent cancels the only hit when it's generated, VPW does NOT trigger (the hit was cancelled before VPW's window).
+
+Universities of Jol-Nar — Rin (hero): All tech swaps happen simultaneously. Cannot swap a tech out and then re-take it during the same Rin resolution.
+
+Jol-Nar — Rin + Nekro Valefar Assimilator: The assimilator token stays on the tech card in the deck and Valefar still functions with whatever text is there.
+
+Vuil'raith — Vortex: CANNOT be used if no units of that ship type are in the player's reinforcements (cannot fully resolve).
+
+══════════════════════════════════════════════════════════════
+IMPORTANT EDGE CASES THAT LOOK LIKE RAW BUT AREN'T
+══════════════════════════════════════════════════════════════
+
+1. G'hom Sek'kus from gravity rift (e.g., Cormund): RAW says nothing about ground forces rolling for rifts since they don't "move." Dane RULED they must roll — the commit is treated as movement for anomaly purposes.
+
+2. Bribery timing: RAW implies it fires after speaker votes. Ruling confirms: the window exists even if speaker abstains entirely.
+
+3. Multiple Riders by same player: Not explicitly allowed by RAW. Ruling: YES, multiple riders allowed, even on opposing outcomes.
+
+4. Dacxive Animators + Naalu Matriarch fighters-only: Intuition says fighters fighting = Dacxive triggers. Ruling: Draw = no Dacxive.
+
+5. Plasma Scoring + multiple PDS in same system: RAW is ambiguous whether it's one die total or per-PDS. Ruling: One die PER planet's Space Cannon roll in the same system.
+
+6. Chaos Mapping on pass turn: RAW says "start of your turn." Passing is a turn action. Ruling: YES, can use Chaos Mapping when passing.
+
+══════════════════════════════════════════════════════════════
+HOW TO APPLY THESE RULINGS
+══════════════════════════════════════════════════════════════
+
+When answering rules questions:
+1. Check if a Dane ruling exists for the specific interaction FIRST.
+2. If a ruling exists and contradicts RAW, cite the RULING as authoritative.
+3. If no ruling exists, use RAW from the LRR, but flag it as "RAW — no official ruling found."
+4. When a ruling is particularly non-obvious vs RAW (like G'hom Sek'kus + gravity rift), proactively explain WHY the ruling differs from what the card says.
+5. Community interpretations (unofficial) should be clearly labeled as such — they are NOT Dane rulings.

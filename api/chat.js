@@ -25,66 +25,79 @@ function loadText(filename) {
 const rulebookB64    = loadPDF('rulebook.pdf');
 const pokLRRB64      = loadPDF('pok-lrr.pdf');
 const teRulebookB64  = loadPDF('te-rulebook.pdf');
+// Text supplements — combined into one block to stay within the 4 cache_control block limit
+const daneRulings    = loadText('dane-rulings.txt');
 const teRulesSummary = loadText('te-rules-summary.txt');
 
 console.log('[startup]',
-  rulebookB64    ? `rulebook ${Math.round(rulebookB64.length/1024)}KB`      : 'rulebook MISSING',
-  pokLRRB64      ? `pok-lrr ${Math.round(pokLRRB64.length/1024)}KB`        : 'pok-lrr MISSING',
+  rulebookB64    ? `rulebook ${Math.round(rulebookB64.length/1024)}KB`       : 'rulebook MISSING',
+  pokLRRB64      ? `pok-lrr ${Math.round(pokLRRB64.length/1024)}KB`         : 'pok-lrr MISSING',
   teRulebookB64  ? `te-rulebook ${Math.round(teRulebookB64.length/1024)}KB` : 'te-rulebook MISSING',
-  teRulesSummary ? `te-summary ${teRulesSummary.length}chars`               : 'te-summary MISSING'
+  daneRulings    ? `dane-rulings ${daneRulings.length}chars`                 : 'dane-rulings MISSING',
+  teRulesSummary ? `te-summary ${teRulesSummary.length}chars`                : 'te-summary MISSING'
 );
 
-// Build document content blocks to prepend as the first user message.
-// The system array only supports type:'text' — documents must live in messages[].
-// We inject them as a synthetic first user message so Claude has full rulebook access
-// on every call, and the cache_control marks them for prompt caching (~90% cheaper after first call).
+// Anthropic API limit: maximum 4 blocks with cache_control per request.
+// Budget: rulebook(1) + pok-lrr(2) + text-supplements(3) + te-rulebook(4, TE only)
+// Text supplements (Dane rulings + optional TE summary) are merged into one cached block.
 function buildRulebookMessage(includeTE) {
   const content = [];
 
+  // Block 1: TI4 base rulebook PDF
   if (rulebookB64) content.push({
     type: 'document',
     source: { type: 'base64', media_type: 'application/pdf', data: rulebookB64 },
     title: 'Twilight Imperium 4th Edition Rulebook',
-    cache_control: { type: 'ephemeral' }
+    cache_control: { type: 'ephemeral' }   // cache slot 1
   });
 
+  // Block 2: PoK Living Rules Reference PDF
   if (pokLRRB64) content.push({
     type: 'document',
     source: { type: 'base64', media_type: 'application/pdf', data: pokLRRB64 },
     title: 'Prophecy of Kings Living Rules Reference',
-    cache_control: { type: 'ephemeral' }
+    cache_control: { type: 'ephemeral' }   // cache slot 2
   });
 
-  if (includeTE) {
-    if (teRulebookB64) content.push({
+  // Block 3: Text supplements — Dane rulings always included; TE faction data appended when active.
+  // Merged into one block so we never exceed 4 cached blocks even with TE PDF.
+  const supplementParts = [];
+  if (daneRulings) supplementParts.push(daneRulings);
+  if (includeTE && teRulesSummary) supplementParts.push(teRulesSummary);
+  if (supplementParts.length > 0) {
+    content.push({
+      type: 'document',
+      source: { type: 'text', media_type: 'text/plain', data: supplementParts.join('\n\n' + '='.repeat(60) + '\n\n') },
+      title: includeTE
+        ? 'Official Dane Beltrami Rulings + Thunder\'s Edge Faction Reference'
+        : 'Official Dane Beltrami Rulings & Errata (override RAW when they conflict)',
+      cache_control: { type: 'ephemeral' }  // cache slot 3
+    });
+  }
+
+  // Block 4: Thunder's Edge rulebook PDF (only when TE active — uses the 4th and final cache slot)
+  if (includeTE && teRulebookB64) {
+    content.push({
       type: 'document',
       source: { type: 'base64', media_type: 'application/pdf', data: teRulebookB64 },
       title: "Thunder's Edge Official Expansion Rulebook",
-      cache_control: { type: 'ephemeral' }
-    });
-    if (teRulesSummary) content.push({
-      type: 'document',
-      source: { type: 'text', media_type: 'text/plain', data: teRulesSummary },
-      title: "Thunder's Edge Faction Breakthroughs & New Factions Reference",
-      cache_control: { type: 'ephemeral' }
+      cache_control: { type: 'ephemeral' }  // cache slot 4 (only used for TE games)
     });
   }
 
   if (!content.length) return null;
 
-  // Add a text block asking Claude to use these docs as authoritative sources
   content.push({
     type: 'text',
-    text: 'These are your authoritative rulebook sources. Use them to answer rules questions accurately, citing specific sections when relevant. If rules in these documents differ from your training knowledge, trust the documents.'
+    text: 'These are your authoritative rules sources. The Dane Beltrami rulings document contains official rulings that OVERRIDE the printed rules (RAW) when they conflict — always check it first. Cite the source of your answer when responding to rules questions.'
   });
 
   return { role: 'user', content };
 }
 
-// Matching synthetic assistant acknowledgment (required: messages must alternate user/assistant)
 const RULEBOOK_ACK = {
   role: 'assistant',
-  content: 'Understood. I have the TI4 rulebook and Living Rules Reference loaded and will cite them for rules questions.'
+  content: 'Understood. Rulebooks, Dane rulings, and any expansion references are loaded. For rules questions I will check Dane rulings first (they override RAW), then the LRR, then the base rulebook, and will cite my source.'
 };
 
 export default async function handler(req, res) {
@@ -105,11 +118,6 @@ export default async function handler(req, res) {
     const includeTE = body._includeThundersEdge === true;
     delete body._includeThundersEdge;
 
-    // system array: only text blocks are allowed here
-    // The client sends system as [{type:'text', text:STATIC_SYSTEM, cache_control:...}, {type:'text', text:dynamicPrompt}]
-    // This is already correct — leave it as-is
-
-    // Prepend rulebook documents as synthetic first messages in the messages array
     const rulebookMsg = buildRulebookMessage(includeTE);
     if (rulebookMsg && Array.isArray(body.messages)) {
       body.messages = [rulebookMsg, RULEBOOK_ACK, ...body.messages];
@@ -130,10 +138,12 @@ export default async function handler(req, res) {
 
     if (data.usage) {
       const u = data.usage;
-      const hits=u.cache_read_input_tokens||0, writes=u.cache_creation_input_tokens||0;
-      const fresh=u.input_tokens||0, out=u.output_tokens||0;
-      const cost=(fresh*3+writes*3.75+hits*0.30)/1e6+(out*15)/1e6;
-      const saved=(hits*2.70/1e6).toFixed(5);
+      const hits   = u.cache_read_input_tokens    || 0;
+      const writes = u.cache_creation_input_tokens || 0;
+      const fresh  = u.input_tokens  || 0;
+      const out    = u.output_tokens || 0;
+      const cost   = (fresh*3 + writes*3.75 + hits*0.30) / 1e6 + (out*15) / 1e6;
+      const saved  = (hits * 2.70 / 1e6).toFixed(5);
       console.log(`[te=${includeTE}] hits=${hits} writes=${writes} fresh=${fresh} out=${out} cost=$${cost.toFixed(5)} saved=$${saved}`);
     }
 
