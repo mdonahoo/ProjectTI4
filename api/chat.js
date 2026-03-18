@@ -4,37 +4,66 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Load PDFs once at module startup (reused across warm Lambda invocations)
 function loadPDF(filename) {
   try {
     const buf = fs.readFileSync(path.join(__dirname, '..', 'data', filename));
     return buf.toString('base64');
   } catch (err) {
-    console.error(`PDF load failed: ${filename} —`, err.message);
+    console.error(`PDF load failed: ${filename}`, err.message);
+    return null;
+  }
+}
+function loadText(filename) {
+  try {
+    return fs.readFileSync(path.join(__dirname, '..', 'data', filename), 'utf8');
+  } catch (err) {
+    console.error(`Text load failed: ${filename}`, err.message);
     return null;
   }
 }
 
-const rulebookB64 = loadPDF('rulebook.pdf');
-const pokLRRB64   = loadPDF('pok-lrr.pdf');
+// Load all docs at module startup (reused across warm Lambda invocations)
+const rulebookB64    = loadPDF('rulebook.pdf');
+const pokLRRB64      = loadPDF('pok-lrr.pdf');
+const teRulebookB64  = loadPDF('te-rulebook.pdf');       // Official Thunder's Edge rulebook
+const teRulesSummary = loadText('te-rules-summary.txt'); // Breach/breakthrough/faction detail supplement
 
 console.log('[startup]',
-  rulebookB64 ? `rulebook OK (${Math.round(rulebookB64.length/1024)}KB)` : 'rulebook MISSING',
-  pokLRRB64   ? `pok-lrr OK (${Math.round(pokLRRB64.length/1024)}KB)`   : 'pok-lrr MISSING'
+  rulebookB64    ? `rulebook ${Math.round(rulebookB64.length/1024)}KB`    : 'rulebook MISSING',
+  pokLRRB64      ? `pok-lrr ${Math.round(pokLRRB64.length/1024)}KB`      : 'pok-lrr MISSING',
+  teRulebookB64  ? `te-rulebook ${Math.round(teRulebookB64.length/1024)}KB` : 'te-rulebook MISSING',
+  teRulesSummary ? `te-summary ${teRulesSummary.length}chars`             : 'te-summary MISSING'
 );
 
-function buildPDFBlocks() {
+function buildDocumentBlocks(includeTE) {
   const blocks = [];
+
   if (rulebookB64) blocks.push({
     type: 'document',
     source: { type: 'base64', media_type: 'application/pdf', data: rulebookB64 },
     title: 'Twilight Imperium 4th Edition Rulebook'
   });
+
   if (pokLRRB64) blocks.push({
     type: 'document',
     source: { type: 'base64', media_type: 'application/pdf', data: pokLRRB64 },
     title: 'Prophecy of Kings Living Rules Reference'
   });
+
+  // Thunder's Edge — only loaded when expansion is active (saves ~$0.05/msg otherwise)
+  if (includeTE) {
+    if (teRulebookB64) blocks.push({
+      type: 'document',
+      source: { type: 'base64', media_type: 'application/pdf', data: teRulebookB64 },
+      title: "Thunder's Edge Official Expansion Rulebook"
+    });
+    if (teRulesSummary) blocks.push({
+      type: 'document',
+      source: { type: 'text', media_type: 'text/plain', data: teRulesSummary },
+      title: "Thunder's Edge Faction Breakthroughs & New Factions Reference"
+    });
+  }
+
   return blocks;
 }
 
@@ -47,20 +76,18 @@ export default async function handler(req, res) {
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
-    res.status(500).json({ error: { message: 'ANTHROPIC_API_KEY not set. Add it in Vercel project Settings → Environment Variables, then redeploy.' } });
+    res.status(500).json({ error: { message: 'ANTHROPIC_API_KEY not set in Vercel Environment Variables.' } });
     return;
   }
 
   try {
     const body = { ...req.body };
+    const includeTE = body._includeThundersEdge === true;
+    delete body._includeThundersEdge;
 
-    // Prepend PDF blocks before the client's system array.
-    // The cache_control:ephemeral on the client's STATIC_SYSTEM text block
-    // creates a checkpoint covering [pdf1]+[pdf2]+[static text] together.
-    // After the first call (cache write ~$0.31), each hit costs ~$0.025 — 90% cheaper.
-    const pdfBlocks = buildPDFBlocks();
-    if (Array.isArray(body.system) && pdfBlocks.length > 0) {
-      body.system = [...pdfBlocks, ...body.system];
+    const docBlocks = buildDocumentBlocks(includeTE);
+    if (Array.isArray(body.system) && docBlocks.length > 0) {
+      body.system = [...docBlocks, ...body.system];
     }
 
     const upstream = await fetch('https://api.anthropic.com/v1/messages', {
@@ -76,16 +103,13 @@ export default async function handler(req, res) {
 
     const data = await upstream.json();
 
-    // Log cache stats to Vercel function logs
     if (data.usage) {
       const u = data.usage;
-      const hits   = u.cache_read_input_tokens    || 0;
-      const writes = u.cache_creation_input_tokens || 0;
-      const fresh  = u.input_tokens  || 0;
-      const out    = u.output_tokens || 0;
-      const cost   = (fresh*3 + writes*3.75 + hits*0.30)/1e6 + (out*15)/1e6;
-      const saved  = hits > 0 ? ((hits*2.70)/1e6).toFixed(5) : '0';
-      console.log(`[cache] hits=${hits} writes=${writes} fresh=${fresh} out=${out} cost=$${cost.toFixed(5)} saved=$${saved}`);
+      const hits=u.cache_read_input_tokens||0, writes=u.cache_creation_input_tokens||0;
+      const fresh=u.input_tokens||0, out=u.output_tokens||0;
+      const cost=(fresh*3+writes*3.75+hits*0.30)/1e6+(out*15)/1e6;
+      const saved=(hits*2.70/1e6).toFixed(5);
+      console.log(`[te=${includeTE}] hits=${hits} writes=${writes} fresh=${fresh} out=${out} cost=$${cost.toFixed(5)} saved=$${saved}`);
     }
 
     res.status(upstream.status).json(data);

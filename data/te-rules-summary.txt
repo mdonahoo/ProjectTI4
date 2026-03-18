@@ -1,0 +1,145 @@
+TWILIGHT IMPERIUM: THUNDER'S EDGE — RULES SUMMARY & FACTION REFERENCE
+Official expansion released October 24, 2025. Source: FFG official rulebook and wiki.
+
+═══════════════════════════════════════════════════════
+THUNDER'S EDGE EXPEDITION
+═══════════════════════════════════════════════════════
+Thunder's Edge begins off the board, expedition-side up, divided into 6 slices.
+At the end of your turn, you may commit to the expedition by paying a slice's cost:
+  Slice 1: Spend 5 Resources
+  Slice 2: Discard 2 Action Cards  
+  Slice 3: Spend 5 Influence
+  Slice 4: Discard 1 Unscored Secret Objective
+  Slice 5: Exhaust 1 Technology Specialty Planet
+  Slice 6: Spend 3 Trade Goods
+- First time you claim a slice: gain your faction's Breakthrough card.
+- After all 6 slices claimed: last claimer places Thunder's Edge as a legendary planet (5 resources, Jupiter Brain ability = perform extra action, gain breakthrough if not yet held). Player with most slices places infantry equal to slices claimed.
+- On gaining Breakthrough: roll a die. On 1 or 10, The Fracture enters play.
+- The Fracture: 3 separate system tiles accessed via ingress tokens. Each planet gives a relic when controlled. Styx legendary planet gives 1 VP while controlled.
+
+═══════════════════════════════════════════════════════
+BREAKTHROUGHS
+═══════════════════════════════════════════════════════
+Every faction gets a Breakthrough card unlocked via expedition or controlling Thunder's Edge.
+Each Breakthrough has: (1) a unique ability, (2) a synergy between two tech colors.
+Synergy: treat matching tech colors/specialties as either color for prerequisites (not both simultaneously).
+
+ARBOREC — Psychospore: Action: Remove a command token from a system; place 1 infantry there. Opens that system for another tactical action this round. Synergy: Red ↔ Green
+BARONY OF LETNEV — Supercharge Alpha: After you produce units in your home system, gain 1 trade good. Synergy: Red ↔ Blue
+CLAN OF SAAR — Nomadic Surge: After you move ships into a system, you may spend 1 token from your strategy pool to move 1 ship from an adjacent system into that system. Synergy: Blue ↔ Yellow
+EMBERS OF MUAAT — Stellar Genesis: Action: Exhaust this card; place a new planet token in a system you control that has no planet. It has 1 resource and 1 influence. Synergy: Red ↔ Yellow
+EMIRATES OF HACAN — Trade Mastery: When you produce ships, for each 2 ships produced gain 1 fleet pool token (up to your commodity value). Synergy: Yellow ↔ Green
+FEDERATION OF SOL — Rally the Citizens: Action: Exhaust this card; place 2 infantry on any planet you control. Synergy: Blue ↔ Green
+GHOSTS OF CREUSS — Dimensional Aperture: When you research a technology, you may ignore 1 prerequisite of any color. Synergy: Blue ↔ Yellow
+L1Z1X MINDNET — Neural Assimilation: At the start of the status phase, if you have more command tokens than another player, gain 1 command token. Synergy: Blue ↔ Red
+MAHACT GENE-SORCERERS — Gene Forge: When you play an action card, you may discard a command token from another player's faction sheet to resolve an additional copy of that action card. Synergy: Green ↔ Yellow
+MENTAK COALITION — Ambush Protocol: When another player activates a system that contains your ships, before combat begins you may move up to 2 of your ships from an adjacent system into the active system. Synergy: Red ↔ Yellow
+NAALU COLLECTIVE — Swarm Logic: Your fighters do not count against your fleet pool. Synergy: Green ↔ Blue
+NAAZ-ROKHA ALLIANCE — Predator Instinct: When your mech is destroyed, you may place it on a planet you control instead of returning to reinforcements. Synergy: Green ↔ Red
+NEKRO VIRUS — Assimilator Evolved: When you assimilate a technology, you may also copy 1 faction ability from that faction's faction sheet (lasts until end of round). Synergy: Red ↔ Blue
+NOMAD — Legacy Protocol: The Nomad flagship counts as 2 flagships for the purpose of scoring objectives. Synergy: Blue ↔ Yellow
+SARDAKK N'ORR — Relentless Advance: After you win a combat, each of your surviving ground forces may move to an adjacent planet you control for free. Synergy: Red ↔ Green
+TITANS OF UL — Ancient Machinery: Your space docks on non-home planets have +1 production. Synergy: Blue ↔ Yellow
+UNIVERSITIES OF JOL-NAR — Research Breakthrough: When you research a technology, you may exhaust this card to ignore all prerequisites. Synergy: Blue ↔ Yellow
+VUIL'RAITH CABAL — Dimensional Rift Mastery: Your dimensional tears also function as wormholes for your ships. Synergy: Red ↔ Yellow
+WINNU — Reclaimed Heritage: When you control Mecatol Rex, gain 1 additional VP at the start of each status phase (max 1 per game). Synergy: Yellow ↔ Blue
+XXCHA KINGDOM — Political Network: When you cast votes, you may spend trade goods as votes (1 TG = 1 vote). Synergy: Yellow ↔ Green
+YIN BROTHERHOOD — Devotion Amplified: When you destroy a cruiser or destroyer using Devotion, produce 2 hits instead of 1. Synergy: Green ↔ Blue
+YSSARIL TRIBES — Shadow Network: Once per round, you may look at the top card of any deck and optionally place it on the bottom. Synergy: Green ↔ Yellow
+ARGENT FLIGHT — Zeal Amplified: You always cast votes first. When you cast at least 1 vote, cast 2 additional votes. Synergy: Blue ↔ Green
+EMPYREAN — Void Mastery: Void tokens you place persist between rounds. Synergy: Blue ↔ Green
+COUNCIL KELERES — Executive Authority: You may vote on agendas during your action phase turn. Synergy: Yellow ↔ Blue
+
+═══════════════════════════════════════════════════════
+NEW FACTIONS (THUNDER'S EDGE)
+═══════════════════════════════════════════════════════
+
+LAST BASTION (Xxcha + Sol hybrid)
+Icon: 🏰 | Complexity: Medium
+Homeworld: Ordinian (space station Revelation)
+Abilities: GALVANIZE (add die to any unit roll once per round), LIBERATION (take planets without landing troops if you win space combat)
+Flagship: The Icon — deploy ships to systems with your troops even with enemies present
+Faction Tech: Radical Advancement (replace tech with higher-prereq same-color tech each status phase)
+Breakthrough: The Icon ability — exhaust to place ships produced in systems with your command tokens and ground forces. Synergy: Blue ↔ Green
+Win condition: Aggressive expansion backed by galvanize economy; strong at mid-game objectives requiring planet control.
+
+CRIMSON REBELLION (Rogue Creuss)
+Icon: 🌀💀 | Complexity: Very High
+Homeworld: Ahk Creuxx (off-board home system through wormhole)
+Abilities: RESONANCE GENERATOR (create breaches in systems where combat occurs), cannot use standard wormholes
+Flagship: Enemies in systems with breaches lose unit abilities
+Faction Tech: Breach-placing destroyers; rebuild destroyed ships
+Breakthrough: Place/flip breaches; breaches increase ship movement. Synergy: Blue ↔ Red
+Win condition: Control breach networks to deny opponents mobility while expanding through unique wormhole chains. High ceiling, very complex.
+
+RAL NEL CONSORTIUM (Corporate Megacorp)
+Icon: 💰 | Complexity: Medium-High
+Abilities: SURVIVAL INSTINCT (move ships into active systems when opponent activates), MINIATURIZATION (transport structures on any ship)
+Flagship: Last Dispatch — space cannon using your structures; retreat destroys enemy ship
+Faction Tech: PDS/structure mobility; economic manipulation via action cards
+Breakthrough: Additional action card per round (public knowledge). Synergy: Yellow ↔ Blue
+Win condition: Economic victory through structure mobility and transaction manipulation. Excellent trade partner. Weaker breakthrough (SCPT ranked low).
+
+DEEPWROUGHT SCHOLARATE (Ancient AI researchers)
+Icon: 🔬🌊 | Complexity: High
+Homeworld: Stone of Life (Emelpar legendary planet)
+Abilities: RESEARCH TEAM (commit ground forces to coexist on planets), OCEANBOUND (gain ocean cards when coexisting begins)
+Flagship: D.W.S. Luminous — move through systems with your units even with enemies; +1 move per system
+Faction Tech: Coexistence mechanics; ocean card engine
+Breakthrough: Replace non-unit-upgrade tech with one having 1 more prereq each status phase. Synergy: Blue ↔ Green
+Win condition: S-tier (SCPT Dec 2025 tier list). Unique coexistence economy enables fast objective scoring.
+
+THE FIRMAMENT / THE OBSIDIAN (Dual-nature faction)
+Icon: ⚖️ | Complexity: Very High
+Special: Starts as The Firmament; can transform into The Obsidian during game
+Abilities: Unique plot card economy; transforms based on game state
+Breakthrough: [Complex — varies based on Firmament/Obsidian state]. Synergy: varies
+Win condition: Extremely flexible; adapts win condition based on table state. Highest skill ceiling in the game.
+
+═══════════════════════════════════════════════════════
+GALACTIC EVENTS (20 cards, optional setup modifier)
+═══════════════════════════════════════════════════════
+Active for the entire game. Mix and match for variety.
+Age of Commerce: Commodity values +1 for all players all game
+Age of Exploration: Exploration cards replaced with stronger versions
+Age of Fighters: Fighters gain +1 combat value all game
+Advent of the War Sun: All players except Muaat gain War Sun tech; Muaat gets extra War Sun
+Civilized Society: Scoring public objectives gives +1 VP instead of the printed value
+Conventions of War (Abandoned): Bombardment and Planetary Shield are disabled
+Cultural Exchange Program: When status phase begins, speaker may give 1 action card to any player
+Dangerous Wilds: Hazardous planets start with neutral infantry; must defeat to control
+Hidden Agenda: Each player draws an additional secret objective at game start
+Mercenaries for Hire: Players may hire neutral units with trade goods
+Minor Factions: Minor faction home systems added to map with special abilities
+Monuments to the Ages: Legendary planets grant 2 VP while controlled (not just 1)
+Rapid Mobilization: Players may place 1 additional ship in their home system at start of each round
+Stellar Atomics: Each player gets a one-time planetary devastation ability; cannot vote in agenda phase if used
+Total War: All combats gain an additional round before retreat is allowed
+Weird Wormholes: All alpha wormholes also function as beta (and vice versa)
+Wild, Wild Galaxy: All anomalies gain additional effects
+Zealous Orthodoxy: Players cannot research technology during action phase (status phase only)
+Call of the Void: Add Fracture tiles to standard map; ignore breakthrough fracture roll
+Cosmic Phenomena: 3 additional anomaly tiles added to the map
+
+═══════════════════════════════════════════════════════
+SPACE STATIONS (New system feature)
+═══════════════════════════════════════════════════════
+- Trading posts; controlled by player with only ships in its system
+- Control not lost when ships leave
+- Cannot have ground forces placed on them
+- +1 commodity value to controller
+- Can transact with other Space Station controllers (regardless of adjacency)
+- Can exhaust to convert commodities to trade goods
+
+═══════════════════════════════════════════════════════
+CONSTRUCTION & WARFARE STRATEGY CARD UPDATES (Thunder's Edge)
+═══════════════════════════════════════════════════════
+Construction and Warfare strategy cards have revised versions included.
+Replace base game/PoK versions with the Thunder's Edge versions when playing with this expansion.
+
+═══════════════════════════════════════════════════════
+ENTROPIC SCAR (New anomaly type)
+═══════════════════════════════════════════════════════
+- Unit abilities cannot be used by or against units inside
+- Wormholes placed inside are discarded
+- Start of status phase: players with ships in entropic scar may spend a strategy pool token to gain a faction-specific technology

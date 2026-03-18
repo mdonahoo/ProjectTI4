@@ -324,6 +324,10 @@ select option{background:#0d1420;}
 .input-area{border-top:1px solid var(--border);padding:0.58rem 0.8rem;display:flex;gap:0.45rem;align-items:flex-end;}
 .scan-btn{background:rgba(42,90,138,0.13);border:1px solid rgba(74,122,175,0.32);color:rgba(100,160,230,0.8);font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.06em;padding:0 0.7rem;border-radius:3px;cursor:pointer;transition:all 0.13s;white-space:nowrap;height:36px;text-transform:uppercase;flex-shrink:0;}
 .scan-btn:hover{background:rgba(42,90,188,0.22);border-color:rgba(74,154,223,0.55);color:rgba(150,200,255,0.95);}
+.mic-btn{background:rgba(42,90,138,0.13);border:1px solid rgba(74,122,175,0.32);color:rgba(100,160,230,0.8);font-size:15px;padding:0;border-radius:3px;cursor:pointer;transition:all 0.13s;width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.mic-btn:hover{background:rgba(42,90,188,0.22);border-color:rgba(74,154,223,0.55);}
+.mic-btn.recording{background:rgba(200,50,50,0.18);border-color:rgba(230,80,80,0.7);color:#ef6a6a;animation:micpulse 1s ease-in-out infinite;}
+@keyframes micpulse{0%,100%{box-shadow:0 0 0 0 rgba(220,60,60,0.4)}50%{box-shadow:0 0 0 5px rgba(220,60,60,0)}}
 .input-area textarea{flex:1;background:var(--deep);border:1px solid var(--border);color:var(--text-bright);font-family:'Rajdhani',sans-serif;font-size:0.83rem;padding:0.38rem 0.6rem;border-radius:3px;resize:none;min-height:36px;max-height:110px;outline:none;transition:border-color 0.14s;line-height:1.5;}
 .input-area textarea::placeholder{color:var(--text-dim);}
 .input-area textarea:focus{border-color:var(--gold-dim);}
@@ -331,6 +335,29 @@ select option{background:#0d1420;}
 .send-btn:hover:not(:disabled){background:rgba(201,168,76,0.22);border-color:var(--gold);color:var(--gold-bright);}
 .send-btn:disabled{opacity:0.4;cursor:not-allowed;}
 
+.te-slice{background:var(--deep);border:1px solid var(--border);border-radius:3px;padding:0.3rem 0.4rem;font-size:0.65rem;color:var(--text-dim);text-align:center;cursor:pointer;transition:all 0.12s;position:relative;}
+.te-slice:hover{border-color:rgba(196,122,232,0.4);}
+.te-slice.claimed{background:rgba(196,122,232,0.1);border-color:rgba(196,122,232,0.5);color:#c47ae8;}
+.te-slice-cost{font-size:0.58rem;color:var(--text-dim);margin-top:1px;}
+.te-slice-claimant{font-size:0.6rem;color:#c47ae8;margin-top:1px;font-weight:600;}
+.te-bt-row{display:flex;align-items:center;gap:0.4rem;padding:0.22rem 0;border-bottom:1px solid rgba(201,168,76,0.06);}
+.te-bt-row:last-child{border-bottom:none;}
+.te-bt-faction{font-size:0.68rem;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.te-bt-toggle{background:none;border:1px solid var(--border);border-radius:2px;color:var(--text-dim);font-size:0.6rem;padding:0.1rem 0.32rem;cursor:pointer;white-space:nowrap;transition:all 0.11s;text-transform:uppercase;}
+.te-bt-toggle.unlocked{border-color:rgba(196,122,232,0.5);color:#c47ae8;background:rgba(196,122,232,0.08);}
+.te-event-row{display:flex;align-items:center;gap:0.4rem;padding:0.2rem 0;}
+.te-event-sel{flex:1;font-size:0.72rem;padding:0.22rem 0.45rem;background:var(--deep);border:1px solid var(--border);color:var(--text-bright);border-radius:2px;outline:none;font-family:'Rajdhani',sans-serif;}
+.te-event-sel:focus{border-color:rgba(196,122,232,0.5);}
+.te-station-row{display:flex;align-items:center;gap:0.4rem;}
+.te-station-in{flex:1;font-size:0.7rem;padding:0.22rem 0.45rem;background:var(--deep);border:1px solid var(--border);color:var(--text-bright);border-radius:2px;outline:none;font-family:'Rajdhani',sans-serif;}
+.vpo-obj-row{display:flex;align-items:center;gap:0.4rem;padding:0.22rem 0.35rem;background:var(--deep);border:1px solid var(--border);border-radius:3px;cursor:pointer;transition:all 0.12s;}
+.vpo-obj-row:hover{border-color:var(--gold-dim);}
+.vpo-obj-row.can-score{background:rgba(201,168,76,0.06);border-color:rgba(201,168,76,0.35);}
+.vpo-obj-row.scored{background:rgba(42,138,100,0.08);border-color:rgba(42,138,100,0.3);opacity:0.6;}
+.vpo-cb{width:13px;height:13px;border:1px solid var(--border);border-radius:2px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;transition:all 0.11s;}
+.vpo-obj-row.can-score .vpo-cb{background:rgba(201,168,76,0.2);border-color:var(--gold);}
+.vpo-obj-name{font-size:0.7rem;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.vpo-obj-vp{font-size:0.65rem;color:var(--gold-dim);font-family:'Cinzel',serif;min-width:18px;text-align:right;}
 /* SAVE/LOAD TOAST */
 .toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(80px);background:var(--panel2);border:1px solid var(--border);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:0.8rem;padding:0.5rem 1.2rem;border-radius:3px;z-index:100;transition:transform 0.3s ease,opacity 0.3s;opacity:0;pointer-events:none;}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
@@ -440,7 +467,7 @@ select option{background:#0d1420;}
           </select>
         </div>
         <div><label class="lbl">Expansions</label>
-          <select id="expansions"><option value="pok">Base + Prophecy of Kings</option><option value="base">Base Game Only</option></select>
+          <select id="expansions" onchange="updateSums()"><option value="te">Base + PoK + Thunder's Edge</option><option value="pok">Base + Prophecy of Kings</option><option value="base">Base Game Only</option></select>
         </div>
         <div><label class="lbl">Extra Context</label>
           <input type="text" id="context" placeholder="e.g. Hacan neighbor, weak slice…">
@@ -455,6 +482,11 @@ select option{background:#0d1420;}
         <div class="gdiv">· · ·</div>
         <div style="font-size:0.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;margin:0.38rem 0">Prophecy of Kings</div>
         <div class="fgrid" id="myPokFac"></div>
+        <div id="teFacSection" style="display:none">
+          <div class="gdiv">· · ·</div>
+          <div style="font-size:0.6rem;color:#c47ae8;text-transform:uppercase;letter-spacing:0.1em;margin:0.38rem 0">Thunder's Edge</div>
+          <div class="fgrid" id="myTEFac"></div>
+        </div>
       </div></div>
     </div>
     <div class="ctx-note" style="margin-top:0.5rem">
@@ -509,6 +541,41 @@ select option{background:#0d1420;}
         <div class="secobj" id="secobjpanel"></div>
       </div>
     </div>
+
+    <!-- Thunder's Edge Tracker -->
+    <div class="section" id="sec-te" style="display:none">
+      <div class="sec-hdr" onclick="toggleSec('sec-te')">
+        <span class="sec-title" style="color:#c47ae8">⚡ Thunder's Edge</span>
+        <span class="sec-sum" id="sum-te">—</span>
+        <span class="chev">▾</span>
+      </div>
+      <div class="sec-body">
+        <div style="padding:0.4rem 0.85rem 0.2rem;font-size:0.65rem;color:#c47ae8;opacity:0.8">Expedition · Breakthroughs · Events</div>
+        <div id="te-tracker-content" style="padding:0 0.85rem 0.75rem;display:flex;flex-direction:column;gap:0.6rem">
+          <!-- Expedition -->
+          <div>
+            <div style="font-size:0.62rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem">Expedition Slices</div>
+            <div id="te-expedition" style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px"></div>
+          </div>
+          <!-- Breakthroughs -->
+          <div>
+            <div style="font-size:0.62rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem">Breakthroughs</div>
+            <div id="te-breakthroughs" style="display:flex;flex-direction:column;gap:3px"></div>
+          </div>
+          <!-- Galactic Events -->
+          <div>
+            <div style="font-size:0.62rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem">Active Galactic Events</div>
+            <div id="te-events" style="display:flex;flex-direction:column;gap:3px"></div>
+          </div>
+          <!-- Space Stations -->
+          <div>
+            <div style="font-size:0.62rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem">Space Stations</div>
+            <div id="te-stations" style="display:flex;flex-direction:column;gap:3px"></div>
+          </div>
+          <button class="ac-ai-btn" onclick="getTeAdvice()" style="border-color:rgba(196,122,232,0.3);color:#c47ae8">Thunder's Edge Strategic Advice ↗</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- ═ TECH ═ -->
@@ -552,6 +619,34 @@ select option{background:#0d1420;}
             </div>
           </div>
           <button class="ag-advice-btn" onclick="getAgendaAdvice()">Get Vote & Rider Advice ↗</button>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="sec-vpo">
+      <div class="sec-hdr" onclick="toggleSec('sec-vpo')">
+        <span class="sec-title">🎯 Victory Path Optimizer</span>
+        <span class="sec-sum" id="sum-vpo">—</span>
+        <span class="chev">▾</span>
+      </div>
+      <div class="sec-body">
+        <div style="padding:0.4rem 0.85rem 0.2rem;font-size:0.63rem;color:var(--text-dim);line-height:1.5">
+          Mark which objectives you can score this round. Get the optimal scoring sequence.
+        </div>
+        <div id="vpo-panel" style="padding:0 0.85rem 0.75rem;display:flex;flex-direction:column;gap:0.5rem">
+          <!-- auto-built from revealed objectives + secret objectives -->
+          <div id="vpo-objectives" style="display:flex;flex-direction:column;gap:0.3rem"></div>
+          <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+            <div style="flex:1;min-width:120px">
+              <label style="font-size:0.62rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.08em;display:block;margin-bottom:0.2rem">Command Tokens Available</label>
+              <input type="number" id="vpo-ct" min="0" max="16" value="3" style="width:80px">
+            </div>
+            <div style="flex:1;min-width:120px">
+              <label style="font-size:0.62rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.08em;display:block;margin-bottom:0.2rem">Trade Goods Available</label>
+              <input type="number" id="vpo-tg" min="0" max="20" value="0" style="width:80px">
+            </div>
+          </div>
+          <button class="ac-ai-btn" onclick="runVPO()">Calculate Optimal VP Path ↗</button>
+          <div id="vpo-result" style="display:none;background:var(--panel3);border:1px solid var(--border);border-radius:3px;padding:0.55rem 0.7rem;font-size:0.75rem;color:var(--text);line-height:1.6"></div>
         </div>
       </div>
     </div>
@@ -622,7 +717,8 @@ select option{background:#0d1420;}
   </div>
   <div class="input-area">
     <button class="scan-btn" onclick="document.getElementById('photoinput').click()">📷 Scan</button>
-    <textarea id="userinput" placeholder="Ask strategy, rules, combat, politics… (Shift+Enter = newline)" rows="1"
+    <button class="mic-btn" id="micbtn" onclick="toggleVoice()" title="Hold to speak">🎤</button>
+    <textarea id="userinput" placeholder="Ask strategy, rules, combat, politics… or tap 🎤 to speak" rows="1"
       onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}"
       oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,110)+'px'"></textarea>
     <button class="send-btn" id="sendbtn" onclick="sendMsg()">Transmit</button>
@@ -717,7 +813,10 @@ const FACTIONS = [
   {n:'Argent Flight',i:'🦅',p:true},{n:'Empyrean',i:'✨',p:true},
   {n:'Mahact Gene-Sorcerers',i:'🧬',p:true},{n:'Naaz-Rokha Alliance',i:'🐾',p:true},
   {n:'Nomad',i:'🚀',p:true},{n:'Titans of Ul',i:'⛰️',p:true},
-  {n:"Vuil'raith Cabal",i:'🕳️',p:true},{n:'Council Keleres',i:'🏛️',p:true}
+  {n:"Vuil'raith Cabal",i:'🕳️',p:true},{n:'Council Keleres',i:'🏛️',p:true},
+  {n:'Last Bastion',i:'🏰',p:false,te:true},{n:'Crimson Rebellion',i:'💥',p:false,te:true},
+  {n:'Ral Nel Consortium',i:'💼',p:false,te:true},{n:'Deepwrought Scholarate',i:'🌊',p:false,te:true},
+  {n:'The Firmament',i:'⚖️',p:false,te:true}
 ];
 const SCARDS = [{n:'Leadership',v:1},{n:'Diplomacy',v:2},{n:'Politics',v:3},{n:'Construction',v:4},{n:'Trade',v:5},{n:'Warfare',v:6},{n:'Technology',v:7},{n:'Imperial',v:8}];
 const TECHS = {
@@ -805,7 +904,8 @@ const UNITS = {
 // ════════════════════════════════════════
 let S = {
   myFaction:null, players:'6', round:'1', myVP:0, vpGoal:10,
-  position:'unknown', expansions:'pok', context:'',
+  position:'unknown', expansions:'te', context:'',
+  teExpedition:null, teBreakthroughs:null, teEvents:['','',''], teStations:[{name:'',controller:''},{name:'',controller:''},{name:'',controller:''}],
   opponents:[], ownedTechs:[], secretObjs:[],
   actionCards:[], journal:[], resources:{},
   cardHolders:{}, promNotes:{}
@@ -865,6 +965,12 @@ function updateSums() {
   if (res) { const myRes = S.resources[S.myFaction]; res.textContent = myRes ? 'TG:'+myRes.tg+' Com:'+myRes.com : '—'; }
   updateVPBoard();
   updateThreatMonitor();
+  buildTETracker();
+  buildVPOPanel();
+  // Refresh TE section visibility
+  const _exp=el('expansions')?.value||'pok';
+  const _teSec=el('teFacSection'); if(_teSec) _teSec.style.display=(_exp==='te'?'block':'none');
+  const _teTr=el('sec-te'); if(_teTr) _teTr.style.display=(_exp==='te'?'block':'none');
 }
 
 function el(id){return document.getElementById(id);}
@@ -874,16 +980,27 @@ function qAll(sel){return [...document.querySelectorAll(sel)];}
 // FACTION GRIDS
 // ════════════════════════════════════════
 function buildFacGrids() {
-  const base=el('myBaseFac'), pok=el('myPokFac');
+  const base=el('myBaseFac'), pok=el('myPokFac'), te=el('myTEFac');
+  if(te) te.innerHTML='';
+  const allBtnContainers='#myBaseFac .fbtn, #myPokFac .fbtn, #myTEFac .fbtn';
   FACTIONS.forEach(f=>{
     const btn=document.createElement('button');
     btn.className='fbtn'; btn.innerHTML='<span class="fi">'+f.i+'</span>'+f.n;
     btn.onclick=()=>{
-      qAll('#myBaseFac .fbtn, #myPokFac .fbtn').forEach(b=>b.classList.remove('sel'));
+      qAll(allBtnContainers).forEach(b=>b.classList.remove('sel'));
       btn.classList.add('sel'); S.myFaction=f.n; updateSums(); rebuildFacTechs(); rebuildResTable();
     };
-    (f.p?pok:base).appendChild(btn);
+    if(f.te){ if(te) te.appendChild(btn); }
+    else if(f.p){ pok.appendChild(btn); }
+    else{ base.appendChild(btn); }
   });
+  // Show/hide TE section based on expansion selection
+  const exp=el('expansions')?.value||'pok';
+  const teSection=el('teFacSection');
+  if(teSection) teSection.style.display=(exp==='te'?'block':'none');
+  // Show/hide TE tracker in table tab
+  const teTracker=el('sec-te');
+  if(teTracker) teTracker.style.display=(exp==='te'?'block':'none');
 }
 
 function buildMiniFacGrid() {
@@ -1336,7 +1453,8 @@ function buildDynamicPrompt() {
   const players=el('playerCount').value, position=el('position').value;
   const expansions=el('expansions').value, context=el('context').value;
 
-  let p='CURRENT GAME STATE:\nFaction: '+(S.myFaction||'Not selected')+' | Players: '+players+' | Round: '+round+' | VP Goal: '+vpGoal+'\nYour VP: '+myVP+' | Position: '+position+' | Expansions: '+(expansions==='pok'?'Base + PoK':'Base Only');
+  const expLabel=expansions==='te'?"Base + PoK + Thunder's Edge":expansions==='pok'?'Base + PoK':'Base Only';
+  let p='CURRENT GAME STATE:\nFaction: '+(S.myFaction||'Not selected')+' | Players: '+players+' | Round: '+round+' | VP Goal: '+vpGoal+'\nYour VP: '+myVP+' | Position: '+position+' | Expansions: '+expLabel;
   if(context) p+='\nContext: '+context;
 
   if(S.opponents.length) {
@@ -1395,6 +1513,25 @@ function buildDynamicPrompt() {
     });
   });
   if(pnLines.length) p+='\n\nPROMISSORY NOTE LEDGER:\n'+pnLines.join('\n');
+
+  // Thunder's Edge state
+  if(expansions==='te') {
+    const teLines=[];
+    // Expedition slices
+    const claimedSlices=S.teExpedition?.filter(s=>s.claimant);
+    if(claimedSlices?.length) teLines.push('Expedition: '+claimedSlices.map(s=>s.cost+' claimed by '+s.claimant).join('; '));
+    else teLines.push('Expedition: No slices claimed yet');
+    // Breakthroughs
+    const unlockedBTs=S.teBreakthroughs?.filter(b=>b.unlocked);
+    if(unlockedBTs?.length) teLines.push('Breakthroughs unlocked: '+unlockedBTs.map(b=>b.faction).join(', '));
+    // Active events
+    const activeEvents=S.teEvents?.filter(e=>e);
+    if(activeEvents?.length) teLines.push('Active Galactic Events: '+activeEvents.join(', '));
+    // Space stations
+    const stations=S.teStations?.filter(s=>s.controller);
+    if(stations?.length) teLines.push('Space Stations: '+stations.map(s=>s.name+' → '+s.controller).join(', '));
+    if(teLines.length) p+='\n\nTHUNDER\'S EDGE STATE:\n'+teLines.join('\n');
+  }
 
   return p;
 }
@@ -1472,7 +1609,7 @@ async function sendMsg() {
   } else { userContent=text; }
   history.push({role:'user',content:userContent});
   try{
-    const resp=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,system:buildSystemBlocks(),messages:history})});
+    const resp=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,system:buildSystemBlocks(),messages:history,_includeThundersEdge:(el('expansions')?.value==='te')})});
     const data=await resp.json(); hideThinking();
     if(data.error){addMsg('assistant','**Error**\n\n'+data.error.message);history.pop();setStatus(false,'Error');}
     else{const reply=data.content?.find(b=>b.type==='text')?.text||'No response.';addMsg('assistant',reply);history.push({role:'assistant',content:reply});const n=history.filter(m=>m.role==='user').length;setStatus(false,n+' exchange'+(n!==1?'s':''));}
@@ -1688,9 +1825,354 @@ function getPNAdvice() {
 }
 
 // ════════════════════════════════════════
+// THUNDER'S EDGE DATA & FUNCTIONS
+// ════════════════════════════════════════
+const TE_EXPEDITION_SLICES = [
+  {id:0,cost:'5 Resources',icon:'💎'},{id:1,cost:'2 Action Cards',icon:'🃏'},
+  {id:2,cost:'5 Influence',icon:'🗳️'},{id:3,cost:'1 Secret Obj.',icon:'🔒'},
+  {id:4,cost:'Tech Specialty',icon:'🔬'},{id:5,cost:'3 Trade Goods',icon:'💰'}
+];
+const TE_BREAKTHROUGHS = {
+  'Arborec':{name:'Psychospore',synergy:'🔴↔🟢',desc:'Action: Remove a CT from a system; gain 1 infantry there. Opens that system for another tactical action this round.'},
+  'Barony of Letnev':{name:'Supercharge Alpha',synergy:'🔴↔🔵',desc:'After you produce units in your home system, gain 1 trade good.'},
+  'Clan of Saar':{name:'Nomadic Surge',synergy:'🔵↔🟡',desc:'After you move ships into a system, spend 1 token from strategy pool to move 1 ship from an adjacent system into that system.'},
+  'Embers of Muaat':{name:'Stellar Genesis',synergy:'🔴↔🟡',desc:'Action: Exhaust this card; place a new planet token (1 res/1 inf) in a system you control with no planet.'},
+  'Emirates of Hacan':{name:'Trade Mastery',synergy:'🟡↔🟢',desc:'When you produce ships, for each 2 ships produced gain 1 fleet pool token (up to your commodity value).'},
+  'Federation of Sol':{name:'Rally the Citizens',synergy:'🔵↔🟢',desc:'Action: Exhaust this card; place 2 infantry on any planet you control.'},
+  'Ghosts of Creuss':{name:'Dimensional Aperture',synergy:'🔵↔🟡',desc:'When you research a technology, you may ignore 1 prerequisite of any color.'},
+  'L1Z1X Mindnet':{name:'Neural Assimilation',synergy:'🔵↔🔴',desc:'At the start of the status phase, if you have more CTs than another player, gain 1 command token.'},
+  'Mahact Gene-Sorcerers':{name:'Gene Forge',synergy:'🟢↔🟡',desc:'When you play an action card, you may discard a CT from another player\u2019s faction sheet to resolve an additional copy of that action card.'},
+  'Mentak Coalition':{name:'Ambush Protocol',synergy:'🔴↔🟡',desc:'When another player activates a system with your ships, before combat you may move up to 2 of your ships from adjacent systems.'},
+  'Naalu Collective':{name:'Swarm Logic',synergy:'🟢↔🔵',desc:'Your fighters do not count against your fleet pool.'},
+  'Naaz-Rokha Alliance':{name:'Predator Instinct',synergy:'🟢↔🔴',desc:'When your mech is destroyed, you may place it on a planet you control instead of returning to reinforcements.'},
+  'Nekro Virus':{name:'Assimilator Evolved',synergy:'🔴↔🔵',desc:'When you assimilate a technology, you may also copy 1 faction ability from that faction (lasts until end of round).'},
+  'Nomad':{name:'Legacy Protocol',synergy:'🔵↔🟡',desc:'The Nomad flagship counts as 2 flagships for the purpose of scoring objectives.'},
+  "Sardakk N'orr":{name:'Relentless Advance',synergy:'🔴↔🟢',desc:'After you win a combat, each surviving ground force may move to an adjacent planet you control for free.'},
+  'Titans of Ul':{name:'Ancient Machinery',synergy:'🔵↔🟡',desc:'Your space docks on non-home planets have +1 production.'},
+  'Univ. of Jol-Nar':{name:'Research Breakthrough',synergy:'🔵↔🟡',desc:'When you research a technology, you may exhaust this card to ignore all prerequisites.'},
+  "Vuil'raith Cabal":{name:'Dimensional Rift Mastery',synergy:'🔴↔🟡',desc:'Your dimensional tears also function as wormholes for your ships.'},
+  'Winnu':{name:'Reclaimed Heritage',synergy:'🟡↔🔵',desc:'When you control Mecatol Rex, gain 1 additional VP at start of each status phase (max 1 per game).'},
+  'Xxcha Kingdom':{name:'Political Network',synergy:'🟡↔🟢',desc:'When you cast votes, you may spend trade goods as votes (1 TG = 1 vote).'},
+  'Yin Brotherhood':{name:'Devotion Amplified',synergy:'🟢↔🔵',desc:'When you destroy a cruiser or destroyer using Devotion, produce 2 hits instead of 1.'},
+  'Yssaril Tribes':{name:'Shadow Network',synergy:'🟢↔🟡',desc:'Once per round, you may look at the top card of any deck and optionally place it on the bottom.'},
+  'Argent Flight':{name:'Zeal Amplified',synergy:'🔵↔🟢',desc:'You always vote first. When you cast at least 1 vote, cast 2 additional votes.'},
+  'Empyrean':{name:'Void Mastery',synergy:'🔵↔🟢',desc:'Void tokens you place persist between rounds.'},
+  'Council Keleres':{name:'Executive Authority',synergy:'🟡↔🔵',desc:'You may vote on agendas during your action phase turn.'},
+  'Last Bastion':{name:'The Icon',synergy:'🔴↔🟡',desc:'When you produce ships, exhaust this to place ships in a system with your CT, ground forces, and no enemy ships.'},
+  'Crimson Rebellion':{name:'Resonance Amplifier',synergy:'🔵↔🔴',desc:'Place or flip breaches, which increase your ships\u2019 move value.'},
+  'Ral Nel Consortium':{name:'Market Cornered',synergy:'🟡↔🔵',desc:'Once per round, draw an additional action card (public knowledge).'},
+  'Deepwrought Scholarate':{name:'Deep Resonance',synergy:'🔵↔🟢',desc:'At start of status phase, replace one non-unit-upgrade tech with one of same color with exactly 1 more prerequisite.'},
+  'The Firmament':{name:'Obsidian Gambit',synergy:'⚡↔⚡',desc:'Complex dual-state ability based on Firmament/Obsidian transformation.'}
+};
+const TE_GALACTIC_EVENTS = [
+  'Advent of the War Sun','Age of Commerce','Age of Exploration','Age of Fighters',
+  'Call of the Void','Civilized Society','Conventions of War Abandoned','Cosmic Phenomena',
+  'Cultural Exchange Program','Dangerous Wilds','Hidden Agenda','Mercenaries for Hire',
+  'Minor Factions','Monuments to the Ages','Rapid Mobilization','Stellar Atomics',
+  'Total War','Weird Wormholes','Wild, Wild Galaxy','Zealous Orthodoxy'
+];
+
+// Initialize TE state in S if missing
+function initTEState() {
+  if(!S.teExpedition) S.teExpedition = TE_EXPEDITION_SLICES.map(s=>({...s,claimant:''}));
+  if(!S.teBreakthroughs) S.teBreakthroughs = Object.keys(TE_BREAKTHROUGHS).map(f=>({faction:f,unlocked:false}));
+  if(!S.teEvents) S.teEvents = ['','',''];
+  if(!S.teStations) S.teStations = [{name:'',controller:''},{name:'',controller:''},{name:'',controller:''}];
+}
+
+function buildTETracker() {
+  const exp=el('expansions')?.value||'pok';
+  if(exp!=='te') return;
+  initTEState();
+  const allPlayers=[S.myFaction||'You',...S.opponents.map(o=>o.f)].filter(Boolean);
+
+  // Expedition slices
+  const expDiv=el('te-expedition');
+  if(expDiv){ expDiv.innerHTML='';
+    S.teExpedition.forEach((slice,i)=>{
+      const d=document.createElement('div');
+      d.className='te-slice'+(slice.claimant?' claimed':'');
+      d.innerHTML='<div style="font-size:11px">'+slice.icon+'</div><div class="te-slice-cost">'+slice.cost+'</div><div class="te-slice-claimant">'+(slice.claimant||'—')+'</div>';
+      d.onclick=()=>{
+        const choices=['(unclaimed)',...allPlayers];
+        const cur=choices.indexOf(slice.claimant||'(unclaimed)');
+        slice.claimant=choices[(cur+1)%choices.length]==='(unclaimed)'?'':choices[(cur+1)%choices.length];
+        buildTETracker();
+      };
+      expDiv.appendChild(d);
+    });
+  }
+
+  // Breakthroughs — only show active players
+  const btDiv=el('te-breakthroughs');
+  if(btDiv){ btDiv.innerHTML='';
+    const relevant=S.teBreakthroughs.filter(b=>allPlayers.includes(b.faction)||b.faction===S.myFaction);
+    (relevant.length?relevant:S.teBreakthroughs.slice(0,6)).forEach((bt,i)=>{
+      const info=TE_BREAKTHROUGHS[bt.faction]||{name:'?',synergy:'?',desc:''};
+      const row=document.createElement('div'); row.className='te-bt-row';
+      row.innerHTML='<span class="te-bt-faction" title="'+info.desc+'">'+bt.faction+' — '+info.name+' '+info.synergy+'</span>'
+        +'<button class="te-bt-toggle'+(bt.unlocked?' unlocked':'')+'" onclick="toggleBT('+i+')">'+(bt.unlocked?'✓ Unlocked':'Locked')+'</button>';
+      btDiv.appendChild(row);
+    });
+  }
+
+  // Galactic events (3 slots)
+  const evDiv=el('te-events');
+  if(evDiv){ evDiv.innerHTML='';
+    S.teEvents.forEach((ev,i)=>{
+      const row=document.createElement('div'); row.className='te-event-row';
+      const sel=document.createElement('select'); sel.className='te-event-sel';
+      sel.innerHTML='<option value="">— No event —</option>'+TE_GALACTIC_EVENTS.map(e=>'<option value="'+e+'"'+(ev===e?' selected':'')+'>'+e+'</option>').join('');
+      sel.onchange=()=>{S.teEvents[i]=sel.value;};
+      row.appendChild(sel); evDiv.appendChild(row);
+    });
+  }
+
+  // Space stations
+  const stDiv=el('te-stations');
+  if(stDiv){ stDiv.innerHTML='';
+    S.teStations.forEach((st,i)=>{
+      const row=document.createElement('div'); row.className='te-station-row';
+      row.innerHTML='<input class="te-station-in" placeholder="Station name" value="'+(st.name||'')+'" oninput="S.teStations['+i+'].name=this.value" style="flex:1">'
+        +'<input class="te-station-in" placeholder="Controller" value="'+(st.controller||'')+'" oninput="S.teStations['+i+'].controller=this.value" style="flex:1">';
+      stDiv.appendChild(row);
+    });
+  }
+
+  // Summary
+  const claimed=S.teExpedition.filter(s=>s.claimant).length;
+  const unlocked=S.teBreakthroughs.filter(b=>b.unlocked).length;
+  el('sum-te').textContent=claimed+'/6 slices · '+unlocked+' BT';
+}
+
+function toggleBT(idx){
+  initTEState();
+  S.teBreakthroughs[idx].unlocked=!S.teBreakthroughs[idx].unlocked;
+  buildTETracker();
+}
+
+function getTeAdvice(){
+  const myBT=S.myFaction&&TE_BREAKTHROUGHS[S.myFaction];
+  const claimed=S.teExpedition?.filter(s=>s.claimant)||[];
+  const q='Thunder\u2019s Edge strategic advice: expedition has '+claimed.length+'/6 slices claimed. '
+    +(S.myFaction?'I am '+S.myFaction+(myBT?' with breakthrough '+myBT.name+' ('+myBT.synergy+'): '+myBT.desc:'')+'.'  :'')
+    +' Active events: '+(S.teEvents?.filter(e=>e).join(', ')||'none')+'.'
+    +' Should I contest the remaining expedition slices, and how does my breakthrough change my tech path and win condition?';
+  el('userinput').value=q; sendMsg();
+}
+
+// ════════════════════════════════════════
+// VICTORY PATH OPTIMIZER
+// ════════════════════════════════════════
+const PUBLIC_OBJ_DATA = [
+  // Stage I
+  {n:'Diversify Research',vp:1,stage:1,hint:'2 techs in each of 2 colors'},
+  {n:'Develop Weaponry',vp:1,stage:1,hint:'2 unit upgrade techs'},
+  {n:'Erect a Monument',vp:1,stage:1,hint:'Spend 8 resources in status phase'},
+  {n:'Expand Borders',vp:1,stage:1,hint:'Control 6 planets outside home'},
+  {n:'Found Research Outposts',vp:1,stage:1,hint:'Control 3 tech specialty planets'},
+  {n:'Intimidate Council',vp:1,stage:1,hint:'Have 2+ ships in Mecatol or adjacent'},
+  {n:'Lead from the Front',vp:1,stage:1,hint:'Spend 3 CTs in status phase'},
+  {n:'Negotiate Treaties',vp:1,stage:1,hint:'Own promissory notes from 2 players'},
+  {n:'Sway the Council',vp:1,stage:1,hint:'Spend 8 influence in status phase'},
+  {n:'Unify the Colonies',vp:1,stage:1,hint:'Control 6 planets in non-home, non-Mecatol'},
+  // Stage II
+  {n:'Centralize Galactic Trade',vp:2,stage:2,hint:'Spend 10 trade goods in status phase'},
+  {n:'Conquer the Weak',vp:2,stage:2,hint:'Control opponent home planet'},
+  {n:'Form Galactic Brain Trust',vp:2,stage:2,hint:'Control 5 tech specialty planets'},
+  {n:'Galvanize the People',vp:2,stage:2,hint:'Spend 6 CTs in status phase'},
+  {n:'Manipulate Galactic Law',vp:2,stage:2,hint:'Spend 16 influence in status phase'},
+  {n:'Master the Sciences',vp:2,stage:2,hint:'Own 2 techs in each of 4 colors'},
+  {n:'Revolutionize Warfare',vp:2,stage:2,hint:'Own 3 unit upgrade techs'},
+  {n:'Subdue the Galaxy',vp:2,stage:2,hint:'Control 11 planets outside home'},
+  {n:'Terraform New Worlds',vp:2,stage:2,hint:'Control 4 planets with attachments'},
+  {n:'Adapt New Strategies',vp:2,stage:2,hint:'Own 3 faction technologies'}
+];
+
+function buildVPOPanel(){
+  const panel=el('vpo-objectives'); if(!panel) return;
+  panel.innerHTML='';
+  const vpGoal=parseInt(el('vpGoal')?.value||10);
+  const myVP=parseInt(el('myVP')?.value||0);
+  const needed=vpGoal-myVP;
+
+  // Gather revealed objectives from the objectives inputs
+  const revealedNames=qAll('.obj-in').map(i=>i.value.trim()).filter(Boolean);
+
+  // Public objectives that are revealed
+  const revealedObjs=PUBLIC_OBJ_DATA.filter(o=>revealedNames.some(n=>n.toLowerCase().includes(o.n.toLowerCase().slice(0,10))||o.n.toLowerCase().includes(n.toLowerCase().slice(0,8))));
+
+  // Add any revealed objectives not in our static list
+  revealedNames.forEach(n=>{
+    if(!revealedObjs.find(o=>o.n.toLowerCase().includes(n.toLowerCase().slice(0,8)))){
+      const isStageII=qAll('.obj-in').slice(5).map(i=>i.value.trim()).includes(n);
+      revealedObjs.push({n:n,vp:isStageII?2:1,stage:isStageII?2:1,hint:'Revealed objective'});
+    }
+  });
+
+  // Secret objectives in hand
+  S.secretObjs?.filter(s=>s.txt&&s.st==='held').forEach(s=>{
+    revealedObjs.push({n:'🔒 '+s.txt,vp:1,stage:0,hint:'Secret objective'});
+  });
+
+  // Mecatol Rex VP
+  revealedObjs.push({n:'Custodians Token (Mecatol Rex)',vp:1,stage:0,hint:'Take Mecatol Rex'});
+  revealedObjs.push({n:'Imperial Strategy Card VP',vp:1,stage:0,hint:'Hold Imperial + Mecatol or score obj'});
+
+  if(!revealedObjs.length){
+    panel.innerHTML='<div style="font-size:0.68rem;color:var(--text-dim);padding:0.3rem">Add revealed objectives in the Table tab to see scoring options.</div>';
+    el('sum-vpo').textContent='—';
+    return;
+  }
+
+  el('sum-vpo').textContent='Need '+needed+' VP';
+
+  revealedObjs.forEach((obj,i)=>{
+    const row=document.createElement('div');
+    row.className='vpo-obj-row'; row.id='vpo-row-'+i;
+    row.innerHTML='<div class="vpo-cb" id="vpo-cb-'+i+'"></div>'
+      +'<div style="flex:1"><div class="vpo-obj-name">'+obj.n+'</div>'
+      +(obj.hint&&obj.hint!=='Revealed objective'?'<div style="font-size:0.6rem;color:var(--text-dim)">'+obj.hint+'</div>':'')
+      +'</div>'
+      +'<div class="vpo-obj-vp">'+obj.vp+'VP</div>';
+    row.onclick=()=>toggleVPO(i,obj);
+    panel.appendChild(row);
+  });
+}
+
+const _vpoSelected=new Set();
+function toggleVPO(i,obj){
+  if(_vpoSelected.has(i)){
+    _vpoSelected.delete(i);
+    el('vpo-row-'+i)?.classList.remove('can-score');
+    el('vpo-cb-'+i).textContent='';
+  } else {
+    _vpoSelected.add(i);
+    el('vpo-row-'+i)?.classList.add('can-score');
+    el('vpo-cb-'+i).textContent='✓';
+  }
+}
+
+async function runVPO(){
+  if(!_vpoSelected.size){ showToast('Select at least one objective you can score.',2000); return; }
+  const panel=el('vpo-objectives');
+  const allRows=qAll('.vpo-obj-row');
+  const selected=[];
+  _vpoSelected.forEach(i=>{
+    const row=allRows[i]; if(!row) return;
+    const name=row.querySelector('.vpo-obj-name')?.textContent||'';
+    const vp=row.querySelector('.vpo-obj-vp')?.textContent||'1VP';
+    selected.push(name+' ('+vp+')');
+  });
+  const ct=el('vpo-ct')?.value||3;
+  const tg=el('vpo-tg')?.value||0;
+  const myVP=el('myVP')?.value||0;
+  const vpGoal=el('vpGoal')?.value||10;
+  const round=el('roundNum')?.value||1;
+
+  const q='Victory Path Optimizer:\n\nVP: '+myVP+'/'+vpGoal+'. Round '+round+'. CTs: '+ct+'. TGs: '+tg+'.\n\nObjectives I can score:\n'+selected.map((s,i)=>(i+1)+'. '+s).join('\n')+'\n\nFaction: '+(S.myFaction||'unknown')+'. Rank these objectives by priority. Give exact action sequence, what NOT to do, and what to set up for next round. Be concrete.';
+  el('userinput').value=q;
+  sendMsg();
+  // Show result area
+  const res=el('vpo-result');
+  if(res){ res.style.display='block'; res.textContent='Calculating...'; }
+}
+
+// ════════════════════════════════════════
+// VOICE INPUT
+// ════════════════════════════════════════
+let recognition = null;
+let isRecording = false;
+
+function initVoice() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) return null;
+  const r = new SpeechRecognition();
+  r.continuous = true;
+  r.interimResults = true;
+  r.lang = 'en-US';
+  let finalTranscript = '';
+
+  r.onstart = () => {
+    isRecording = true;
+    finalTranscript = '';
+    const btn = el('micbtn');
+    if (btn) { btn.classList.add('recording'); btn.title = 'Listening… tap to stop'; btn.textContent = '🔴'; }
+    const inp = el('userinput');
+    if (inp) { inp.placeholder = 'Listening…'; }
+  };
+
+  r.onresult = (e) => {
+    let interim = '';
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      const t = e.results[i][0].transcript;
+      if (e.results[i].isFinal) finalTranscript += t + ' ';
+      else interim = t;
+    }
+    const inp = el('userinput');
+    if (inp) {
+      inp.value = finalTranscript + interim;
+      inp.style.height = 'auto';
+      inp.style.height = Math.min(inp.scrollHeight, 110) + 'px';
+    }
+  };
+
+  r.onerror = (e) => {
+    if (e.error === 'not-allowed') showToast('Microphone access denied. Allow it in browser settings.', 3500);
+    else if (e.error !== 'aborted') showToast('Voice error: ' + e.error, 2500);
+    stopVoice();
+  };
+
+  r.onend = () => {
+    // Auto-send if we got a final transcript and user isn't editing
+    const inp = el('userinput');
+    if (isRecording && finalTranscript.trim() && inp && inp.value.trim()) {
+      stopVoice(false);
+      sendMsg();
+    } else {
+      stopVoice(false);
+    }
+  };
+
+  return r;
+}
+
+function toggleVoice() {
+  if (isRecording) {
+    stopVoice(true);
+  } else {
+    startVoice();
+  }
+}
+
+function startVoice() {
+  if (!recognition) recognition = initVoice();
+  if (!recognition) { showToast('Voice input not supported in this browser. Try Chrome or Edge.', 3000); return; }
+  const inp = el('userinput');
+  if (inp) inp.value = '';
+  try { recognition.start(); }
+  catch(e) { showToast('Could not start microphone: ' + e.message, 2500); }
+}
+
+function stopVoice(manual) {
+  isRecording = false;
+  const btn = el('micbtn');
+  if (btn) { btn.classList.remove('recording'); btn.title = 'Tap to speak'; btn.textContent = '🎤'; }
+  const inp = el('userinput');
+  if (inp) inp.placeholder = 'Ask strategy, rules, combat, politics… or tap 🎤 to speak';
+  if (recognition) { try { recognition.stop(); } catch(e) {} }
+  if (manual && inp && inp.value.trim()) {
+    // Manual stop with text → leave it in the box, let user review before sending
+    inp.focus();
+  }
+}
+
+// ════════════════════════════════════════
 // INIT
 // ════════════════════════════════════════
 buildFacGrids();
+buildTETracker();
+buildVPOPanel();
 buildMiniFacGrid();
 buildSCGrid();
 buildObjPanel();
