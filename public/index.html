@@ -22,7 +22,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 
 /* HEADER */
 .header{text-align:center;padding:1.5rem 1rem 1.25rem;border-bottom:1px solid var(--border);margin-bottom:1.25rem;position:relative;}
-.header::before{content:'✦  ✦  ✦';display:block;color:var(--gold-dim);font-size:10px;letter-spacing:8px;margin-bottom:0.45rem;}
+.header .header-deco{color:var(--gold-dim);font-size:10px;letter-spacing:8px;margin-bottom:0.35rem;text-align:center;}
 .header h1{font-family:'Cinzel',serif;font-size:clamp(1.3rem,3.5vw,2.3rem);font-weight:700;color:var(--gold);letter-spacing:0.05em;line-height:1.1;}
 .header h1 span{color:var(--text-bright);}
 .header-sub{margin-top:0.3rem;font-size:0.78rem;color:var(--text-dim);letter-spacing:0.08em;text-transform:uppercase;}
@@ -44,7 +44,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 /* TABS */
 .sidebar{display:flex;flex-direction:column;}
 .tab-bar{display:grid;grid-template-columns:repeat(5,1fr);background:var(--panel2);border-bottom:1px solid var(--border);}
-.tab-btn{padding:0.45rem 0.15rem;background:none;border:none;border-right:1px solid var(--border);cursor:pointer;font-family:'Cinzel',serif;font-size:0.52rem;color:var(--text-dim);letter-spacing:0.06em;text-transform:uppercase;text-align:center;transition:all 0.14s;line-height:1.3;}
+.tab-btn{padding:0.45rem 0.15rem;background:none;border:none;border-right:1px solid var(--border);cursor:pointer;font-family:'Cinzel',serif;font-size:0.7rem;color:var(--text-dim);letter-spacing:0.06em;text-transform:uppercase;text-align:center;transition:all 0.14s;line-height:1.3;}
 .tab-btn:last-child{border-right:none;}
 .tab-btn:hover{color:var(--text);background:rgba(201,168,76,0.04);}
 .tab-btn.active{color:var(--gold);background:rgba(201,168,76,0.08);border-bottom:2px solid var(--gold);}
@@ -56,8 +56,8 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .section:last-child{border-bottom:none;}
 .sec-hdr{padding:0.42rem 0.85rem;display:flex;align-items:center;gap:0.4rem;cursor:pointer;user-select:none;transition:background 0.14s;background:var(--panel2);}
 .sec-hdr:hover{background:rgba(201,168,76,0.05);}
-.sec-title{font-family:'Cinzel',serif;font-size:0.65rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;font-weight:600;flex:1;}
-.sec-sum{font-size:0.63rem;color:var(--text-dim);max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:0;transition:opacity 0.18s;}
+.sec-title{font-family:'Cinzel',serif;font-size:0.76rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;font-weight:600;flex:1;}
+.sec-sum{font-size:0.7rem;color:var(--text-dim);max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:0;transition:opacity 0.18s;}
 .section.collapsed .sec-sum{opacity:1;}
 .chev{color:var(--gold-dim);font-size:9px;transition:transform 0.2s;flex-shrink:0;}
 .section.collapsed .chev{transform:rotate(-90deg);}
@@ -66,7 +66,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 
 /* FORMS */
 .fp{padding:0.7rem 0.85rem;display:flex;flex-direction:column;gap:0.65rem;}
-.lbl{display:block;font-size:0.63rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.09em;margin-bottom:0.22rem;}
+.lbl{display:block;font-size:0.74rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.09em;margin-bottom:0.22rem;}
 select,input[type=number],input[type=text]{width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text-bright);font-family:'Rajdhani',sans-serif;font-size:0.84rem;padding:0.33rem 0.58rem;border-radius:3px;outline:none;transition:border-color 0.14s;-webkit-appearance:none;}
 select:focus,input:focus{border-color:var(--gold-dim);}
 select option{background:#0d1420;}
@@ -74,7 +74,7 @@ select option{background:#0d1420;}
 
 /* FACTIONS */
 .fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:3px;margin-bottom:0.55rem;}
-.fbtn{background:var(--deep);border:1px solid var(--border);border-radius:3px;padding:0.28rem 0.18rem;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.61rem;color:var(--text-dim);text-align:center;line-height:1.22;transition:all 0.11s;}
+.fbtn{background:var(--deep);border:1px solid var(--border);border-radius:3px;padding:0.32rem 0.22rem;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.73rem;color:var(--text-dim);text-align:center;line-height:1.22;transition:all 0.11s;}
 .fbtn:hover{border-color:var(--gold-dim);color:var(--text);}
 .fbtn.sel{background:rgba(201,168,76,0.11);border-color:var(--gold);color:var(--gold-bright);font-weight:600;}
 .fbtn .fi{font-size:11px;display:block;margin-bottom:1px;}
@@ -95,7 +95,7 @@ select option{background:#0d1420;}
 .oppslots{padding:0.55rem 0.85rem;display:flex;flex-direction:column;gap:0.35rem;}
 .oppslot{display:flex;align-items:center;gap:0.4rem;padding:0.28rem 0.45rem;background:var(--deep);border:1px solid var(--border);border-radius:3px;}
 .oppname{font-size:0.7rem;color:var(--text);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.oppvpin{width:34px;background:var(--panel2);border:1px solid var(--border);color:var(--text-bright);font-family:'Rajdhani',sans-serif;font-size:0.75rem;padding:0.13rem 0.32rem;border-radius:2px;text-align:center;outline:none;}
+.oppvpin{width:42px;background:var(--panel2);border:1px solid var(--border);color:var(--text-bright);font-family:'Rajdhani',sans-serif;font-size:0.82rem;padding:0.13rem 0.32rem;border-radius:2px;text-align:center;outline:none;}
 .oppvpin:focus{border-color:var(--gold-dim);}
 .oppclear{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:10px;padding:0 2px;transition:color 0.12s;}
 .oppclear:hover{color:#df6a5a;}
@@ -104,7 +104,7 @@ select option{background:#0d1420;}
 .minipicker{background:var(--panel3);border:1px solid var(--border);border-radius:3px;padding:0.45rem;margin-top:0.2rem;display:none;}
 .minipicker.open{display:block;}
 .minifgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(68px,1fr));gap:3px;}
-.minifbtn{background:var(--deep);border:1px solid var(--border);border-radius:2px;padding:0.22rem 0.18rem;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.58rem;color:var(--text-dim);text-align:center;line-height:1.2;transition:all 0.1s;}
+.minifbtn{background:var(--deep);border:1px solid var(--border);border-radius:2px;padding:0.26rem 0.22rem;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.7rem;color:var(--text-dim);text-align:center;line-height:1.2;transition:all 0.1s;}
 .minifbtn:hover{border-color:var(--gold-dim);color:var(--text);}
 .miniclose{width:100%;background:none;border:none;color:var(--text-dim);font-family:'Rajdhani',sans-serif;font-size:0.63rem;cursor:pointer;padding:0.18rem;text-align:center;margin-top:0.28rem;border-top:1px solid var(--border);}
 
@@ -112,7 +112,7 @@ select option{background:#0d1420;}
 .scgrid{padding:0.55rem 0.85rem;display:flex;flex-direction:column;gap:0.3rem;}
 .scrow{display:flex;align-items:center;gap:0.45rem;}
 .scinit{font-family:'Cinzel',serif;font-size:0.62rem;color:var(--gold-dim);min-width:12px;text-align:center;}
-.scname{font-size:0.7rem;color:var(--text);min-width:88px;}
+.scname{font-size:0.76rem;color:var(--text);min-width:94px;}
 .scinput{flex:1;font-size:0.7rem;padding:0.22rem 0.45rem;background:var(--deep);border:1px solid var(--border);color:var(--text-bright);border-radius:2px;outline:none;font-family:'Rajdhani',sans-serif;}
 .scinput:focus{border-color:var(--gold-dim);}
 .scinput.taken{border-color:rgba(74,122,175,0.4);color:#8ab8ef;background:rgba(42,70,110,0.14);}
@@ -122,7 +122,7 @@ select option{background:#0d1420;}
 .objsec{padding:0.55rem 0.85rem;display:flex;flex-direction:column;gap:0.3rem;}
 .objrow{display:flex;align-items:center;gap:0.35rem;}
 .objslot{font-size:0.58rem;color:var(--gold-dim);min-width:11px;}
-.objin{flex:1;font-size:0.7rem;padding:0.22rem 0.45rem;background:var(--deep);border:1px solid var(--border);color:var(--text-bright);border-radius:2px;outline:none;font-family:'Rajdhani',sans-serif;}
+.objin{flex:1;font-size:0.78rem;padding:0.22rem 0.45rem;background:var(--deep);border:1px solid var(--border);color:var(--text-bright);border-radius:2px;outline:none;font-family:'Rajdhani',sans-serif;}
 .objin:focus{border-color:var(--gold-dim);}
 .objin.filled{border-color:rgba(42,138,100,0.38);color:#5adfa0;background:rgba(20,80,50,0.09);}
 .objdiv{font-size:0.58rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.07em;padding-top:0.28rem;border-top:1px solid var(--border);margin-top:0.18rem;}
@@ -160,7 +160,7 @@ select option{background:#0d1420;}
 /* TECH */
 .techgrid{padding:0.6rem 0.85rem;display:flex;flex-direction:column;gap:0.55rem;}
 .techcat{display:flex;flex-direction:column;gap:3px;}
-.techcatlbl{font-size:0.6rem;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:2px;font-weight:600;}
+.techcatlbl{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:2px;font-weight:600;}
 .techcatlbl.blue{color:var(--blue-hi);}
 .techcatlbl.red{color:var(--red-hi);}
 .techcatlbl.yellow{color:var(--yellow-hi);}
@@ -175,17 +175,17 @@ select option{background:#0d1420;}
 .techitem.owned.red .techcheck{background:var(--red-hi);border-color:var(--red-hi);}
 .techitem.owned.yellow .techcheck{background:var(--yellow-hi);border-color:var(--yellow-hi);}
 .techitem.owned.green .techcheck{background:var(--green-hi);border-color:var(--green-hi);}
-.techname{font-size:0.7rem;color:var(--text-dim);transition:color 0.11s;flex:1;}
+.techname{font-size:0.78rem;color:var(--text-dim);transition:color 0.11s;flex:1;}
 .techitem.owned .techname{color:var(--text-bright);}
-.techpre{font-size:0.56rem;color:var(--text-dim);opacity:0.55;}
+.techpre{font-size:0.66rem;color:var(--text-dim);opacity:0.55;}
 
 /* ACTION CARDS */
 .acsec{padding:0.55rem 0.85rem;display:flex;flex-direction:column;gap:0.32rem;}
 .acrow{display:flex;align-items:center;gap:0.35rem;padding:0.28rem 0.42rem;background:var(--deep);border:1px solid var(--border);border-radius:3px;transition:border-color 0.12s;}
 .acrow:hover{border-color:rgba(201,168,76,0.3);}
-.acname-in{flex:1;background:transparent;border:none;color:var(--text-bright);font-family:'Rajdhani',sans-serif;font-size:0.7rem;outline:none;min-width:0;}
+.acname-in{flex:1;background:transparent;border:none;color:var(--text-bright);font-family:'Rajdhani',sans-serif;font-size:0.78rem;outline:none;min-width:0;}
 .acname-in::placeholder{color:var(--text-dim);}
-.actag{font-size:0.56rem;padding:0.08rem 0.3rem;border-radius:2px;border:1px solid;cursor:pointer;white-space:nowrap;font-family:'Rajdhani',sans-serif;letter-spacing:0.04em;text-transform:uppercase;transition:all 0.1s;}
+.actag{font-size:0.66rem;padding:0.08rem 0.3rem;border-radius:2px;border:1px solid;cursor:pointer;white-space:nowrap;font-family:'Rajdhani',sans-serif;letter-spacing:0.04em;text-transform:uppercase;transition:all 0.1s;}
 .actag.combat{border-color:rgba(223,106,74,0.4);color:var(--red-hi);}
 .actag.political{border-color:rgba(196,122,232,0.4);color:var(--purple-hi);}
 .actag.economic{border-color:rgba(223,191,74,0.4);color:var(--yellow-hi);}
@@ -196,7 +196,7 @@ select option{background:#0d1420;}
 .acclear:hover{color:#df6a5a;}
 .acaddbtn{width:100%;background:none;border:1px dashed var(--border);color:var(--text-dim);font-family:'Rajdhani',sans-serif;font-size:0.66rem;padding:0.26rem;border-radius:3px;cursor:pointer;transition:all 0.12s;}
 .acaddbtn:hover{border-color:var(--gold-dim);color:var(--text);}
-.ac-ai-btn{width:100%;background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.25);color:var(--gold-dim);font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.07em;padding:0.32rem;border-radius:3px;cursor:pointer;transition:all 0.13s;text-transform:uppercase;margin-top:0.2rem;}
+.ac-ai-btn{width:100%;background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.25);color:var(--gold-dim);font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.07em;padding:0.32rem;border-radius:3px;cursor:pointer;transition:all 0.13s;text-transform:uppercase;margin-top:0.2rem;}
 .ac-ai-btn:hover{background:rgba(201,168,76,0.14);border-color:var(--gold-dim);color:var(--gold);}
 
 /* AGENDA */
@@ -227,7 +227,7 @@ select option{background:#0d1420;}
 .journal-round-del:hover{color:#df6a5a;}
 .journal-events{padding:0.35rem 0.55rem;display:flex;flex-direction:column;gap:0.22rem;}
 .journal-event{display:flex;align-items:flex-start;gap:0.35rem;}
-.journal-event-in{flex:1;background:transparent;border:none;border-bottom:1px solid rgba(201,168,76,0.1);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:0.72rem;padding:0.1rem 0;outline:none;transition:border-color 0.12s;}
+.journal-event-in{flex:1;background:transparent;border:none;border-bottom:1px solid rgba(201,168,76,0.1);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:0.8rem;padding:0.1rem 0;outline:none;transition:border-color 0.12s;}
 .journal-event-in::placeholder{color:var(--text-dim);}
 .journal-event-in:focus{border-bottom-color:var(--gold-dim);}
 .journal-event-del{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:9px;margin-top:2px;transition:color 0.11s;flex-shrink:0;}
@@ -284,7 +284,7 @@ select option{background:#0d1420;}
 .welcome h2{font-family:'Cinzel',serif;font-size:0.92rem;color:var(--gold);font-weight:400;letter-spacing:0.06em;}
 .welcome p{font-size:0.76rem;color:var(--text-dim);max-width:330px;line-height:1.65;}
 .qbtns{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:0.15rem;}
-.qbtn{background:var(--panel2);border:1px solid var(--border);border-radius:3px;padding:0.24rem 0.55rem;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.7rem;color:var(--text-dim);transition:all 0.11s;}
+.qbtn{background:var(--panel2);border:1px solid var(--border);border-radius:3px;padding:0.32rem 0.65rem;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.78rem;color:var(--text-dim);transition:all 0.11s;}
 .qbtn:hover{border-color:var(--gold-dim);color:var(--text);}
 
 /* MESSAGES */
@@ -322,7 +322,7 @@ select option{background:#0d1420;}
 .scan-qbtn{background:rgba(42,90,138,0.08);border:1px solid rgba(74,122,175,0.22);border-radius:2px;padding:0.18rem 0.45rem;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.65rem;color:rgba(100,160,230,0.7);transition:all 0.11s;}
 .scan-qbtn:hover{border-color:rgba(74,154,223,0.5);color:rgba(150,200,255,0.9);}
 .input-area{border-top:1px solid var(--border);padding:0.58rem 0.8rem;display:flex;gap:0.45rem;align-items:flex-end;}
-.scan-btn{background:rgba(42,90,138,0.13);border:1px solid rgba(74,122,175,0.32);color:rgba(100,160,230,0.8);font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.06em;padding:0 0.7rem;border-radius:3px;cursor:pointer;transition:all 0.13s;white-space:nowrap;height:36px;text-transform:uppercase;flex-shrink:0;}
+.scan-btn{background:rgba(42,90,138,0.13);border:1px solid rgba(74,122,175,0.32);color:rgba(100,160,230,0.8);font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.06em;padding:0 0.7rem;border-radius:3px;cursor:pointer;transition:all 0.13s;white-space:nowrap;height:36px;text-transform:uppercase;flex-shrink:0;}
 .scan-btn:hover{background:rgba(42,90,188,0.22);border-color:rgba(74,154,223,0.55);color:rgba(150,200,255,0.95);}
 .mic-btn{background:rgba(42,90,138,0.13);border:1px solid rgba(74,122,175,0.32);color:rgba(100,160,230,0.8);font-size:15px;padding:0;border-radius:3px;cursor:pointer;transition:all 0.13s;width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .mic-btn:hover{background:rgba(42,90,188,0.22);border-color:rgba(74,154,223,0.55);}
@@ -394,8 +394,8 @@ select option{background:#0d1420;}
 .pn-player-name.you{color:var(--gold);}
 .pn-notes{display:flex;flex-wrap:wrap;gap:4px;}
 .pn-note{display:flex;flex-direction:column;align-items:center;gap:1px;cursor:pointer;min-width:42px;}
-.pn-note-label{font-size:0.56rem;color:var(--text-dim);letter-spacing:0.03em;text-align:center;line-height:1.2;}
-.pn-note-sel{background:var(--panel2);border:1px solid var(--border);color:var(--text-dim);font-family:'Rajdhani',sans-serif;font-size:0.58rem;padding:0.12rem 0.2rem;border-radius:2px;outline:none;width:100%;cursor:pointer;-webkit-appearance:none;text-align:center;transition:all 0.12s;}
+.pn-note-label{font-size:0.67rem;color:var(--text-dim);letter-spacing:0.03em;text-align:center;line-height:1.2;}
+.pn-note-sel{background:var(--panel2);border:1px solid var(--border);color:var(--text-dim);font-family:'Rajdhani',sans-serif;font-size:0.68rem;padding:0.12rem 0.2rem;border-radius:2px;outline:none;width:100%;cursor:pointer;-webkit-appearance:none;text-align:center;transition:all 0.12s;}
 .pn-note-sel:focus{border-color:var(--gold-dim);}
 .pn-note-sel.away{border-color:rgba(74,154,223,0.45);color:var(--blue-hi);background:rgba(42,70,110,0.18);}
 .pn-note-sel.inplay{border-color:rgba(74,223,138,0.45);color:var(--teal-hi);background:rgba(20,80,50,0.15);}
@@ -403,6 +403,68 @@ select option{background:#0d1420;}
 .pn-note-sel.used{opacity:0.35;}
 .pn-ai-btn{width:100%;background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2);color:var(--gold-dim);font-family:'Cinzel',serif;font-size:0.57rem;letter-spacing:0.07em;padding:0.28rem;border-radius:3px;cursor:pointer;transition:all 0.12s;text-transform:uppercase;margin-top:0.15rem;}
 .pn-ai-btn:hover{background:rgba(201,168,76,0.13);border-color:var(--gold-dim);color:var(--gold);}
+
+/* ── COMPACT GAME HEADER ── */
+.header.game-active .header-deco,
+.header.game-active h1,
+.header.game-active .header-sub { display:none; }
+.game-status-bar { display:none; align-items:center; gap:0.6rem; flex-wrap:wrap; justify-content:center; }
+.header.game-active .game-status-bar { display:flex; }
+.gs-chip { background:var(--panel2); border:1px solid var(--border); border-radius:3px; padding:0.22rem 0.65rem; font-family:'Cinzel',serif; font-size:0.7rem; color:var(--text-dim); letter-spacing:0.05em; }
+.gs-chip.faction { border-color:rgba(201,168,76,0.4); color:var(--gold); font-weight:600; }
+.gs-chip.vp { border-color:rgba(74,154,223,0.3); color:var(--blue-hi); }
+.gs-chip.round { color:var(--text); }
+.round-advance-btn { background:rgba(74,154,223,0.1); border:1px solid rgba(74,154,223,0.4); border-radius:3px; color:var(--blue-hi); font-family:'Cinzel',serif; font-size:0.68rem; letter-spacing:0.06em; padding:0.22rem 0.75rem; cursor:pointer; transition:all 0.13s; text-transform:uppercase; white-space:nowrap; }
+.round-advance-btn:hover { background:rgba(74,154,223,0.2); border-color:var(--blue-hi); color:#7bc8f8; }
+
+/* ── FACTION SEARCH ── */
+.fac-search { width:100%; background:var(--deep); border:1px solid var(--border); color:var(--text-bright); font-family:'Rajdhani',sans-serif; font-size:0.8rem; padding:0.32rem 0.58rem; border-radius:3px; outline:none; margin-bottom:0.45rem; transition:border-color 0.14s; }
+.fac-search:focus { border-color:var(--gold-dim); }
+.fac-search::placeholder { color:var(--text-dim); }
+
+/* ── PERSISTENT QUICK STRIP ── */
+.quick-strip { border-top:1px solid var(--border); background:var(--panel3); padding:0.42rem 0.7rem; display:flex; gap:5px; flex-wrap:wrap; overflow-x:auto; scrollbar-width:none; }
+.quick-strip::-webkit-scrollbar { display:none; }
+.qs-btn { background:var(--panel2); border:1px solid var(--border); border-radius:3px; padding:0.22rem 0.58rem; cursor:pointer; font-family:'Rajdhani',sans-serif; font-size:0.72rem; color:var(--text-dim); white-space:nowrap; transition:all 0.11s; flex-shrink:0; }
+.qs-btn:hover { border-color:var(--gold-dim); color:var(--text); background:rgba(201,168,76,0.04); }
+.qs-btn.context { border-color:rgba(74,154,223,0.28); color:rgba(100,180,240,0.75); }
+.qs-btn.context:hover { border-color:var(--blue-hi); color:var(--blue-hi); }
+
+/* ── COPY BUTTON ON AI MESSAGES ── */
+.msg-actions { display:flex; gap:4px; margin-top:0.28rem; }
+.msg-copy-btn { background:none; border:1px solid var(--border); border-radius:2px; color:var(--text-dim); font-size:0.62rem; padding:0.1rem 0.42rem; cursor:pointer; font-family:'Rajdhani',sans-serif; transition:all 0.11s; display:flex; align-items:center; gap:3px; }
+.msg-copy-btn:hover { border-color:var(--gold-dim); color:var(--gold); }
+.msg-copy-btn.copied { border-color:rgba(74,223,138,0.45); color:var(--teal-hi); }
+
+/* ── SCROLL TO BOTTOM BUTTON ── */
+.scroll-to-bottom { position:absolute; bottom:0.6rem; right:0.6rem; background:var(--panel2); border:1px solid var(--border); border-radius:50%; width:28px; height:28px; cursor:pointer; display:none; align-items:center; justify-content:center; font-size:12px; color:var(--text-dim); transition:all 0.13s; z-index:10; }
+.scroll-to-bottom.vis { display:flex; }
+.scroll-to-bottom:hover { border-color:var(--gold-dim); color:var(--gold); }
+.chat-msgs-wrap { flex:1; position:relative; overflow:hidden; display:flex; flex-direction:column; }
+
+/* ── SEND BUTTON LOADING STATE ── */
+.send-btn.loading { background:rgba(74,154,223,0.12); border-color:rgba(74,154,223,0.45); color:var(--blue-hi); }
+.send-btn.loading::after { content:''; display:inline-block; width:8px; height:8px; border:1.5px solid rgba(74,154,223,0.3); border-top-color:var(--blue-hi); border-radius:50%; animation:spin 0.7s linear infinite; margin-left:5px; vertical-align:middle; }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+/* ── OPPONENT VP +/- BUTTONS ── */
+.opp-vp-ctr { display:flex; align-items:center; gap:2px; }
+.opp-vp-ctr .resctr-btn { width:20px; height:20px; }
+.opp-vp-ctr .resctr-val { font-size:0.85rem; min-width:22px; }
+
+/* ── MOBILE BOTTOM NAV ── */
+@media(max-width:900px) {
+  .tab-bar { position:sticky; bottom:0; z-index:20; border-top:1px solid var(--border); border-bottom:none; order:999; }
+  .sidebar { flex-direction:column-reverse; }
+  .tab-content.active { order:-1; }
+  .tab-btn { padding:0.55rem 0.15rem 0.4rem; }
+  .chat-panel { height:60vh; min-height:340px; }
+  .layout { gap:0.75rem; }
+  .quick-strip { flex-wrap:nowrap; }
+}
+
+/* ── SECTION COLLAPSE VISUAL POLISH ── */
+.sec-body { transition:max-height 0.28s cubic-bezier(0.4,0,0.2,1), opacity 0.2s; }
 </style>
 </head>
 <body>
@@ -411,9 +473,16 @@ select option{background:#0d1420;}
 <div class="toast" id="toast"></div>
 
 <!-- HEADER -->
-<header class="header">
+<header class="header" id="mainheader">
+  <div class="header-deco">✦  ✦  ✦</div>
   <h1>TWILIGHT IMPERIUM <span>IV</span></h1>
-  <div class="header-sub">AI Strategy Advisor &nbsp;·&nbsp; Base Game + Prophecy of Kings</div>
+  <div class="header-sub" id="headerSub">AI Strategy Advisor &nbsp;·&nbsp; Base Game + Prophecy of Kings</div>
+  <div class="game-status-bar" id="gameStatusBar">
+    <span class="gs-chip faction" id="gs-faction">—</span>
+    <span class="gs-chip round" id="gs-round">Round 1</span>
+    <span class="gs-chip vp" id="gs-vp">0 VP</span>
+    <button class="round-advance-btn" onclick="advanceRound()" title="End this round, advance to next">▶ Next Round</button>
+  </div>
   <div class="header-actions">
     <button class="hbtn primary" onclick="saveState()">💾 Save State</button>
     <button class="hbtn primary" onclick="loadStateDialog()">📂 Load State</button>
@@ -467,17 +536,18 @@ select option{background:#0d1420;}
           </select>
         </div>
         <div><label class="lbl">Expansions</label>
-          <select id="expansions" onchange="updateSums()"><option value="te">Base + PoK + Thunder's Edge</option><option value="pok">Base + Prophecy of Kings</option><option value="base">Base Game Only</option></select>
+          <select id="expansions" onchange="updateSums();updateHeaderSub()"><option value="te">Base + PoK + Thunder's Edge</option><option value="pok">Base + Prophecy of Kings</option><option value="base">Base Game Only</option></select>
         </div>
         <div><label class="lbl">Extra Context</label>
           <input type="text" id="context" placeholder="e.g. Hacan neighbor, weak slice…">
         </div>
       </div></div>
     </div>
-    <div class="section" id="sec-faction">
+    <div class="section collapsed" id="sec-faction">
       <div class="sec-hdr" onclick="toggleSec('sec-faction')"><span class="sec-title">Your Faction</span><span class="sec-sum" id="sum-faction">None</span><span class="chev">▾</span></div>
       <div class="sec-body"><div style="padding:0.55rem 0.85rem">
         <div style="font-size:0.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.38rem">Base Game</div>
+        <input class="fac-search" id="facSearch" placeholder="🔍 Filter factions…" oninput="filterFactions(this.value)">
         <div class="fgrid" id="myBaseFac"></div>
         <div class="gdiv">· · ·</div>
         <div style="font-size:0.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;margin:0.38rem 0">Prophecy of Kings</div>
@@ -523,18 +593,18 @@ select option{background:#0d1420;}
       <div class="sec-hdr" onclick="toggleSec('sec-res')"><span class="sec-title">⚡ Resources & Tokens</span><span class="sec-sum" id="sum-res">—</span><span class="chev">▾</span></div>
       <div class="sec-body"><div class="restable" id="restable"></div></div>
     </div>
-    <div class="section" id="sec-sc">
+    <div class="section collapsed" id="sec-sc">
       <div class="sec-hdr" onclick="toggleSec('sec-sc')"><span class="sec-title">Strategy Cards</span><span class="sec-sum" id="sum-sc">0/8</span><span class="chev">▾</span></div>
       <div class="sec-body">
         <div class="scgrid" id="scgrid"></div>
         <div style="padding:0 0.85rem 0.6rem"><button class="sbbtn" onclick="clearCards()">Clear All Cards</button></div>
       </div>
     </div>
-    <div class="section" id="sec-obj">
+    <div class="section collapsed" id="sec-obj">
       <div class="sec-hdr" onclick="toggleSec('sec-obj')"><span class="sec-title">Public Objectives</span><span class="sec-sum" id="sum-obj">0 revealed</span><span class="chev">▾</span></div>
       <div class="sec-body"><div class="objsec" id="objpanel"></div></div>
     </div>
-    <div class="section" id="sec-sec">
+    <div class="section collapsed" id="sec-sec">
       <div class="sec-hdr" onclick="toggleSec('sec-sec')"><span class="sec-title">🔒 Secret Objectives</span><span class="sec-sum" id="sum-sec">0 held</span><span class="chev">▾</span></div>
       <div class="sec-body">
         <div style="padding:0.35rem 0.85rem 0.1rem;font-size:0.64rem;color:rgba(170,110,210,0.65);line-height:1.5">Private — visible only to you and the AI.</div>
@@ -580,7 +650,7 @@ select option{background:#0d1420;}
 
   <!-- ═ TECH ═ -->
   <div class="tab-content" id="content-tech">
-    <div class="section" id="sec-tech">
+    <div class="section collapsed" id="sec-tech">
       <div class="sec-hdr" onclick="toggleSec('sec-tech')"><span class="sec-title">Your Technologies</span><span class="sec-sum" id="sum-tech">0 owned</span><span class="chev">▾</span></div>
       <div class="sec-body"><div class="techgrid" id="techgrid"></div></div>
     </div>
@@ -588,7 +658,7 @@ select option{background:#0d1420;}
 
   <!-- ═ ACTIONS ═ -->
   <div class="tab-content" id="content-actions">
-    <div class="section" id="sec-ac">
+    <div class="section collapsed" id="sec-ac">
       <div class="sec-hdr" onclick="toggleSec('sec-ac')"><span class="sec-title">🎯 Action Card Hand</span><span class="sec-sum" id="sum-ac">0 cards</span><span class="chev">▾</span></div>
       <div class="sec-body">
         <div style="padding:0.35rem 0.85rem 0.1rem;font-size:0.63rem;color:var(--text-dim);line-height:1.5">Tag cards by situation. Click tag to cycle. Private — AI sees these.</div>
@@ -598,7 +668,7 @@ select option{background:#0d1420;}
         </div>
       </div>
     </div>
-    <div class="section" id="sec-ag">
+    <div class="section collapsed" id="sec-ag">
       <div class="sec-hdr" onclick="toggleSec('sec-ag')"><span class="sec-title">🗳 Agenda Phase</span><span class="sec-sum" id="sum-ag">—</span><span class="chev">▾</span></div>
       <div class="sec-body">
         <div class="agsec">
@@ -622,7 +692,7 @@ select option{background:#0d1420;}
         </div>
       </div>
     </div>
-    <div class="section" id="sec-vpo">
+    <div class="section collapsed" id="sec-vpo">
       <div class="sec-hdr" onclick="toggleSec('sec-vpo')">
         <span class="sec-title">🎯 Victory Path Optimizer</span>
         <span class="sec-sum" id="sum-vpo">—</span>
@@ -654,7 +724,7 @@ select option{background:#0d1420;}
 
   <!-- ═ JOURNAL ═ -->
   <div class="tab-content" id="content-journal">
-    <div class="section" id="sec-journal">
+    <div class="section collapsed" id="sec-journal">
       <div class="sec-hdr" onclick="toggleSec('sec-journal')"><span class="sec-title">Round Journal</span><span class="sec-sum" id="sum-journal">0 rounds</span><span class="chev">▾</span></div>
       <div class="sec-body">
         <div class="journal-pad" id="journalpad"></div>
@@ -685,6 +755,8 @@ select option{background:#0d1420;}
     </div>
     <div id="threatRows"></div>
   </div>
+  <div class="chat-msgs-wrap">
+  <button class="scroll-to-bottom" id="scrollBottomBtn" onclick="scrollToBottom()" title="Jump to latest">↓</button>
   <div class="chat-msgs" id="chatmsgs">
     <div class="welcome" id="welcomescreen">
       <div class="sigil">⬡</div>
@@ -704,6 +776,7 @@ select option{background:#0d1420;}
       </div>
     </div>
   </div>
+  </div><!-- /chat-msgs-wrap -->
   <div class="img-preview" id="imgpreview">
     <div class="imgthumb-w"><img id="imgthumb" class="imgthumb" src="" alt="Board"><button class="imgthumb-rm" onclick="clearPhoto()">✕</button></div>
     <div style="display:flex;flex-direction:column;gap:4px;flex:1">
@@ -714,6 +787,9 @@ select option{background:#0d1420;}
         <button class="scan-qbtn" onclick="scanWith('What tactical opportunities and dangers are visible on this board?')">Opportunities</button>
       </div>
     </div>
+  </div>
+  <div class="quick-strip" id="quickStrip">
+    <!-- populated by JS based on active tab -->
   </div>
   <div class="input-area">
     <button class="scan-btn" onclick="document.getElementById('photoinput').click()">📷 Scan</button>
@@ -918,6 +994,7 @@ let loading = false;
 // TABS
 // ════════════════════════════════════════
 function switchTab(name) {
+  renderQuickStrip(name);
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
   document.getElementById('tab-'+name).classList.add('active');
@@ -966,6 +1043,7 @@ function updateSums() {
   updateVPBoard();
   updateThreatMonitor();
   buildTETracker();
+  updateGameHeader();
   buildVPOPanel();
   // Refresh TE section visibility
   const _exp=el('expansions')?.value||'pok';
@@ -985,7 +1063,7 @@ function buildFacGrids() {
   const allBtnContainers='#myBaseFac .fbtn, #myPokFac .fbtn, #myTEFac .fbtn';
   FACTIONS.forEach(f=>{
     const btn=document.createElement('button');
-    btn.className='fbtn'; btn.innerHTML='<span class="fi">'+f.i+'</span>'+f.n;
+    btn.className='fbtn'; btn.dataset.n=f.n; btn.innerHTML='<span class="fi">'+f.i+'</span>'+f.n;
     btn.onclick=()=>{
       qAll(allBtnContainers).forEach(b=>b.classList.remove('sel'));
       btn.classList.add('sel'); S.myFaction=f.n; updateSums(); rebuildFacTechs(); rebuildResTable();
@@ -1016,12 +1094,27 @@ function buildMiniFacGrid() {
 // ════════════════════════════════════════
 // OPPONENTS
 // ════════════════════════════════════════
+function adjOppVP(i, delta) {
+  if(!S.opponents[i]) return;
+  const vp = Math.max(0, Math.min(14, (S.opponents[i].vp||0) + delta));
+  S.opponents[i].vp = vp;
+  const valEl = el('opp-vp-val-'+i);
+  if(valEl) valEl.textContent = vp;
+  updateSums(); rebuildResTable();
+}
+
 function renderOpps() {
   const c=el('oppslots'); c.innerHTML='';
   S.opponents.forEach((o,i)=>{
     const f=FACTIONS.find(x=>x.n===o.f);
     const div=document.createElement('div'); div.className='oppslot';
-    div.innerHTML='<span style="font-size:13px">'+(f?f.i:'?')+'</span><span class="oppname">'+o.f+'</span><span style="font-size:0.6rem;color:var(--text-dim)">VP</span><input class="oppvpin" type="number" min="0" max="14" value="'+o.vp+'" onchange="S.opponents['+i+'].vp=parseInt(this.value)||0;updateSums();rebuildResTable()"><button class="oppclear" onclick="S.opponents.splice('+i+',1);renderOpps()" title="Remove">✕</button>';
+    div.innerHTML='<span style="font-size:13px">'+(f?f.i:'?')+'</span><span class="oppname">'+o.f+'</span>'
+      +'<div class="opp-vp-ctr">'
+      +'<button class="resctr-btn" onclick="adjOppVP('+i+',-1)">−</button>'
+      +'<span class="resctr-val" id="opp-vp-val-'+i+'">'+o.vp+'</span>'
+      +'<button class="resctr-btn" onclick="adjOppVP('+i+',1)">+</button>'
+      +'</div>'
+      +'<button class="oppclear" onclick="S.opponents.splice('+i+',1);renderOpps()" title="Remove">✕</button>';
     c.appendChild(div);
   });
   updateSums(); renderPromLedger(); rebuildResTable();
@@ -1327,7 +1420,11 @@ function gatherState() {
     actionCards:S.actionCards, journal:S.journal, resources:S.resources,
     cardHolders:SCARDS.reduce((acc,c)=>{acc[c.n]=getHolder(c.n);return acc;},{}),
     objectives:qAll('.obj-in').map(i=>i.value),
-    promNotes:S.promNotes
+    promNotes:S.promNotes,
+    teExpedition:S.teExpedition||null,
+    teBreakthroughs:S.teBreakthroughs||null,
+    teEvents:S.teEvents||['','',''],
+    teStations:S.teStations||[]
   };
 }
 
@@ -1347,8 +1444,14 @@ function applyState(data) {
   if(data.position) el('position').value=data.position;
   if(data.expansions) el('expansions').value=data.expansions;
   if(data.context) el('context').value=data.context;
-  // Faction buttons
-  qAll('#myBaseFac .fbtn, #myPokFac .fbtn').forEach(b=>{b.classList.toggle('sel', b.dataset.n===S.myFaction);});
+  // TE state
+  if(data.teExpedition) S.teExpedition=data.teExpedition;
+  if(data.teBreakthroughs) S.teBreakthroughs=data.teBreakthroughs;
+  if(data.teEvents) S.teEvents=data.teEvents;
+  if(data.teStations) S.teStations=data.teStations;
+  // Faction buttons — include TE faction grid
+  qAll('#myBaseFac .fbtn, #myPokFac .fbtn, #myTEFac .fbtn').forEach(b=>{b.classList.toggle('sel', b.dataset.n===S.myFaction);});
+  updateHeaderSub();
   // Card holders
   if(data.cardHolders) SCARDS.forEach(c=>{ const e=el('sc-'+c.n); if(e&&data.cardHolders[c.n]){e.value=data.cardHolders[c.n];onCardInput(e);}});
   // Objectives
@@ -1577,6 +1680,16 @@ function addMsg(role, content) {
   if(role==='assistant'){
     if(S.myFaction){const t=document.createElement('div');t.className='ftag';t.textContent=S.myFaction;bub.appendChild(t);}
     const cd=document.createElement('div');cd.innerHTML=renderMD(content);bub.appendChild(cd);
+    // Copy + actions row
+    const acts=document.createElement('div');acts.className='msg-actions';
+    const cpyBtn=document.createElement('button');cpyBtn.className='msg-copy-btn';cpyBtn.innerHTML='📋 Copy';
+    cpyBtn.onclick=()=>{
+      navigator.clipboard.writeText(content).then(()=>{
+        cpyBtn.innerHTML='✓ Copied';cpyBtn.classList.add('copied');
+        setTimeout(()=>{cpyBtn.innerHTML='📋 Copy';cpyBtn.classList.remove('copied');},1800);
+      }).catch(()=>showToast('Copy failed',1500));
+    };
+    acts.appendChild(cpyBtn);bub.appendChild(acts);
   } else { bub.textContent=content; }
   div.appendChild(bub); msgs.appendChild(div); msgs.scrollTop=msgs.scrollHeight;
 }
@@ -1600,7 +1713,7 @@ async function sendMsg() {
   if(loading)return;
   const inp=el('userinput'); const text=inp.value.trim(); if(!text)return;
   inp.value=''; inp.style.height='auto';
-  loading=true; el('sendbtn').disabled=true; setStatus(true,'Transmitting…');
+  loading=true; el('sendbtn').disabled=true; el('sendbtn').classList.add('loading'); el('sendbtn').textContent=''; setStatus(true,'Transmitting…');
   addMsg('user',text); showThinking();
   let userContent;
   if(photoData){
@@ -1614,7 +1727,7 @@ async function sendMsg() {
     if(data.error){addMsg('assistant','**Error**\n\n'+data.error.message);history.pop();setStatus(false,'Error');}
     else{const reply=data.content?.find(b=>b.type==='text')?.text||'No response.';addMsg('assistant',reply);history.push({role:'assistant',content:reply});const n=history.filter(m=>m.role==='user').length;setStatus(false,n+' exchange'+(n!==1?'s':''));}
   } catch(err){hideThinking();addMsg('assistant','**Network Error**\n\n`'+err.message+'`');history.pop();setStatus(false,'Disconnected');}
-  loading=false; el('sendbtn').disabled=false; el('userinput').focus();
+  loading=false; el('sendbtn').disabled=false; el('sendbtn').classList.remove('loading'); el('sendbtn').textContent='Transmit'; el('userinput').focus();
 }
 
 function quickAsk(text){el('userinput').value=text;sendMsg();}
@@ -1911,7 +2024,7 @@ function buildTETracker() {
       const info=TE_BREAKTHROUGHS[bt.faction]||{name:'?',synergy:'?',desc:''};
       const row=document.createElement('div'); row.className='te-bt-row';
       row.innerHTML='<span class="te-bt-faction" title="'+info.desc+'">'+bt.faction+' — '+info.name+' '+info.synergy+'</span>'
-        +'<button class="te-bt-toggle'+(bt.unlocked?' unlocked':'')+'" onclick="toggleBT('+i+')">'+(bt.unlocked?'✓ Unlocked':'Locked')+'</button>';
+        +'<button class="te-bt-toggle'+(bt.unlocked?' unlocked':'')+'" onclick="toggleBT('+JSON.stringify(bt.faction)+')">'+(bt.unlocked?'✓ Unlocked':'Locked')+'</button>';
       btDiv.appendChild(row);
     });
   }
@@ -1945,9 +2058,10 @@ function buildTETracker() {
   el('sum-te').textContent=claimed+'/6 slices · '+unlocked+' BT';
 }
 
-function toggleBT(idx){
+function toggleBT(faction){
   initTEState();
-  S.teBreakthroughs[idx].unlocked=!S.teBreakthroughs[idx].unlocked;
+  const bt=S.teBreakthroughs.find(b=>b.faction===faction);
+  if(bt) bt.unlocked=!bt.unlocked;
   buildTETracker();
 }
 
@@ -1992,6 +2106,7 @@ const PUBLIC_OBJ_DATA = [
 function buildVPOPanel(){
   const panel=el('vpo-objectives'); if(!panel) return;
   panel.innerHTML='';
+  _vpoSelected.clear();  // Clear stale selections whenever panel rebuilds
   const vpGoal=parseInt(el('vpGoal')?.value||10);
   const myVP=parseInt(el('myVP')?.value||0);
   const needed=vpGoal-myVP;
@@ -2073,9 +2188,12 @@ async function runVPO(){
   const q='Victory Path Optimizer:\n\nVP: '+myVP+'/'+vpGoal+'. Round '+round+'. CTs: '+ct+'. TGs: '+tg+'.\n\nObjectives I can score:\n'+selected.map((s,i)=>(i+1)+'. '+s).join('\n')+'\n\nFaction: '+(S.myFaction||'unknown')+'. Rank these objectives by priority. Give exact action sequence, what NOT to do, and what to set up for next round. Be concrete.';
   el('userinput').value=q;
   sendMsg();
-  // Show result area
+  // Point user to chat for result
   const res=el('vpo-result');
-  if(res){ res.style.display='block'; res.textContent='Calculating...'; }
+  if(res){
+    res.style.display='block'; res.textContent='Calculating…';
+    setTimeout(()=>{ if(res.textContent==='Calculating…') res.textContent='↑ Analysis sent — see chat above'; }, 3500);
+  }
 }
 
 // ════════════════════════════════════════
@@ -2168,11 +2286,143 @@ function stopVoice(manual) {
 }
 
 // ════════════════════════════════════════
+// ════════════════════════════════════════
+// UX: COMPACT HEADER & GAME STATUS BAR
+// ════════════════════════════════════════
+function updateHeaderSub() {
+  const sub = el('headerSub'); if(!sub) return;
+  const exp = el('expansions')?.value||'pok';
+  const labels = {te:"Base + PoK + Thunder's Edge", pok:'Base + Prophecy of Kings', base:'Base Game Only'};
+  sub.innerHTML = 'AI Strategy Advisor &nbsp;·&nbsp; ' + (labels[exp]||'Base + Prophecy of Kings');
+}
+
+function updateGameHeader() {
+  const header = el('mainheader');
+  const gsBar = el('gameStatusBar');
+  if (!header || !gsBar) return;
+  if (S.myFaction) {
+    header.classList.add('game-active');
+    el('gs-faction').textContent = S.myFaction;
+    el('gs-round').textContent = 'Round ' + (el('roundNum')?.value || 1);
+    el('gs-vp').textContent = (el('myVP')?.value || 0) + ' VP';
+  } else {
+    header.classList.remove('game-active');
+  }
+}
+
+function advanceRound() {
+  const rn = el('roundNum');
+  if (!rn) return;
+  const cur = parseInt(rn.value) || 1;
+  const next = cur + 1;
+  rn.value = next;
+  // Auto-add a journal round
+  if (!S.journal.find(r => r.round === next)) {
+    S.journal.push({ round: next, events: [''] });
+    renderJournal();
+  }
+  updateSums();
+  saveState();
+  showToast('Round ' + next + ' started', 1400);
+  quickAsk('Round ' + next + ' is starting. Given current VP standings and what happened last round, what are my most important priorities this round? Be specific to my faction and game state.');
+}
+
+// ════════════════════════════════════════
+// UX: FACTION SEARCH FILTER
+// ════════════════════════════════════════
+function filterFactions(query) {
+  const q = query.toLowerCase().trim();
+  qAll('#myBaseFac .fbtn, #myPokFac .fbtn, #myTEFac .fbtn').forEach(btn => {
+    const match = !q || btn.textContent.toLowerCase().includes(q);
+    btn.style.display = match ? '' : 'none';
+  });
+  // Auto-expand faction section when typing
+  if (q) {
+    const sec = el('sec-faction');
+    if (sec) sec.classList.remove('collapsed');
+  }
+}
+
+// ════════════════════════════════════════
+// UX: CONTEXTUAL QUICK STRIP
+// ════════════════════════════════════════
+const TAB_PROMPTS = {
+  setup: [
+    { label: 'Faction Breakdown', q: 'Give me a complete faction breakdown: strengths, weaknesses, optimal tech path, and win condition.' },
+    { label: 'Opening R1 Plan', q: 'What is my ideal opening strategy for Round 1? What should I build, where should I expand, and what strategy card should I target?' },
+    { label: 'Neighbor Analysis', q: 'Analyze my neighbors and starting position. Who is a threat, who is a potential ally, and what borders should I prioritize?' },
+    { label: 'Win Condition', q: 'What is my faction\u2019s primary win condition and what VP path gets me there fastest?' },
+    { label: 'Faction Tier', q: 'Where does my faction sit in the current meta? What does it hard-counter and what counters it?' },
+  ],
+  table: [
+    { label: 'Threat Assessment', q: 'Who is my biggest threat right now and what should I do about them? Look at VP standings, strategy cards taken, and likely objectives.' },
+    { label: 'Strategy Card', q: 'Which Strategy Card should I take this round and why? Consider what opponents likely want and my action economy.' },
+    { label: 'Agenda Prep', q: 'What agendas should I be watching for, and how should I position my political influence this round?' },
+    { label: 'Trade Analysis', q: 'What is the current trade situation? Who should I be trading with and what are my leverage points?' },
+    { label: 'Mecatol Rex', q: 'Should I contest Mecatol Rex this round? What is the cost-benefit of taking or defending it given my current position?' },
+  ],
+  tech: [
+    { label: 'Next Tech', q: 'What technology should I research next and why? Consider my current tree, breakthrough synergy if applicable, and the objectives revealed.' },
+    { label: 'Skip List', q: 'Which technologies should I skip entirely with my faction and why? What are the common trap techs for my race?' },
+    { label: 'Tech Path', q: 'Map out my complete optimal tech path from now to the endgame. What order, what to rush, what to get opportunistically?' },
+    { label: 'Breakthrough Synergy', q: 'How does my breakthrough synergy change my tech path? Which prerequisites can I now shortcut?' },
+    { label: 'Tech Objectives', q: 'Which revealed objectives involve technology, and am I positioned to score them? What techs do I still need?' },
+  ],
+  actions: [
+    { label: 'Action Card Hand', q: 'Look at my action card hand and advise: which to hold, which to play now, and the optimal timing for each.' },
+    { label: 'Agenda Vote', q: 'How should I vote on the current agenda? What is the best outcome for me, and how much influence should I commit?' },
+    { label: 'Rider Plays', q: 'Are there any rider plays available to me on this agenda? Who might play riders and how should I respond?' },
+    { label: 'VP Path Now', q: 'What is the fastest path to my next VP this round? Which objective can I realistically score and what actions does it require?' },
+    { label: 'Action Economy', q: 'Evaluate my action economy this round. Am I getting enough done per action, or should I pass early to hold tokens for next round?' },
+  ],
+  journal: [
+    { label: 'Round Debrief', q: 'Based on my round journal, what went well this game and what mistakes did I make? What patterns do you see in my play?' },
+    { label: 'Momentum Check', q: 'Looking at my journal history, am I gaining or losing momentum? What adjustments should I make?' },
+    { label: 'Betrayal Timing', q: 'Based on what I\u2019ve logged, is this the right time to break a deal or pivot diplomatically? Who should I target?' },
+    { label: 'Endgame Plan', q: 'Given the journal history and current round, what is my endgame plan to reach the VP goal? How many rounds do I have?' },
+  ]
+};
+
+let _currentTab = 'setup';
+
+function renderQuickStrip(tabName) {
+  _currentTab = tabName || _currentTab;
+  const strip = el('quickStrip');
+  if (!strip) return;
+  const prompts = TAB_PROMPTS[_currentTab] || TAB_PROMPTS.setup;
+  strip.innerHTML = prompts.map((p, i) =>
+    `<button class="qs-btn${i < 2 ? '' : ' context'}" onclick="quickAsk(${JSON.stringify(p.q)})">${p.label}</button>`
+  ).join('');
+}
+
+// ════════════════════════════════════════
+// UX: SCROLL TO BOTTOM BUTTON
+// ════════════════════════════════════════
+function initScrollToBottom() {
+  const msgs = el('chatmsgs');
+  const btn = el('scrollBottomBtn');
+  if (!msgs || !btn) return;
+  msgs.addEventListener('scroll', () => {
+    const atBottom = msgs.scrollHeight - msgs.scrollTop - msgs.clientHeight < 60;
+    btn.classList.toggle('vis', !atBottom && msgs.scrollHeight > msgs.clientHeight + 100);
+  });
+}
+
+function scrollToBottom() {
+  const msgs = el('chatmsgs');
+  if (msgs) msgs.scrollTop = msgs.scrollHeight;
+}
+
+// ════════════════════════════════════════
 // INIT
 // ════════════════════════════════════════
 buildFacGrids();
 buildTETracker();
 buildVPOPanel();
+renderQuickStrip('setup');
+initScrollToBottom();
+updateGameHeader();
+updateHeaderSub();
 buildMiniFacGrid();
 buildSCGrid();
 buildObjPanel();
