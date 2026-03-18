@@ -1,0 +1,6 @@
+{
+  "name": "ti4-strategy-advisor",
+  "version": "1.0.0",
+  "description": "Twilight Imperium IV AI Strategy Advisor",
+  "engines": { "node": ">=18" }
+}

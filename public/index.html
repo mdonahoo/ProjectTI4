@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TI4 Strategy Advisor</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#c9a84c;--gold-dim:#8a6f30;--gold-bright:#f0c060;
+  --deep:#080c12;--panel:#0d1420;--panel2:#111929;--panel3:#0a1018;
+  --border:rgba(201,168,76,0.22);--text:#d4cfc4;--text-dim:#6a6560;--text-bright:#f0ead8;
+  --blue-hi:#4a9adf;--red-hi:#df6a4a;--yellow-hi:#dfbf4a;--green-hi:#4adf8a;
+  --purple-hi:#c47ae8;--teal-hi:#2ab89f;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--deep);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:15px;min-height:100vh;
+  background-image:radial-gradient(ellipse at 20% 50%,rgba(42,90,138,0.07) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(90,58,138,0.05) 0%,transparent 50%);}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:radial-gradient(1px 1px at 8% 12%,rgba(255,255,255,0.3) 0%,transparent 100%),radial-gradient(1px 1px at 22% 58%,rgba(255,255,255,0.2) 0%,transparent 100%),radial-gradient(1px 1px at 38% 28%,rgba(255,255,255,0.35) 0%,transparent 100%),radial-gradient(1px 1px at 68% 8%,rgba(255,255,255,0.3) 0%,transparent 100%),radial-gradient(1px 1px at 83% 43%,rgba(255,255,255,0.2) 0%,transparent 100%),radial-gradient(1px 1px at 58% 48%,rgba(255,255,255,0.15) 0%,transparent 100%);}
+.app{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:0 1rem 3rem;}
+
+/* HEADER */
+.header{text-align:center;padding:1.5rem 1rem 1.25rem;border-bottom:1px solid var(--border);margin-bottom:1.25rem;position:relative;}
+.header::before{content:'✦  ✦  ✦';display:block;color:var(--gold-dim);font-size:10px;letter-spacing:8px;margin-bottom:0.45rem;}
+.header h1{font-family:'Cinzel',serif;font-size:clamp(1.3rem,3.5vw,2.3rem);font-weight:700;color:var(--gold);letter-spacing:0.05em;line-height:1.1;}
+.header h1 span{color:var(--text-bright);}
+.header-sub{margin-top:0.3rem;font-size:0.78rem;color:var(--text-dim);letter-spacing:0.08em;text-transform:uppercase;}
+.header-actions{display:flex;gap:0.5rem;justify-content:center;margin-top:0.75rem;flex-wrap:wrap;}
+.hbtn{background:var(--panel2);border:1px solid var(--border);border-radius:3px;padding:0.3rem 0.8rem;cursor:pointer;font-family:'Cinzel',serif;font-size:0.6rem;color:var(--text-dim);letter-spacing:0.08em;text-transform:uppercase;transition:all 0.14s;}
+.hbtn:hover{border-color:var(--gold-dim);color:var(--gold);}
+.hbtn.primary{border-color:rgba(74,154,223,0.4);color:var(--blue-hi);}
+.hbtn.primary:hover{border-color:var(--blue-hi);background:rgba(74,154,223,0.08);}
+.hbtn.danger{border-color:rgba(223,106,74,0.35);color:var(--red-hi);}
+.hbtn.danger:hover{border-color:var(--red-hi);background:rgba(223,106,74,0.07);}
+
+/* LAYOUT */
+.layout{display:grid;grid-template-columns:335px 1fr;gap:1.25rem;align-items:start;}
+@media(max-width:900px){.layout{grid-template-columns:1fr;}}
+
+/* PANEL */
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+
+/* TABS */
+.sidebar{display:flex;flex-direction:column;}
+.tab-bar{display:grid;grid-template-columns:repeat(5,1fr);background:var(--panel2);border-bottom:1px solid var(--border);}
+.tab-btn{padding:0.45rem 0.15rem;background:none;border:none;border-right:1px solid var(--border);cursor:pointer;font-family:'Cinzel',serif;font-size:0.52rem;color:var(--text-dim);letter-spacing:0.06em;text-transform:uppercase;text-align:center;transition:all 0.14s;line-height:1.3;}
+.tab-btn:last-child{border-right:none;}
+.tab-btn:hover{color:var(--text);background:rgba(201,168,76,0.04);}
+.tab-btn.active{color:var(--gold);background:rgba(201,168,76,0.08);border-bottom:2px solid var(--gold);}
+.tab-btn .ticon{display:block;font-size:11px;margin-bottom:1px;}
+.tab-content{display:none;}.tab-content.active{display:block;}
+
+/* SECTIONS */
+.section{border-bottom:1px solid var(--border);}
+.section:last-child{border-bottom:none;}
+.sec-hdr{padding:0.42rem 0.85rem;display:flex;align-items:center;gap:0.4rem;cursor:pointer;user-select:none;transition:background 0.14s;background:var(--panel2);}
+.sec-hdr:hover{background:rgba(201,168,76,0.05);}
+.sec-title{font-family:'Cinzel',serif;font-size:0.65rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;font-weight:600;flex:1;}
+.sec-sum{font-size:0.63rem;color:var(--text-dim);max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:0;transition:opacity 0.18s;}
+.section.collapsed .sec-sum{opacity:1;}
+.chev{color:var(--gold-dim);font-size:9px;transition:transform 0.2s;flex-shrink:0;}
+.section.collapsed .chev{transform:rotate(-90deg);}
+.sec-body{overflow:hidden;max-height:2500px;transition:max-height 0.35s ease,opacity 0.2s;opacity:1;}
+.section.collapsed .sec-body{max-height:0;opacity:0;}
+
+/* FORMS */
+.fp{padding:0.7rem 0.85rem;display:flex;flex-direction:column;gap:0.65rem;}
+.lbl{display:block;font-size:0.63rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.09em;margin-bottom:0.22rem;}
+select,input[type=number],input[type=text]{width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text-bright);font-family:'Rajdhani',sans-serif;font-size:0.84rem;padding:0.33rem 0.58rem;border-radius:3px;outline:none;transition:border-color 0.14s;-webkit-appearance:none;}
+select:focus,input:focus{border-color:var(--gold-dim);}
+select option{background:#0d1420;}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:0.55rem;}
+
+/* FACTIONS */
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:3px;margin-bottom:0.55rem;}
+.fbtn{background:var(--deep);border:1px solid var(--border);border-radius:3px;padding:0.28rem 0.18rem;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.61rem;color:var(--text-dim);text-align:center;line-height:1.22;transition:all 0.11s;}
+.fbtn:hover{border-color:var(--gold-dim);color:var(--text);}
+.fbtn.sel{background:rgba(201,168,76,0.11);border-color:var(--gold);color:var(--gold-bright);font-weight:600;}
+.fbtn .fi{font-size:11px;display:block;margin-bottom:1px;}
+.gdiv{text-align:center;color:var(--gold-dim);font-size:9px;letter-spacing:5px;margin:0.35rem 0;}
+
+/* VP BOARD */
+.vpboard{padding:0.55rem 0.85rem;display:flex;flex-direction:column;gap:0.35rem;}
+.vprow{display:flex;align-items:center;gap:0.45rem;}
+.vpname{font-size:0.72rem;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.vpname.you{color:var(--gold);}
+.vpbar-w{flex:1;height:5px;background:rgba(255,255,255,0.04);border-radius:3px;overflow:hidden;}
+.vpbar{height:100%;border-radius:3px;background:var(--gold-dim);transition:width 0.3s;}
+.vpbar.you{background:var(--gold);}
+.vpnum{font-size:0.7rem;color:var(--text-dim);min-width:16px;text-align:right;}
+.vpnum.you{color:var(--gold);}
+
+/* OPPONENTS */
+.oppslots{padding:0.55rem 0.85rem;display:flex;flex-direction:column;gap:0.35rem;}
+.oppslot{display:flex;align-items:center;gap:0.4rem;padding:0.28rem 0.45rem;background:var(--deep);border:1px solid var(--border);border-radius:3px;}
+.oppname{font-size:0.7rem;color:var(--text);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.oppvpin{width:34px;background:var(--panel2);border:1px solid var(--border);color:var(--text-bright);font-family:'Rajdhani',sans-serif;font-size:0.75rem;padding:0.13rem 0.32rem;border-radius:2px;text-align:center;outline:none;}
+.oppvpin:focus{border-color:var(--gold-dim);}
+.oppclear{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:10px;padding:0 2px;transition:color 0.12s;}
+.oppclear:hover{color:#df6a5a;}
+.addbtn{width:100%;background:none;border:1px dashed var(--border);color:var(--text-dim);font-family:'Rajdhani',sans-serif;font-size:0.68rem;padding:0.28rem;border-radius:3px;cursor:pointer;transition:all 0.12s;margin-top:0.15rem;}
+.addbtn:hover{border-color:var(--gold-dim);color:var(--text);}
+.minipicker{background:var(--panel3);border:1px solid var(--border);border-radius:3px;padding:0.45rem;margin-top:0.2rem;display:none;}
+.minipicker.open{display:block;}
+.minifgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(68px,1fr));gap:3px;}
+.minifbtn{background:var(--deep);border:1px solid var(--border);border-radius:2px;padding:0.22rem 0.18rem;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.58rem;color:var(--text-dim);text-align:center;line-height:1.2;transition:all 0.1s;}
+.minifbtn:hover{border-color:var(--gold-dim);color:var(--text);}
+.miniclose{width:100%;background:none;border:none;color:var(--text-dim);font-family:'Rajdhani',sans-serif;font-size:0.63rem;cursor:pointer;padding:0.18rem;text-align:center;margin-top:0.28rem;border-top:1px solid var(--border);}
+
+/* STRATEGY CARDS */
+.scgrid{padding:0.55rem 0.85rem;display:flex;flex-direction:column;gap:0.3rem;}
+.scrow{display:flex;align-items:center;gap:0.45rem;}
+.scinit{font-family:'Cinzel',serif;font-size:0.62rem;color:var(--gold-dim);min-width:12px;text-align:center;}
+.scname{font-size:0.7rem;color:var(--text);min-width:88px;}
+.scinput{flex:1;font-size:0.7rem;padding:0.22rem 0.45rem;background:var(--deep);border:1px solid var(--border);color:var(--text-bright);border-radius:2px;outline:none;font-family:'Rajdhani',sans-serif;}
+.scinput:focus{border-color:var(--gold-dim);}
+.scinput.taken{border-color:rgba(74,122,175,0.4);color:#8ab8ef;background:rgba(42,70,110,0.14);}
+.scinput.mine{border-color:rgba(201,168,76,0.4);color:var(--gold-bright);background:rgba(201,168,76,0.05);}
+
+/* OBJECTIVES */
+.objsec{padding:0.55rem 0.85rem;display:flex;flex-direction:column;gap:0.3rem;}
+.objrow{display:flex;align-items:center;gap:0.35rem;}
+.objslot{font-size:0.58rem;color:var(--gold-dim);min-width:11px;}
+.objin{flex:1;font-size:0.7rem;padding:0.22rem 0.45rem;background:var(--deep);border:1px solid var(--border);color:var(--text-bright);border-radius:2px;outline:none;font-family:'Rajdhani',sans-serif;}
+.objin:focus{border-color:var(--gold-dim);}
+.objin.filled{border-color:rgba(42,138,100,0.38);color:#5adfa0;background:rgba(20,80,50,0.09);}
+.objdiv{font-size:0.58rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.07em;padding-top:0.28rem;border-top:1px solid var(--border);margin-top:0.18rem;}
+
+/* SECRET OBJECTIVES */
+.secobj{padding:0.55rem 0.85rem;display:flex;flex-direction:column;gap:0.32rem;}
+.secobjrow{display:flex;align-items:center;gap:0.35rem;padding:0.26rem 0.42rem;background:var(--deep);border:1px solid rgba(138,42,138,0.22);border-radius:3px;}
+.secobjrow.scored{border-color:rgba(90,200,90,0.32);background:rgba(20,60,20,0.18);}
+.secobjrow.failed{border-color:rgba(180,60,60,0.22);opacity:0.5;}
+.secobjin{flex:1;background:transparent;border:none;color:var(--text-bright);font-family:'Rajdhani',sans-serif;font-size:0.7rem;outline:none;min-width:0;}
+.secobjin::placeholder{color:var(--text-dim);}
+.secstbtn{background:none;border:1px solid var(--border);border-radius:2px;color:var(--text-dim);font-family:'Rajdhani',sans-serif;font-size:0.58rem;padding:0.09rem 0.32rem;cursor:pointer;white-space:nowrap;transition:all 0.11s;text-transform:uppercase;}
+.secstbtn.scored{border-color:rgba(90,200,90,0.45);color:#5dc87a;background:rgba(20,60,20,0.25);}
+.secstbtn.failed{border-color:rgba(180,60,60,0.38);color:#df6a5a;}
+.secclear{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:10px;transition:color 0.12s;}
+.secclear:hover{color:#df6a5a;}
+.secaddbtn{width:100%;background:none;border:1px dashed rgba(138,42,138,0.28);color:var(--text-dim);font-family:'Rajdhani',sans-serif;font-size:0.66rem;padding:0.26rem;border-radius:3px;cursor:pointer;transition:all 0.12s;margin-top:0.08rem;}
+.secaddbtn:hover{border-color:rgba(180,80,180,0.45);color:rgba(200,130,200,0.85);}
+
+/* RESOURCES / TOKENS */
+.restable{padding:0.55rem 0.85rem;display:flex;flex-direction:column;gap:0;overflow-x:auto;}
+.restable table{width:100%;border-collapse:collapse;font-size:0.68rem;}
+.restable th{font-family:'Cinzel',serif;font-size:0.55rem;color:var(--gold-dim);letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.3rem;border-bottom:1px solid var(--border);text-align:center;}
+.restable th:first-child{text-align:left;}
+.restable td{padding:0.22rem 0.3rem;border-bottom:1px solid rgba(201,168,76,0.06);text-align:center;vertical-align:middle;}
+.restable td:first-child{text-align:left;font-size:0.7rem;color:var(--text);max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.rescounter{display:flex;align-items:center;justify-content:center;gap:2px;}
+.resctr-btn{background:none;border:1px solid var(--border);border-radius:2px;color:var(--text-dim);font-size:10px;width:16px;height:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all 0.1s;padding:0;}
+.resctr-btn:hover{border-color:var(--gold-dim);color:var(--gold);}
+.resctr-val{font-size:0.78rem;color:var(--text-bright);min-width:18px;text-align:center;font-family:'Cinzel',serif;}
+.resctr-val.tg{color:#f0c060;}
+.resctr-val.com{color:#4adf8a;}
+.resctr-val.ct{color:#4a9adf;}
+
+/* TECH */
+.techgrid{padding:0.6rem 0.85rem;display:flex;flex-direction:column;gap:0.55rem;}
+.techcat{display:flex;flex-direction:column;gap:3px;}
+.techcatlbl{font-size:0.6rem;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:2px;font-weight:600;}
+.techcatlbl.blue{color:var(--blue-hi);}
+.techcatlbl.red{color:var(--red-hi);}
+.techcatlbl.yellow{color:var(--yellow-hi);}
+.techcatlbl.green{color:var(--green-hi);}
+.techcatlbl.faction{color:var(--gold);}
+.techitem{display:flex;align-items:center;gap:0.38rem;cursor:pointer;padding:0.18rem 0.32rem;border-radius:2px;transition:background 0.1s;border:1px solid transparent;}
+.techitem:hover{background:rgba(255,255,255,0.025);}
+.techitem.owned{background:rgba(201,168,76,0.04);border-color:rgba(201,168,76,0.13);}
+.techcheck{width:12px;height:12px;border:1px solid var(--border);border-radius:2px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:8px;transition:all 0.11s;}
+.techitem.owned .techcheck{background:var(--gold-dim);border-color:var(--gold);color:var(--deep);}
+.techitem.owned.blue .techcheck{background:var(--blue-hi);border-color:var(--blue-hi);}
+.techitem.owned.red .techcheck{background:var(--red-hi);border-color:var(--red-hi);}
+.techitem.owned.yellow .techcheck{background:var(--yellow-hi);border-color:var(--yellow-hi);}
+.techitem.owned.green .techcheck{background:var(--green-hi);border-color:var(--green-hi);}
+.techname{font-size:0.7rem;color:var(--text-dim);transition:color 0.11s;flex:1;}
+.techitem.owned .techname{color:var(--text-bright);}
+.techpre{font-size:0.56rem;color:var(--text-dim);opacity:0.55;}
+
+/* ACTION CARDS */
+.acsec{padding:0.55rem 0.85rem;display:flex;flex-direction:column;gap:0.32rem;}
+.acrow{display:flex;align-items:center;gap:0.35rem;padding:0.28rem 0.42rem;background:var(--deep);border:1px solid var(--border);border-radius:3px;transition:border-color 0.12s;}
+.acrow:hover{border-color:rgba(201,168,76,0.3);}
+.acname-in{flex:1;background:transparent;border:none;color:var(--text-bright);font-family:'Rajdhani',sans-serif;font-size:0.7rem;outline:none;min-width:0;}
+.acname-in::placeholder{color:var(--text-dim);}
+.actag{font-size:0.56rem;padding:0.08rem 0.3rem;border-radius:2px;border:1px solid;cursor:pointer;white-space:nowrap;font-family:'Rajdhani',sans-serif;letter-spacing:0.04em;text-transform:uppercase;transition:all 0.1s;}
+.actag.combat{border-color:rgba(223,106,74,0.4);color:var(--red-hi);}
+.actag.political{border-color:rgba(196,122,232,0.4);color:var(--purple-hi);}
+.actag.economic{border-color:rgba(223,191,74,0.4);color:var(--yellow-hi);}
+.actag.tactical{border-color:rgba(74,154,223,0.4);color:var(--blue-hi);}
+.actag.active{opacity:1;font-weight:600;}
+.actag.inactive{opacity:0.35;}
+.acclear{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:10px;transition:color 0.11s;}
+.acclear:hover{color:#df6a5a;}
+.acaddbtn{width:100%;background:none;border:1px dashed var(--border);color:var(--text-dim);font-family:'Rajdhani',sans-serif;font-size:0.66rem;padding:0.26rem;border-radius:3px;cursor:pointer;transition:all 0.12s;}
+.acaddbtn:hover{border-color:var(--gold-dim);color:var(--text);}
+.ac-ai-btn{width:100%;background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.25);color:var(--gold-dim);font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.07em;padding:0.32rem;border-radius:3px;cursor:pointer;transition:all 0.13s;text-transform:uppercase;margin-top:0.2rem;}
+.ac-ai-btn:hover{background:rgba(201,168,76,0.14);border-color:var(--gold-dim);color:var(--gold);}
+
+/* AGENDA */
+.agsec{padding:0.55rem 0.85rem;display:flex;flex-direction:column;gap:0.55rem;}
+.agselect{width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text-bright);font-family:'Rajdhani',sans-serif;font-size:0.82rem;padding:0.33rem 0.58rem;border-radius:3px;outline:none;-webkit-appearance:none;}
+.agselect:focus{border-color:var(--gold-dim);}
+.agcard{background:var(--panel3);border:1px solid var(--border);border-radius:3px;padding:0.55rem 0.7rem;display:none;}
+.agcard.visible{display:block;}
+.agcard-type{font-size:0.58rem;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.2rem;font-family:'Cinzel',serif;}
+.agcard-type.law{color:var(--yellow-hi);}
+.agcard-type.directive{color:var(--blue-hi);}
+.agcard-name{font-family:'Cinzel',serif;font-size:0.82rem;color:var(--text-bright);margin-bottom:0.35rem;}
+.agcard-text{font-size:0.7rem;color:var(--text);line-height:1.55;}
+.agcard-elect{font-size:0.65rem;color:var(--text-dim);margin-top:0.3rem;font-style:italic;}
+.ag-vote-row{display:flex;gap:0.5rem;align-items:center;}
+.ag-vote-label{font-size:0.63rem;color:var(--text-dim);white-space:nowrap;}
+.ag-vote-in{flex:1;font-size:0.75rem;padding:0.28rem 0.5rem;background:var(--deep);border:1px solid var(--border);color:var(--text-bright);border-radius:3px;outline:none;font-family:'Rajdhani',sans-serif;}
+.ag-vote-in:focus{border-color:var(--gold-dim);}
+.ag-advice-btn{width:100%;background:rgba(201,168,76,0.1);border:1px solid var(--gold-dim);color:var(--gold);font-family:'Cinzel',serif;font-size:0.63rem;letter-spacing:0.07em;padding:0.38rem;border-radius:3px;cursor:pointer;transition:all 0.13s;text-transform:uppercase;}
+.ag-advice-btn:hover{background:rgba(201,168,76,0.2);border-color:var(--gold);color:var(--gold-bright);}
+
+/* JOURNAL */
+.journal-pad{padding:0.55rem 0.85rem;display:flex;flex-direction:column;gap:0.45rem;}
+.journal-round-block{border:1px solid var(--border);border-radius:3px;overflow:hidden;}
+.journal-round-hdr{background:var(--panel2);padding:0.3rem 0.65rem;display:flex;align-items:center;gap:0.4rem;}
+.journal-round-lbl{font-family:'Cinzel',serif;font-size:0.65rem;color:var(--gold);flex:1;}
+.journal-round-del{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:10px;transition:color 0.11s;}
+.journal-round-del:hover{color:#df6a5a;}
+.journal-events{padding:0.35rem 0.55rem;display:flex;flex-direction:column;gap:0.22rem;}
+.journal-event{display:flex;align-items:flex-start;gap:0.35rem;}
+.journal-event-in{flex:1;background:transparent;border:none;border-bottom:1px solid rgba(201,168,76,0.1);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:0.72rem;padding:0.1rem 0;outline:none;transition:border-color 0.12s;}
+.journal-event-in::placeholder{color:var(--text-dim);}
+.journal-event-in:focus{border-bottom-color:var(--gold-dim);}
+.journal-event-del{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:9px;margin-top:2px;transition:color 0.11s;flex-shrink:0;}
+.journal-event-del:hover{color:#df6a5a;}
+.journal-add-event{background:none;border:none;color:var(--text-dim);font-family:'Rajdhani',sans-serif;font-size:0.63rem;cursor:pointer;padding:0.08rem 0;text-align:left;transition:color 0.11s;}
+.journal-add-event:hover{color:var(--text);}
+.journal-controls{display:flex;gap:0.4rem;flex-wrap:wrap;}
+.jbtn{flex:1;background:none;border:1px solid var(--border);border-radius:3px;color:var(--text-dim);font-family:'Rajdhani',sans-serif;font-size:0.66rem;padding:0.3rem 0.5rem;cursor:pointer;transition:all 0.12s;text-align:center;}
+.jbtn:hover{border-color:var(--gold-dim);color:var(--text);}
+.jbtn.accent{border-color:rgba(74,154,223,0.35);color:var(--blue-hi);}
+.jbtn.accent:hover{border-color:var(--blue-hi);background:rgba(74,154,223,0.07);}
+.jbtn.export{border-color:rgba(74,223,138,0.35);color:var(--teal-hi);}
+.jbtn.export:hover{border-color:var(--teal-hi);background:rgba(74,223,138,0.06);}
+
+/* COMBAT */
+.combat-pad{padding:0.7rem 0.85rem;display:flex;flex-direction:column;gap:0.65rem;}
+.combat-hdr{display:grid;grid-template-columns:1fr auto 1fr;gap:0.4rem;align-items:center;}
+.combat-side{font-family:'Cinzel',serif;font-size:0.63rem;color:var(--gold);text-transform:uppercase;letter-spacing:0.07em;text-align:center;}
+.vs-lbl{font-size:0.63rem;color:var(--text-dim);text-align:center;}
+.unit-row{display:grid;grid-template-columns:1fr auto 1fr;gap:0.35rem;align-items:center;}
+.unit-in{width:100%;background:var(--deep);border:1px solid var(--border);color:var(--text-bright);font-family:'Rajdhani',sans-serif;font-size:0.8rem;padding:0.22rem 0.35rem;border-radius:2px;text-align:center;outline:none;}
+.unit-in:focus{border-color:var(--gold-dim);}
+.unit-name{font-size:0.66rem;color:var(--text-dim);text-align:center;letter-spacing:0.03em;}
+.calcbtn{width:100%;background:rgba(201,168,76,0.11);border:1px solid var(--gold-dim);color:var(--gold);font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.07em;padding:0.42rem;border-radius:3px;cursor:pointer;transition:all 0.14s;text-transform:uppercase;}
+.calcbtn:hover{background:rgba(201,168,76,0.2);border-color:var(--gold);}
+.clearbtn{background:none;border:1px solid var(--border);color:var(--text-dim);font-family:'Rajdhani',sans-serif;font-size:0.63rem;padding:0.28rem 0.7rem;border-radius:3px;cursor:pointer;transition:all 0.12s;}
+.clearbtn:hover{border-color:var(--red-hi);color:var(--red-hi);}
+.combat-result{background:var(--panel3);border:1px solid var(--border);border-radius:3px;padding:0.55rem 0.7rem;}
+.result-bars{display:flex;gap:2px;height:7px;border-radius:2px;overflow:hidden;margin-bottom:0.45rem;}
+.rb-atk{background:#3a7a5a;transition:width 0.4s ease;}
+.rb-tie{background:#3a3a3a;}
+.rb-def{background:#7a3a3a;transition:width 0.4s ease;}
+.result-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.35rem;text-align:center;}
+.rsv{font-family:'Cinzel',serif;font-size:0.95rem;font-weight:600;}
+.rsv.win{color:#5adf9a;}.rsv.tie{color:var(--text-dim);}.rsv.lose{color:#df6a5a;}
+.rsl{font-size:0.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.05em;}
+.rsd{font-size:0.66rem;color:var(--text-dim);text-align:center;margin-top:0.28rem;}
+
+/* CHAT */
+.chat-panel{display:flex;flex-direction:column;height:780px;}
+.chat-ph{background:var(--panel2);border-bottom:1px solid var(--border);padding:0.48rem 0.9rem;display:flex;align-items:center;gap:0.45rem;}
+.chat-ph .ptitle{font-family:'Cinzel',serif;font-size:0.65rem;color:var(--gold);letter-spacing:0.11em;text-transform:uppercase;font-weight:600;flex:1;}
+.spill{display:flex;align-items:center;gap:4px;font-size:0.58rem;color:var(--text-dim);letter-spacing:0.05em;text-transform:uppercase;}
+.sdot{width:5px;height:5px;border-radius:50%;background:var(--gold-dim);flex-shrink:0;}
+.sdot.live{background:#4caf82;animation:blink 1.5s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.chat-msgs{flex:1;overflow-y:auto;padding:0.85rem;display:flex;flex-direction:column;gap:0.85rem;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+.chat-msgs::-webkit-scrollbar{width:3px;}
+.chat-msgs::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+
+/* WELCOME */
+.welcome{text-align:center;padding:2rem 1.5rem;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.7rem;}
+.welcome .sigil{font-size:2rem;line-height:1;opacity:0.2;}
+.welcome h2{font-family:'Cinzel',serif;font-size:0.92rem;color:var(--gold);font-weight:400;letter-spacing:0.06em;}
+.welcome p{font-size:0.76rem;color:var(--text-dim);max-width:330px;line-height:1.65;}
+.qbtns{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:0.15rem;}
+.qbtn{background:var(--panel2);border:1px solid var(--border);border-radius:3px;padding:0.24rem 0.55rem;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.7rem;color:var(--text-dim);transition:all 0.11s;}
+.qbtn:hover{border-color:var(--gold-dim);color:var(--text);}
+
+/* MESSAGES */
+.msg{display:flex;flex-direction:column;gap:0.18rem;}
+.msg.user{align-items:flex-end;}.msg.assistant{align-items:flex-start;}
+.msglbl{font-size:0.59rem;text-transform:uppercase;letter-spacing:0.09em;color:var(--text-dim);}
+.msg.user .msglbl{color:var(--gold-dim);}
+.msgbub{max-width:92%;padding:0.52rem 0.78rem;border-radius:3px;font-size:0.83rem;line-height:1.63;}
+.msg.user .msgbub{background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.23);color:var(--text-bright);text-align:right;}
+.msg.assistant .msgbub{background:var(--panel2);border:1px solid var(--border);color:var(--text);width:100%;max-width:100%;}
+.msgbub strong{color:var(--gold-bright);font-weight:600;}
+.msgbub em{color:#3abfaa;font-style:normal;}
+.msgbub h3{font-family:'Cinzel',serif;color:var(--gold);margin:0.62rem 0 0.18rem;font-size:0.78rem;letter-spacing:0.05em;font-weight:600;}
+.msgbub h4{font-family:'Cinzel',serif;color:rgba(201,168,76,0.72);margin:0.48rem 0 0.15rem;font-size:0.73rem;letter-spacing:0.04em;font-weight:600;}
+.msgbub ul{padding-left:1.15rem;margin:0.25rem 0;}.msgbub li{margin:0.14rem 0;}
+.msgbub p{margin:0.26rem 0;}.msgbub p:first-child{margin-top:0;}
+.msgbub code{background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.17);padding:0.06em 0.26em;border-radius:2px;font-size:0.77em;color:var(--gold-bright);font-family:'Courier New',monospace;}
+.msgbub hr{border:none;border-top:1px solid var(--border);margin:0.45rem 0;}
+.ftag{display:inline-block;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.23);color:var(--gold);font-size:0.61rem;padding:0.08rem 0.38rem;border-radius:2px;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:0.35rem;}
+
+/* THINKING */
+.thinking{display:flex;align-items:center;gap:7px;padding:0.52rem 0.78rem;background:var(--panel2);border:1px solid var(--border);border-radius:3px;font-size:0.74rem;color:var(--text-dim);}
+.dots span{display:inline-block;width:4px;height:4px;background:var(--gold-dim);border-radius:50%;animation:pulse 1.2s ease-in-out infinite;margin-right:2px;}
+.dots span:nth-child(2){animation-delay:0.2s;}.dots span:nth-child(3){animation-delay:0.4s;}
+@keyframes pulse{0%,80%,100%{opacity:0.2;transform:scale(0.8)}40%{opacity:1;transform:scale(1)}}
+
+/* INPUT */
+.img-preview{display:none;padding:0.4rem 0.8rem;gap:0.38rem;align-items:center;flex-wrap:wrap;background:rgba(42,90,138,0.06);border-bottom:1px solid var(--border);}
+.img-preview.vis{display:flex;}
+.imgthumb-w{position:relative;display:inline-block;}
+.imgthumb{width:46px;height:46px;object-fit:cover;border-radius:3px;border:1px solid rgba(74,122,175,0.38);}
+.imgthumb-rm{position:absolute;top:-4px;right:-4px;background:#b84a3a;border:none;color:white;border-radius:50%;width:13px;height:13px;font-size:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;}
+.scan-qlbl{font-size:0.65rem;color:rgba(100,160,230,0.75);flex:1;}
+.scan-qbtns{display:flex;gap:4px;flex-wrap:wrap;}
+.scan-qbtn{background:rgba(42,90,138,0.08);border:1px solid rgba(74,122,175,0.22);border-radius:2px;padding:0.18rem 0.45rem;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.65rem;color:rgba(100,160,230,0.7);transition:all 0.11s;}
+.scan-qbtn:hover{border-color:rgba(74,154,223,0.5);color:rgba(150,200,255,0.9);}
+.input-area{border-top:1px solid var(--border);padding:0.58rem 0.8rem;display:flex;gap:0.45rem;align-items:flex-end;}
+.scan-btn{background:rgba(42,90,138,0.13);border:1px solid rgba(74,122,175,0.32);color:rgba(100,160,230,0.8);font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.06em;padding:0 0.7rem;border-radius:3px;cursor:pointer;transition:all 0.13s;white-space:nowrap;height:36px;text-transform:uppercase;flex-shrink:0;}
+.scan-btn:hover{background:rgba(42,90,188,0.22);border-color:rgba(74,154,223,0.55);color:rgba(150,200,255,0.95);}
+.input-area textarea{flex:1;background:var(--deep);border:1px solid var(--border);color:var(--text-bright);font-family:'Rajdhani',sans-serif;font-size:0.83rem;padding:0.38rem 0.6rem;border-radius:3px;resize:none;min-height:36px;max-height:110px;outline:none;transition:border-color 0.14s;line-height:1.5;}
+.input-area textarea::placeholder{color:var(--text-dim);}
+.input-area textarea:focus{border-color:var(--gold-dim);}
+.send-btn{background:rgba(201,168,76,0.12);border:1px solid var(--gold-dim);color:var(--gold);font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.07em;padding:0 0.82rem;border-radius:3px;cursor:pointer;transition:all 0.13s;white-space:nowrap;height:36px;text-transform:uppercase;}
+.send-btn:hover:not(:disabled){background:rgba(201,168,76,0.22);border-color:var(--gold);color:var(--gold-bright);}
+.send-btn:disabled{opacity:0.4;cursor:not-allowed;}
+
+/* SAVE/LOAD TOAST */
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(80px);background:var(--panel2);border:1px solid var(--border);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:0.8rem;padding:0.5rem 1.2rem;border-radius:3px;z-index:100;transition:transform 0.3s ease,opacity 0.3s;opacity:0;pointer-events:none;}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+
+/* MISC */
+.ctx-note{display:flex;gap:0.42rem;align-items:flex-start;background:rgba(31,122,110,0.06);border:1px solid rgba(42,184,159,0.16);border-radius:3px;padding:0.45rem 0.6rem;font-size:0.66rem;color:rgba(42,200,180,0.58);line-height:1.52;margin:0 0.85rem 0.6rem;}
+.ctx-note strong{color:rgba(42,220,190,0.82);}
+.sbbtn{width:100%;background:none;border:1px solid var(--border);border-radius:3px;color:var(--text-dim);font-family:'Rajdhani',sans-serif;font-size:0.65rem;padding:0.25rem;cursor:pointer;transition:all 0.11s;text-align:center;}
+.sbbtn:hover{border-color:var(--gold-dim);color:var(--text);}
+
+/* THREAT MONITOR */
+.threat-monitor{background:rgba(8,12,18,0.7);border-bottom:1px solid var(--border);padding:0.45rem 0.9rem;display:flex;flex-direction:column;gap:0.28rem;}
+.threat-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.05rem;}
+.threat-title{font-family:'Cinzel',serif;font-size:0.55rem;color:var(--gold-dim);letter-spacing:0.12em;text-transform:uppercase;}
+.threat-meta{font-size:0.56rem;color:var(--text-dim);}
+.threat-row{display:flex;align-items:center;gap:0.4rem;}
+.threat-name{font-size:0.64rem;color:var(--text);min-width:88px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.threat-name.you{color:var(--gold);}
+.threat-bar-w{flex:1;height:4px;background:rgba(255,255,255,0.04);border-radius:2px;overflow:hidden;}
+.threat-bar{height:100%;border-radius:2px;transition:width 0.5s ease,background 0.3s;}
+.threat-eta{font-size:0.6rem;min-width:52px;text-align:right;white-space:nowrap;font-family:'Cinzel',serif;}
+.threat-eta.safe{color:var(--text-dim);}
+.threat-eta.warn{color:var(--yellow-hi);}
+.threat-eta.hot{color:#ef9f50;}
+.threat-eta.crit{color:#df6a5a;font-weight:600;animation:threatpulse 1.2s ease-in-out infinite;}
+@keyframes threatpulse{0%,100%{opacity:1}50%{opacity:0.45}}
+
+/* PROMISSORY NOTES */
+.pn-ledger{padding:0.5rem 0.85rem;display:flex;flex-direction:column;gap:0.38rem;}
+.pn-player-row{background:var(--deep);border:1px solid var(--border);border-radius:3px;padding:0.3rem 0.45rem;}
+.pn-player-hdr{display:flex;align-items:center;gap:0.35rem;margin-bottom:0.25rem;}
+.pn-player-icon{font-size:11px;}
+.pn-player-name{font-size:0.68rem;color:var(--text);font-weight:600;}
+.pn-player-name.you{color:var(--gold);}
+.pn-notes{display:flex;flex-wrap:wrap;gap:4px;}
+.pn-note{display:flex;flex-direction:column;align-items:center;gap:1px;cursor:pointer;min-width:42px;}
+.pn-note-label{font-size:0.56rem;color:var(--text-dim);letter-spacing:0.03em;text-align:center;line-height:1.2;}
+.pn-note-sel{background:var(--panel2);border:1px solid var(--border);color:var(--text-dim);font-family:'Rajdhani',sans-serif;font-size:0.58rem;padding:0.12rem 0.2rem;border-radius:2px;outline:none;width:100%;cursor:pointer;-webkit-appearance:none;text-align:center;transition:all 0.12s;}
+.pn-note-sel:focus{border-color:var(--gold-dim);}
+.pn-note-sel.away{border-color:rgba(74,154,223,0.45);color:var(--blue-hi);background:rgba(42,70,110,0.18);}
+.pn-note-sel.inplay{border-color:rgba(74,223,138,0.45);color:var(--teal-hi);background:rgba(20,80,50,0.15);}
+.pn-note-sel.sftt-alert{border-color:rgba(196,122,232,0.55);color:var(--purple-hi);background:rgba(80,30,110,0.18);}
+.pn-note-sel.used{opacity:0.35;}
+.pn-ai-btn{width:100%;background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2);color:var(--gold-dim);font-family:'Cinzel',serif;font-size:0.57rem;letter-spacing:0.07em;padding:0.28rem;border-radius:3px;cursor:pointer;transition:all 0.12s;text-transform:uppercase;margin-top:0.15rem;}
+.pn-ai-btn:hover{background:rgba(201,168,76,0.13);border-color:var(--gold-dim);color:var(--gold);}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="toast" id="toast"></div>
+
+<!-- HEADER -->
+<header class="header">
+  <h1>TWILIGHT IMPERIUM <span>IV</span></h1>
+  <div class="header-sub">AI Strategy Advisor &nbsp;·&nbsp; Base Game + Prophecy of Kings</div>
+  <div class="header-actions">
+    <button class="hbtn primary" onclick="saveState()">💾 Save State</button>
+    <button class="hbtn primary" onclick="loadStateDialog()">📂 Load State</button>
+    <button class="hbtn primary" onclick="exportStateJSON()">⬇ Export JSON</button>
+    <button class="hbtn primary" onclick="document.getElementById('importFile').click()">⬆ Import JSON</button>
+    <button class="hbtn danger" onclick="confirmReset()">↺ New Game</button>
+  </div>
+  <input type="file" id="importFile" accept=".json" style="display:none" onchange="importStateJSON(event)">
+</header>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<div class="panel sidebar">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('setup')" id="tab-setup"><span class="ticon">⬡</span>Setup</button>
+    <button class="tab-btn" onclick="switchTab('table')" id="tab-table"><span class="ticon">◉</span>Table</button>
+    <button class="tab-btn" onclick="switchTab('tech')" id="tab-tech"><span class="ticon">🔬</span>Tech</button>
+    <button class="tab-btn" onclick="switchTab('actions')" id="tab-actions"><span class="ticon">📋</span>Actions</button>
+    <button class="tab-btn" onclick="switchTab('journal')" id="tab-journal"><span class="ticon">📜</span>Journal</button>
+  </div>
+
+  <!-- ═ SETUP ═ -->
+  <div class="tab-content active" id="content-setup">
+    <div class="section" id="sec-gs">
+      <div class="sec-hdr" onclick="toggleSec('sec-gs')"><span class="sec-title">Game State</span><span class="sec-sum" id="sum-gs"></span><span class="chev">▾</span></div>
+      <div class="sec-body"><div class="fp">
+        <div class="r2">
+          <div><label class="lbl">Players</label>
+            <select id="playerCount" onchange="updateSums()">
+              <option value="3">3</option><option value="4">4</option><option value="5">5</option>
+              <option value="6" selected>6</option><option value="7">7</option><option value="8">8</option>
+            </select>
+          </div>
+          <div><label class="lbl">Round</label>
+            <select id="roundNum" onchange="updateSums()">
+              <option value="pre">Pre</option><option value="1" selected>1</option><option value="2">2</option>
+              <option value="3">3</option><option value="4">4</option><option value="5">5+</option>
+            </select>
+          </div>
+        </div>
+        <div class="r2">
+          <div><label class="lbl">My VP</label><input type="number" id="myVP" value="0" min="0" max="14" onchange="updateSums()"></div>
+          <div><label class="lbl">VP Goal</label><input type="number" id="vpGoal" value="10" min="8" max="14"></div>
+        </div>
+        <div><label class="lbl">Table Position</label>
+          <select id="position">
+            <option value="unknown">Unknown / Any</option><option value="speaker">Speaker</option>
+            <option value="left-speaker">Left of Speaker</option><option value="right-speaker">Right of Speaker</option>
+            <option value="mecatol-adj">Mecatol-Adjacent</option><option value="corner">Corner Slice</option>
+          </select>
+        </div>
+        <div><label class="lbl">Expansions</label>
+          <select id="expansions"><option value="pok">Base + Prophecy of Kings</option><option value="base">Base Game Only</option></select>
+        </div>
+        <div><label class="lbl">Extra Context</label>
+          <input type="text" id="context" placeholder="e.g. Hacan neighbor, weak slice…">
+        </div>
+      </div></div>
+    </div>
+    <div class="section" id="sec-faction">
+      <div class="sec-hdr" onclick="toggleSec('sec-faction')"><span class="sec-title">Your Faction</span><span class="sec-sum" id="sum-faction">None</span><span class="chev">▾</span></div>
+      <div class="sec-body"><div style="padding:0.55rem 0.85rem">
+        <div style="font-size:0.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.38rem">Base Game</div>
+        <div class="fgrid" id="myBaseFac"></div>
+        <div class="gdiv">· · ·</div>
+        <div style="font-size:0.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;margin:0.38rem 0">Prophecy of Kings</div>
+        <div class="fgrid" id="myPokFac"></div>
+      </div></div>
+    </div>
+    <div class="ctx-note" style="margin-top:0.5rem">
+      <span style="flex-shrink:0;font-size:10px">◈</span>
+      <span><strong>Full memory active.</strong> Narrate events as you play — the advisor adapts. Update panels to resync context.</span>
+    </div>
+  </div>
+
+  <!-- ═ TABLE ═ -->
+  <div class="tab-content" id="content-table">
+    <div class="section" id="sec-opp">
+      <div class="sec-hdr" onclick="toggleSec('sec-opp')"><span class="sec-title">Opponents & VP</span><span class="sec-sum" id="sum-opp">None</span><span class="chev">▾</span></div>
+      <div class="sec-body">
+        <div class="vpboard" id="vpboard"></div>
+        <div class="oppslots" id="oppslots"></div>
+        <div style="padding:0 0.85rem 0.6rem">
+          <button class="addbtn" onclick="addOpp()">+ Add Opponent</button>
+          <div class="minipicker" id="minipicker"><div class="minifgrid" id="minifgrid"></div><button class="miniclose" onclick="closeMinipicker()">Cancel</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="sec-pn">
+      <div class="sec-hdr" onclick="toggleSec('sec-pn')"><span class="sec-title">🤝 Promissory Notes</span><span class="sec-sum" id="sum-pn">—</span><span class="chev">▾</span></div>
+      <div class="sec-body">
+        <div style="padding:0.32rem 0.85rem 0.1rem;font-size:0.63rem;color:var(--text-dim);line-height:1.5">Track where every note is. Click a note to change its status. <strong style="color:var(--purple-hi)">Purple = SftT VP note active.</strong></div>
+        <div class="pn-ledger" id="pnLedger"></div>
+        <div style="padding:0 0.85rem 0.6rem">
+          <button class="pn-ai-btn" onclick="getPNAdvice()">Leverage Analysis — who holds what? ↗</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="sec-res">
+      <div class="sec-hdr" onclick="toggleSec('sec-res')"><span class="sec-title">⚡ Resources & Tokens</span><span class="sec-sum" id="sum-res">—</span><span class="chev">▾</span></div>
+      <div class="sec-body"><div class="restable" id="restable"></div></div>
+    </div>
+    <div class="section" id="sec-sc">
+      <div class="sec-hdr" onclick="toggleSec('sec-sc')"><span class="sec-title">Strategy Cards</span><span class="sec-sum" id="sum-sc">0/8</span><span class="chev">▾</span></div>
+      <div class="sec-body">
+        <div class="scgrid" id="scgrid"></div>
+        <div style="padding:0 0.85rem 0.6rem"><button class="sbbtn" onclick="clearCards()">Clear All Cards</button></div>
+      </div>
+    </div>
+    <div class="section" id="sec-obj">
+      <div class="sec-hdr" onclick="toggleSec('sec-obj')"><span class="sec-title">Public Objectives</span><span class="sec-sum" id="sum-obj">0 revealed</span><span class="chev">▾</span></div>
+      <div class="sec-body"><div class="objsec" id="objpanel"></div></div>
+    </div>
+    <div class="section" id="sec-sec">
+      <div class="sec-hdr" onclick="toggleSec('sec-sec')"><span class="sec-title">🔒 Secret Objectives</span><span class="sec-sum" id="sum-sec">0 held</span><span class="chev">▾</span></div>
+      <div class="sec-body">
+        <div style="padding:0.35rem 0.85rem 0.1rem;font-size:0.64rem;color:rgba(170,110,210,0.65);line-height:1.5">Private — visible only to you and the AI.</div>
+        <div class="secobj" id="secobjpanel"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═ TECH ═ -->
+  <div class="tab-content" id="content-tech">
+    <div class="section" id="sec-tech">
+      <div class="sec-hdr" onclick="toggleSec('sec-tech')"><span class="sec-title">Your Technologies</span><span class="sec-sum" id="sum-tech">0 owned</span><span class="chev">▾</span></div>
+      <div class="sec-body"><div class="techgrid" id="techgrid"></div></div>
+    </div>
+  </div>
+
+  <!-- ═ ACTIONS ═ -->
+  <div class="tab-content" id="content-actions">
+    <div class="section" id="sec-ac">
+      <div class="sec-hdr" onclick="toggleSec('sec-ac')"><span class="sec-title">🎯 Action Card Hand</span><span class="sec-sum" id="sum-ac">0 cards</span><span class="chev">▾</span></div>
+      <div class="sec-body">
+        <div style="padding:0.35rem 0.85rem 0.1rem;font-size:0.63rem;color:var(--text-dim);line-height:1.5">Tag cards by situation. Click tag to cycle. Private — AI sees these.</div>
+        <div class="acsec" id="acpanel"></div>
+        <div style="padding:0 0.85rem 0.5rem">
+          <button class="ac-ai-btn" onclick="quickAsk('Look at my action card hand and advise me: which cards should I hold vs play now, and when is the optimal moment to use each one given the current game state?')">Get Hand Advice from AI ↗</button>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="sec-ag">
+      <div class="sec-hdr" onclick="toggleSec('sec-ag')"><span class="sec-title">🗳 Agenda Phase</span><span class="sec-sum" id="sum-ag">—</span><span class="chev">▾</span></div>
+      <div class="sec-body">
+        <div class="agsec">
+          <div>
+            <label class="lbl">Active Agenda</label>
+            <select class="agselect" id="agselect" onchange="showAgendaCard()">
+              <option value="">— Select Agenda —</option>
+            </select>
+          </div>
+          <div class="agcard" id="agcard"></div>
+          <div>
+            <label class="lbl">Vote Counts (optional)</label>
+            <div class="ag-vote-row">
+              <span class="ag-vote-label">For:</span>
+              <input class="ag-vote-in" type="number" id="agfor" min="0" placeholder="0">
+              <span class="ag-vote-label">Against:</span>
+              <input class="ag-vote-in" type="number" id="agagainst" min="0" placeholder="0">
+            </div>
+          </div>
+          <button class="ag-advice-btn" onclick="getAgendaAdvice()">Get Vote & Rider Advice ↗</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═ JOURNAL ═ -->
+  <div class="tab-content" id="content-journal">
+    <div class="section" id="sec-journal">
+      <div class="sec-hdr" onclick="toggleSec('sec-journal')"><span class="sec-title">Round Journal</span><span class="sec-sum" id="sum-journal">0 rounds</span><span class="chev">▾</span></div>
+      <div class="sec-body">
+        <div class="journal-pad" id="journalpad"></div>
+        <div style="padding:0 0.85rem 0.65rem">
+          <div class="journal-controls">
+            <button class="jbtn accent" onclick="addJournalRound()">+ New Round</button>
+            <button class="jbtn" onclick="quickAsk('Based on my round journal history, what patterns do you see in my play? What strategic adjustments should I make going forward?')">AI Analysis ↗</button>
+            <button class="jbtn export" onclick="exportJournalText()">Export Summary</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /sidebar -->
+
+<!-- CHAT -->
+<div class="panel chat-panel">
+  <div class="chat-ph">
+    <span style="color:var(--gold);font-size:10px">◉</span>
+    <span class="ptitle">Strategy Command</span>
+    <div class="spill"><div class="sdot" id="sdot"></div><span id="slbl">Ready</span></div>
+  </div>
+  <div class="threat-monitor" id="threatMonitor" style="display:none">
+    <div class="threat-hdr">
+      <span class="threat-title">⚡ Win Threat Monitor</span>
+      <span class="threat-meta" id="threatMeta">—</span>
+    </div>
+    <div id="threatRows"></div>
+  </div>
+  <div class="chat-msgs" id="chatmsgs">
+    <div class="welcome" id="welcomescreen">
+      <div class="sigil">⬡</div>
+      <h2>Awaiting Orders, Supreme Commander</h2>
+      <p>Configure all five tabs for maximum advisor intelligence, then ask anything.</p>
+      <div class="qbtns">
+        <button class="qbtn" onclick="quickAsk('Give me a full faction breakdown — strengths, weaknesses, tech path, and win condition.')">Faction Breakdown</button>
+        <button class="qbtn" onclick="quickAsk('What is my ideal opening strategy for Round 1?')">Opening Strategy</button>
+        <button class="qbtn" onclick="quickAsk('What technology path should I prioritize and why?')">Tech Path</button>
+        <button class="qbtn" onclick="quickAsk('What is my win condition and VP strategy?')">Win Condition</button>
+        <button class="qbtn" onclick="quickAsk('What political threats should I watch for in the Agenda Phase?')">Political Threats</button>
+        <button class="qbtn" onclick="quickAsk('Which Strategy Card should I take this round and why?')">Strategy Cards</button>
+        <button class="qbtn" onclick="quickAsk('Who is my biggest threat and how do I handle them?')">Threat Assessment</button>
+        <button class="qbtn" onclick="quickAsk('Walk me through the trade negotiation meta — what should I offer and demand?')">Trade Meta</button>
+        <button class="qbtn" onclick="quickAsk('Given the revealed public objectives, what should I score first?')">Objective Priority</button>
+        <button class="qbtn" onclick="quickAsk('Which techs should I skip and which are must-haves?')">Tech Skip List</button>
+      </div>
+    </div>
+  </div>
+  <div class="img-preview" id="imgpreview">
+    <div class="imgthumb-w"><img id="imgthumb" class="imgthumb" src="" alt="Board"><button class="imgthumb-rm" onclick="clearPhoto()">✕</button></div>
+    <div style="display:flex;flex-direction:column;gap:4px;flex:1">
+      <span class="scan-qlbl">📷 Board photo ready — Claude will analyze it</span>
+      <div class="scan-qbtns">
+        <button class="scan-qbtn" onclick="scanWith('Analyze this board state in full detail: factions, VP positions, fleet locations, territory control, and strategic situation.')">Full Analysis</button>
+        <button class="scan-qbtn" onclick="scanWith('Who is closest to winning from this board? What should I do right now?')">Threat Check</button>
+        <button class="scan-qbtn" onclick="scanWith('What tactical opportunities and dangers are visible on this board?')">Opportunities</button>
+      </div>
+    </div>
+  </div>
+  <div class="input-area">
+    <button class="scan-btn" onclick="document.getElementById('photoinput').click()">📷 Scan</button>
+    <textarea id="userinput" placeholder="Ask strategy, rules, combat, politics… (Shift+Enter = newline)" rows="1"
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}"
+      oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,110)+'px'"></textarea>
+    <button class="send-btn" id="sendbtn" onclick="sendMsg()">Transmit</button>
+  </div>
+</div>
+
+</div>
+</div>
+
+<input type="file" id="photoinput" accept="image/*" capture="environment" style="display:none" onchange="handlePhoto(event)">
+
+<!-- DATALISTS -->
+<datalist id="objlist">
+  <option value="Erect a Monument — Spend 8 resources">
+  <option value="Corner the Market — Control 4 planets each with tech specialty">
+  <option value="Develop Weaponry — Own 2 unit upgrade technologies">
+  <option value="Diversify Research — Own 2 techs in 2 different colors">
+  <option value="Engineer a Marvel — Flagship or war sun on the board">
+  <option value="Establish Hegemony — Control planets totaling 12+ influence">
+  <option value="Expand Borders — Control planets totaling 12+ resources">
+  <option value="Found a Golden Age — Spend 16 combined resources+influence">
+  <option value="Intimidate Council — 3+ ships in Mecatol Rex">
+  <option value="Lead from the Front — Spend 3 command tokens in status phase">
+  <option value="Negotiate a Ceasefire — 0 tokens in command pool">
+  <option value="Populate the Border — 9+ ground forces outside home">
+  <option value="Revolutionize the Economy — Have 12 trade goods">
+  <option value="Seize an Icon — Control a legendary planet">
+  <option value="Stake Your Claim — Control 1 planet with 4+ res or inf">
+  <option value="Conquer the Weak — Control a planet in another home system">
+  <option value="Destroy Their Greatest Ship — Destroy a flagship or war sun">
+  <option value="Dictate Policy — Control 5 planets with same trait">
+  <option value="Form a Spy Network — Have 5+ action cards">
+  <option value="Galvanize the People — Have 10+ command tokens total">
+  <option value="Become a Legend — Flagship + 3 non-fighters at Mecatol">
+  <option value="Centralize Galactic Trade — Spend 10 trade goods">
+  <option value="Manipulate Galactic Law — Control 8 planets outside home">
+  <option value="Unify the Colonies — Control 6 planets with same trait">
+  <option value="Amass Wealth — Exhaust 3 tech planets outside home">
+</datalist>
+<datalist id="secretlist">
+  <option value="Become the Gatekeeper — Ships in all 3 wormhole systems">
+  <option value="Control the Borderlands — Control 5 edge-of-map systems">
+  <option value="Destroy Their Greatest Ship — Destroy enemy flagship or war sun">
+  <option value="Dictate Policy — 3+ laws in play you voted for">
+  <option value="Drive the Debate — Be speaker at end of agenda phase">
+  <option value="Establish a Perimeter — PDS on 4 planets">
+  <option value="Forge an Alliance — 4+ neighbors all have your promissory">
+  <option value="Gather a Mighty Fleet — 5+ non-fighter ships in one system">
+  <option value="Hoard Raw Materials — 6+ tradeable commodities">
+  <option value="Hire Mercenaries — 2+ mechs outside home system">
+  <option value="Intimidate Council — 3+ ships in Mecatol Rex">
+  <option value="Lead from the Front — Highest or tied VP at end of status">
+  <option value="Manipulate Galactic Law — 8+ influence among owned planets">
+  <option value="Mine Rare Metals — Control 4 industrial or hazardous planets">
+  <option value="Monopolize Production — 4 planets each with a space dock">
+  <option value="Occupy the Seat of the Empire — Mecatol Rex with 3+ GF">
+  <option value="Produce En Masse — Produce 8+ units in one activation">
+  <option value="Raise a Fleet — 5+ non-fighter ships in home system">
+  <option value="Seize an Icon — Control a legendary planet">
+  <option value="Spark a Rebellion — Win combat against the VP leader">
+  <option value="Sway the Council — Win an agenda by 10+ votes">
+  <option value="Turn their Fleets to Dust — Destroy 3+ ships in one combat">
+  <option value="Unveil Flagship — Have your flagship on the board">
+</datalist>
+<datalist id="aclist">
+  <option value="Morale Boost"><option value="Direct Hit"><option value="Shields Holding"><option value="Sabotage">
+  <option value="Unstable Planet"><option value="Signal Jamming"><option value="Tactical Bombardment">
+  <option value="Skilled Retreat"><option value="Plagiarize"><option value="Frontline Deployment">
+  <option value="Ghost Ship"><option value="War Machine"><option value="Blitz"><option value="Decoy">
+  <option value="Ragh's Call"><option value="Political Favor"><option value="Deadly Plot"><option value="Divert Funding">
+  <option value="Confusing Legal Text"><option value="Construction Rider"><option value="Diplomacy Rider">
+  <option value="Imperial Rider"><option value="Politics Rider"><option value="Technology Rider">
+  <option value="Trade Rider"><option value="Warfare Rider"><option value="Leadership Rider">
+  <option value="Swords to Plowshares"><option value="Infiltrate"><option value="Mining Initiative">
+  <option value="Focused Research"><option value="Maneuver"><option value="Parley"><option value="Flank Speed">
+</datalist>
+
+<script>
+// ════════════════════════════════════════
+// DATA
+// ════════════════════════════════════════
+const FACTIONS = [
+  {n:'Arborec',i:'🌿',p:false},{n:'Barony of Letnev',i:'⚔️',p:false},
+  {n:'Clan of Saar',i:'🌀',p:false},{n:'Embers of Muaat',i:'🔥',p:false},
+  {n:'Emirates of Hacan',i:'🦁',p:false},{n:'Federation of Sol',i:'🌍',p:false},
+  {n:'Ghosts of Creuss',i:'👁️',p:false},{n:'L1Z1X Mindnet',i:'🤖',p:false},
+  {n:'Mentak Coalition',i:'🐍',p:false},{n:'Naalu Collective',i:'🐉',p:false},
+  {n:'Nekro Virus',i:'💀',p:false},{n:"Sardakk N'orr",i:'🦂',p:false},
+  {n:'Univ. of Jol-Nar',i:'🔬',p:false},{n:'Winnu',i:'🌸',p:false},
+  {n:'Xxcha Kingdom',i:'🐢',p:false},{n:'Yin Brotherhood',i:'⚖️',p:false},
+  {n:'Yssaril Tribes',i:'🦎',p:false},
+  {n:'Argent Flight',i:'🦅',p:true},{n:'Empyrean',i:'✨',p:true},
+  {n:'Mahact Gene-Sorcerers',i:'🧬',p:true},{n:'Naaz-Rokha Alliance',i:'🐾',p:true},
+  {n:'Nomad',i:'🚀',p:true},{n:'Titans of Ul',i:'⛰️',p:true},
+  {n:"Vuil'raith Cabal",i:'🕳️',p:true},{n:'Council Keleres',i:'🏛️',p:true}
+];
+const SCARDS = [{n:'Leadership',v:1},{n:'Diplomacy',v:2},{n:'Politics',v:3},{n:'Construction',v:4},{n:'Trade',v:5},{n:'Warfare',v:6},{n:'Technology',v:7},{n:'Imperial',v:8}];
+const TECHS = {
+  blue:[{n:'Neural Motivator',p:'—'},{n:'Antimass Deflectors',p:'—'},{n:'Scanlink Drone Network',p:'1B'},{n:'Fleet Logistics',p:'2B'},{n:'Light/Wave Deflector',p:'2B'},{n:'Sling Relay',p:'2B'}],
+  red:[{n:'Daxcive Animators',p:'—'},{n:'Magen Defense Grid',p:'—'},{n:'Mageon Implants',p:'2R'},{n:'Duranium Armor',p:'2R'},{n:'Assault Cannon',p:'3R'},{n:'Valefar Assimilator X',p:'—'},{n:'Valefar Assimilator Y',p:'—'}],
+  yellow:[{n:'Sarween Tools',p:'—'},{n:'Psychoarchaeology',p:'—'},{n:'Predictive Intelligence',p:'1Y'},{n:'Graviton Laser System',p:'2Y'},{n:'Transparasteel Plating',p:'1Y'},{n:'Integrated Economy',p:'3Y'}],
+  green:[{n:'Bio-Stims',p:'—'},{n:'Spec Ops II',p:'1G'},{n:'Genetic Recombination',p:'1G'},{n:'Hyper Metabolism',p:'2G'},{n:'E-Res Siphons',p:'2G'},{n:'AI Development Algorithm',p:'1G'}]
+};
+const FTECHS = {
+  'Arborec':['Letani Warrior II','Bioplasmosis'],'Barony of Letnev':['Non-Euclidean Shielding','L4 Disruptors','Dreadnought II','Supercharge'],'Clan of Saar':['Chaos Mapping','Spacial Conduit Cylinder'],'Embers of Muaat':['Magmus Reactor','Magmus Reactor II','Magma Obliterator','Star Forge'],'Emirates of Hacan':['Quantum Datahub Node','Instinct Training','Production Biomes','Mirrors of Kenara'],'Federation of Sol':['Spec Ops II','Orbital Drive','Neural Motivator II'],'Ghosts of Creuss':['Wormhole Generator','Quantum Entanglement'],'L1Z1X Mindnet':['Inheritance Systems','Super-Dreadnought II','Deep Space Cannon'],'Mentak Coalition':['Salvage Operations','Mirror Computing','Ilyxum'],'Naalu Collective':['Neuroglaive','Hybrid Crystal Fighter II','Vortex'],'Nekro Virus':['Valefar Assimilator X','Valefar Assimilator Y','Yin Spinner','Vortex'],"Sardakk N'orr":['Dimensional Splicer','Exotrireme II','Yin Spinner'],'Univ. of Jol-Nar':['E-Res Siphons','Spacial Conduit Cylinder','Wormhole Generator','Super-Dreadnought II'],'Winnu':['Hegemonic Trade Policy','Reclamation Servos','Quantum Entanglement'],'Xxcha Kingdom':['Instinct Training','Political Favor','Nullification Field'],'Yin Brotherhood':['Impulse Core','Yin Spinner','Stymie'],'Yssaril Tribes':['Transparasteel Plating','Mageon Implants','Vortex'],'Argent Flight':['Strike Wing Alpha II','Aerie Hololattice','Quantum Entanglement'],'Empyrean':['Vortex','Aetherpassage','Mirrors of Kenara'],'Mahact Gene-Sorcerers':['Bio-Stims','Bioplasmosis','Genetic Recombination','Imperia'],'Naaz-Rokha Alliance':['Pre-Fab Arcologies','Supercharge','Vortex'],'Nomad':['Temporal Command Suite','Nomad Flagship','Mirrors of Kenara'],'Titans of Ul':['Ul the Progenitor','Saturn Engine II','Hecatoncheires'],"Vuil'raith Cabal":['Vortex','Rift Cannon','Inheritance Systems'],'Council Keleres':['Keleres Cruiser II','Mirrors of Kenara','Quantum Entanglement']
+};
+const AGENDAS = [
+  {n:'Anti-Intellectual Revolution',t:'D',e:'Each player with 4+ technologies discards technologies until they have 3.'},
+  {n:'Archived Secret',t:'D',e:'Elect Player. That player draws 1 secret objective.'},
+  {n:'Arms Reduction',t:'D',e:'Each player with 5+ non-fighter ships destroys ships down to 5.'},
+  {n:'Colonial Redistribution',t:'D',e:'Elect Non-Home Planet. Destroy all units on it. Its controller gets 3 TG.'},
+  {n:'Compensated Disarmament',t:'D',e:'Elect Player. They destroy all ground forces outside home. Gain TG for each.'},
+  {n:'Cripple Defenses',t:'D',e:'Elect Player. They destroy all of their PDS.'},
+  {n:'Declaration of War',t:'D',e:'Elect Player. Destroy one of their structures. They cannot make deals with you.'},
+  {n:'Economic Equality',t:'D',e:'Each player sets their TG to 3.'},
+  {n:'Embargo',t:'D',e:'Elect Player. Other players cannot have transactions with that player.'},
+  {n:'Incentive Program',t:'D',e:'For is top. For: Draw 2 more stage 1 objectives and reveal one. Against: Draw 2 more stage 2 objectives and reveal one.'},
+  {n:'Ixthian Artifact',t:'D',e:'If FOR wins, draw 3 stage II objectives and reveal one. Speaker rolls 1 die. 1-3: each player destroys half their ships; 4-6: nothing.'},
+  {n:'Judicial Abolishment',t:'D',e:'Elect Law. Discard that law.'},
+  {n:'Miscount Disclosed',t:'D',e:'Elect Law. Re-vote on that law.'},
+  {n:'Mobilization',t:'D',e:'Each player places 1 ship in each system they control that contains a space dock.'},
+  {n:'Plague',t:'D',e:'Elect Planet. Destroy all units on it. Exhaust it.'},
+  {n:'Political Favor',t:'D',e:'Elect Player. Remove their token from Mecatol Rex or the strategy card they hold.'},
+  {n:'Publicize Weapon Schematics',t:'D',e:'Elect Owned non-faction technology. Destroy it. All players may research it for free.'},
+  {n:'Recount',t:'D',e:'Re-vote the most recently resolved agenda.'},
+  {n:'Sanction',t:'D',e:'Elect Player. They lose 1 command token and 1 commodity.'},
+  {n:'Seed of an Empire',t:'D',e:'FOR: Player with most VPs gains 1 VP. AGAINST: Player with fewest VPs gains 1 VP. Ties go to speaker.'},
+  {n:'Slay the Councillors',t:'D',e:'Elect Player. They discard all action cards.'},
+  {n:'Spy Net',t:'D',e:'Elect Player. Look at their hand. Steal 1 action card.'},
+  {n:'Unconventional Measures',t:'D',e:'Each player draws 2 action cards. Each player with 8+ discards down to 7.'},
+  {n:'Warrant',t:'D',e:'Elect Player. Draw their secret objective, then replace it with a new one.'},
+  {n:'Classified Document Leaks',t:'L',el:'Secret Objective',e:'FOR: Elect secret objective. Reveal it as a public objective. AGAINST: Nothing.'},
+  {n:'Committee Formation',t:'L',el:'Player',e:'Elect Player. They gain 1 vote in the agenda phase per planet they control (in addition to normal votes).'},
+  {n:'Conventions of War',t:'L',e:'FOR: Players cannot use BOMBARDMENT or PLANETARY SHIELD. AGAINST: Nothing.'},
+  {n:'Core Mining',t:'L',el:'Hazardous Planet',e:'Elect Planet. It gains +2 resources and -1 influence.'},
+  {n:'Demilitarized Zone',t:'L',el:'Cultural Planet',e:'Elect Planet. No player may have units on it. Controller gains 3 TG.'},
+  {n:'Enforced Travel Ban',t:'L',e:'FOR: Ships cannot move through wormholes. AGAINST: Nothing.'},
+  {n:'Fleet Regulations',t:'L',e:'FOR: Max 4 non-fighter ships per system. AGAINST: Nothing.'},
+  {n:'Holy Planet of Ixth',t:'L',el:'Cultural Planet',e:'Elect Planet. It gains the LEGENDARY attribute. Its controller gains 1 VP.'},
+  {n:'Imperial Arbiter',t:'L',el:'Player',e:'Elect Player. They receive the Arbiter promissory note.'},
+  {n:'Minister of Commerce',t:'L',el:'Player',e:'Elect Player. They gain 1 TG each time they refresh their commodities.'},
+  {n:'Minister of Exploration',t:'L',el:'Player',e:'Elect Player. They explore each planet they control once.'},
+  {n:'Minister of Industry',t:'L',el:'Player',e:'Elect Player. Each of their space docks produces 2 extra units.'},
+  {n:'Minister of Peace',t:'L',el:'Player',e:'Elect Player. They may end any combat they are in immediately.'},
+  {n:'Minister of Policy',t:'L',el:'Player',e:'Elect Player. They draw 3 action cards at end of each status phase.'},
+  {n:'Minister of Sciences',t:'L',el:'Player',e:'Elect Player. They research 1 technology for free each status phase.'},
+  {n:'Minister of War',t:'L',el:'Player',e:'Elect Player. Once per round they may remove an opponent token from a system.'},
+  {n:'Mutiny',t:'L',e:'FOR: You gain 1 VP. AGAINST: You lose 1 VP. The player with the highest influence total wins.'},
+  {n:'New Constitution',t:'L',e:'Discard all laws. The speaker draws the first agenda this phase as if a new round.'},
+  {n:'Political Censure',t:'L',el:'Player',e:'Elect Player. They cannot vote in agenda phase and lose 1 TG each round.'},
+  {n:'Prophecy of Ixth',t:'L',e:'FOR: The player who controls Mecatol Rex at start of status phase gains 1 VP. AGAINST: Nothing.'},
+  {n:'Public Execution',t:'L',el:'Player',e:'Elect Player. They lose 1 VP. If they have a Political Censure token, discard it.'},
+  {n:'Regulated Conscription',t:'L',e:'FOR: Players can only produce 1 non-fighter ship per planet. AGAINST: Nothing.'},
+  {n:'Representative Government',t:'L',e:'FOR: Each player casts only 1 vote. AGAINST: Nothing.'},
+  {n:'Research Team: Biotic',t:'L',el:'Industrial Planet',e:'Elect Planet. It gains a green tech specialty.'},
+  {n:'Research Team: Cybernetic',t:'L',el:'Industrial Planet',e:'Elect Planet. It gains a yellow tech specialty.'},
+  {n:'Research Team: Propulsion',t:'L',el:'Industrial Planet',e:'Elect Planet. It gains a blue tech specialty.'},
+  {n:'Research Team: Warfare',t:'L',el:'Hazardous Planet',e:'Elect Planet. It gains a red tech specialty.'},
+  {n:'Shard of the Throne',t:'L',e:'FOR: Gain 1 VP. Other players may steal it by taking it as a promissory note. AGAINST: Nothing.'},
+  {n:'Shared Research',t:'L',e:'FOR: All players may share tech with neighbors. AGAINST: Nothing.'},
+  {n:'Terraforming Initiative',t:'L',el:'Hazardous/Industrial Planet',e:'Elect Planet. It gains +1 resource and +1 influence.'},
+  {n:'The Crown of Emphidia',t:'L',e:'FOR: Gain 1 VP. Other players steal it by controlling more planets. AGAINST: Nothing.'},
+  {n:'The Crown of Thalnos',t:'L',e:'FOR: You gain 1 VP for each cultural planet you control (max 3 extra). AGAINST: Nothing.'},
+  {n:'Wormhole Reconstruction',t:'L',e:'FOR: All systems gain both wormhole types. AGAINST: Nothing.'},
+  {n:'Articles of War',t:'L',e:'FOR: Players cannot research tech during action phase. AGAINST: Nothing. (PoK)'},
+  {n:'Checks and Balances',t:'L',e:'FOR: After each status phase, players pass their strategy card left. AGAINST: Nothing. (PoK)'},
+  {n:'Galactic Crisis Pact',t:'D',e:'Elect Player. Set their VP to the second highest VP on the table. (PoK)'}
+];
+const UNITS = {
+  fighter:{d:'Fighter',c:9,dice:1,s:false,afb:false,ad:0,av:0,pr:0},
+  destroyer:{d:'Destroyer',c:9,dice:1,s:false,afb:true,ad:2,av:9,pr:1},
+  cruiser:{d:'Cruiser',c:7,dice:1,s:false,afb:false,ad:0,av:0,pr:2},
+  carrier:{d:'Carrier',c:9,dice:1,s:false,afb:false,ad:0,av:0,pr:3},
+  dreadnought:{d:'Dreadnought',c:5,dice:1,s:true,afb:false,ad:0,av:0,pr:4},
+  warsun:{d:'War Sun',c:3,dice:3,s:true,afb:false,ad:0,av:0,pr:5}
+};
+
+// ════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════
+let S = {
+  myFaction:null, players:'6', round:'1', myVP:0, vpGoal:10,
+  position:'unknown', expansions:'pok', context:'',
+  opponents:[], ownedTechs:[], secretObjs:[],
+  actionCards:[], journal:[], resources:{},
+  cardHolders:{}, promNotes:{}
+};
+let photoData = null;
+let history = [];
+let loading = false;
+
+// ════════════════════════════════════════
+// TABS
+// ════════════════════════════════════════
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  document.getElementById('content-'+name).classList.add('active');
+}
+
+// ════════════════════════════════════════
+// COLLAPSIBLE
+// ════════════════════════════════════════
+function toggleSec(id) {
+  const el = typeof id === 'string' ? document.getElementById(id) : id;
+  if (el) el.classList.toggle('collapsed');
+}
+
+// ════════════════════════════════════════
+// TOAST
+// ════════════════════════════════════════
+function showToast(msg, ms) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), ms||2200);
+}
+
+// ════════════════════════════════════════
+// SUMMARIES
+// ════════════════════════════════════════
+function updateSums() {
+  const round = document.getElementById('roundNum').value;
+  const myVP = document.getElementById('myVP').value;
+  const players = document.getElementById('playerCount').value;
+  el('sum-gs').textContent = 'Rd '+round+' · '+players+'p · '+myVP+' VP';
+  el('sum-faction').textContent = S.myFaction || 'None';
+  el('sum-opp').textContent = S.opponents.length ? S.opponents.length+' set' : 'None';
+  const taken = SCARDS.filter(c=>getHolder(c.n)).length;
+  el('sum-sc').textContent = taken+'/8 taken';
+  const oFilled = qAll('.obj-in').filter(i=>i.value.trim()).length;
+  el('sum-obj').textContent = oFilled+' revealed';
+  const sHeld = S.secretObjs.filter(s=>s.st!=='failed'&&s.txt).length;
+  el('sum-sec').textContent = sHeld+' held';
+  el('sum-tech').textContent = S.ownedTechs.length+' owned';
+  el('sum-ac').textContent = S.actionCards.length+' cards';
+  el('sum-ag').textContent = (el('agselect')&&el('agselect').value) ? el('agselect').options[el('agselect').selectedIndex].text.slice(0,20) : '—';
+  el('sum-journal').textContent = S.journal.length+' rounds';
+  const res = el('sum-res');
+  if (res) { const myRes = S.resources[S.myFaction]; res.textContent = myRes ? 'TG:'+myRes.tg+' Com:'+myRes.com : '—'; }
+  updateVPBoard();
+  updateThreatMonitor();
+}
+
+function el(id){return document.getElementById(id);}
+function qAll(sel){return [...document.querySelectorAll(sel)];}
+
+// ════════════════════════════════════════
+// FACTION GRIDS
+// ════════════════════════════════════════
+function buildFacGrids() {
+  const base=el('myBaseFac'), pok=el('myPokFac');
+  FACTIONS.forEach(f=>{
+    const btn=document.createElement('button');
+    btn.className='fbtn'; btn.innerHTML='<span class="fi">'+f.i+'</span>'+f.n;
+    btn.onclick=()=>{
+      qAll('#myBaseFac .fbtn, #myPokFac .fbtn').forEach(b=>b.classList.remove('sel'));
+      btn.classList.add('sel'); S.myFaction=f.n; updateSums(); rebuildFacTechs(); rebuildResTable();
+    };
+    (f.p?pok:base).appendChild(btn);
+  });
+}
+
+function buildMiniFacGrid() {
+  const g=el('minifgrid');
+  FACTIONS.forEach(f=>{
+    const btn=document.createElement('button');
+    btn.className='minifbtn'; btn.innerHTML='<span style="display:block;font-size:10px">'+f.i+'</span>'+f.n;
+    btn.onclick=()=>{S.opponents.push({f:f.n,vp:0});renderOpps();closeMinipicker();};
+    g.appendChild(btn);
+  });
+}
+
+// ════════════════════════════════════════
+// OPPONENTS
+// ════════════════════════════════════════
+function renderOpps() {
+  const c=el('oppslots'); c.innerHTML='';
+  S.opponents.forEach((o,i)=>{
+    const f=FACTIONS.find(x=>x.n===o.f);
+    const div=document.createElement('div'); div.className='oppslot';
+    div.innerHTML='<span style="font-size:13px">'+(f?f.i:'?')+'</span><span class="oppname">'+o.f+'</span><span style="font-size:0.6rem;color:var(--text-dim)">VP</span><input class="oppvpin" type="number" min="0" max="14" value="'+o.vp+'" onchange="S.opponents['+i+'].vp=parseInt(this.value)||0;updateSums();rebuildResTable()"><button class="oppclear" onclick="S.opponents.splice('+i+',1);renderOpps()" title="Remove">✕</button>';
+    c.appendChild(div);
+  });
+  updateSums(); renderPromLedger(); rebuildResTable();
+}
+
+function addOpp(){el('minipicker').classList.toggle('open');}
+function closeMinipicker(){el('minipicker').classList.remove('open');}
+
+// ════════════════════════════════════════
+// RESOURCES & TOKENS
+// ════════════════════════════════════════
+function rebuildResTable() {
+  const wrap=el('restable'); if(!wrap)return;
+  const allPlayers=[S.myFaction?{n:S.myFaction,you:true}:null,...S.opponents.map(o=>({n:o.f,you:false}))].filter(Boolean);
+  if(!allPlayers.length){wrap.innerHTML='<div style="padding:0.5rem 0.85rem;font-size:0.68rem;color:var(--text-dim)">Select a faction to track resources.</div>';return;}
+  allPlayers.forEach(p=>{if(!S.resources[p.n])S.resources[p.n]={tg:0,com:0,ct:3};});
+  const table=document.createElement('table');
+  table.innerHTML='<thead><tr><th>Player</th><th>Trade Goods</th><th>Commodities</th><th>Cmd Tokens</th></tr></thead>';
+  const tbody=document.createElement('tbody');
+  allPlayers.forEach(p=>{
+    const r=S.resources[p.n];
+    const tr=document.createElement('tr');
+    const nameTd=document.createElement('td');
+    nameTd.style.color=p.you?'var(--gold)':'var(--text)'; nameTd.textContent=p.n;
+    tr.appendChild(nameTd);
+    ['tg','com','ct'].forEach(key=>{
+      const cls=key==='tg'?'tg':key==='com'?'com':'ct';
+      const td=document.createElement('td');
+      const wrap2=document.createElement('div'); wrap2.className='rescounter';
+      const btnM=document.createElement('button'); btnM.className='resctr-btn'; btnM.textContent='−';
+      btnM.onclick=()=>changeRes(p.n,key,-1);
+      const span=document.createElement('span'); span.className='resctr-val '+cls;
+      span.id='res-'+p.n.replace(/[^a-z0-9]/gi,'')+'-'+key; span.textContent=r[key];
+      const btnP=document.createElement('button'); btnP.className='resctr-btn'; btnP.textContent='+';
+      btnP.onclick=()=>changeRes(p.n,key,1);
+      wrap2.appendChild(btnM); wrap2.appendChild(span); wrap2.appendChild(btnP);
+      td.appendChild(wrap2); tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody); wrap.innerHTML=''; wrap.appendChild(table);
+}
+
+function changeRes(name, key, delta) {
+  if(!S.resources[name]) S.resources[name]={tg:0,com:0,ct:3};
+  S.resources[name][key]=Math.max(0,S.resources[name][key]+delta);
+  const safeId='res-'+name.replace(/[^a-z0-9]/gi,'')+'-'+key;
+  const el2=document.getElementById(safeId);
+  if(el2) el2.textContent=S.resources[name][key];
+  updateSums();
+}
+
+// ════════════════════════════════════════
+// STRATEGY CARDS
+// ════════════════════════════════════════
+function buildSCGrid() {
+  const g=el('scgrid');
+  SCARDS.forEach(card=>{
+    const row=document.createElement('div'); row.className='scrow';
+    row.innerHTML='<span class="scinit">'+card.v+'</span><span class="scname">'+card.n+'</span><div style="flex:1"><input type="text" class="scinput" id="sc-'+card.n+'" placeholder="Available" oninput="onCardInput(this)" onchange="updateSums()" list="facnamelist"></div>';
+    g.appendChild(row);
+  });
+}
+
+function onCardInput(inp) {
+  const v=inp.value.trim().toLowerCase();
+  const isMe=v==='me'||v==='you'||v==='mine'||(S.myFaction&&v===S.myFaction.toLowerCase());
+  inp.classList.toggle('mine',isMe);
+  inp.classList.toggle('taken',v.length>0&&!isMe);
+  updateSums();
+}
+
+function getHolder(name) { const e=el('sc-'+name); return e?e.value.trim():''; }
+function clearCards() { SCARDS.forEach(c=>{const e=el('sc-'+c.n);if(e){e.value='';e.className='scinput';}}); updateSums(); }
+
+// ════════════════════════════════════════
+// OBJECTIVES
+// ════════════════════════════════════════
+function buildObjPanel() {
+  const p=el('objpanel');
+  p.innerHTML='<div class="objdiv">Stage I — 1 VP</div>';
+  for(let i=1;i<=5;i++) p.innerHTML+='<div class="objrow"><span class="objslot">'+i+'</span><input class="objin" type="text" placeholder="Objective…" list="objlist" oninput="this.classList.toggle(\'filled\',this.value.trim().length>0);updateSums()"></div>';
+  p.innerHTML+='<div class="objdiv" style="margin-top:0.3rem">Stage II — 2 VP</div>';
+  for(let i=1;i<=5;i++) p.innerHTML+='<div class="objrow"><span class="objslot">'+i+'</span><input class="objin" type="text" placeholder="Objective…" list="objlist" oninput="this.classList.toggle(\'filled\',this.value.trim().length>0);updateSums()"></div>';
+}
+
+// ════════════════════════════════════════
+// SECRET OBJECTIVES
+// ════════════════════════════════════════
+function renderSecrets() {
+  const p=el('secobjpanel'); if(!p)return;
+  p.innerHTML='';
+  S.secretObjs.forEach((obj,i)=>{
+    const row=document.createElement('div');
+    row.className='secobjrow'+(obj.st==='scored'?' scored':obj.st==='failed'?' failed':'');
+    const stlbl=obj.st==='scored'?'✓ Scored':obj.st==='failed'?'✕ Failed':'In Hand';
+    row.innerHTML='<span style="font-size:11px">'+(obj.st==='scored'?'🏆':obj.st==='failed'?'💀':'🔒')+'</span><input class="secobjin" type="text" value="'+obj.txt+'" placeholder="Secret objective…" list="secretlist" oninput="S.secretObjs['+i+'].txt=this.value;updateSums()"><button class="secstbtn '+obj.st+'" onclick="cycleSecret('+i+')">'+stlbl+'</button><button class="secclear" onclick="S.secretObjs.splice('+i+',1);renderSecrets();updateSums()">✕</button>';
+    p.appendChild(row);
+  });
+  const add=document.createElement('button'); add.className='secaddbtn';
+  add.disabled=S.secretObjs.length>=3;
+  add.textContent=S.secretObjs.length<3?'+ Add Secret Objective':'(max 3 held)';
+  add.onclick=()=>{if(S.secretObjs.length<3){S.secretObjs.push({txt:'',st:'held'});renderSecrets();updateSums();}};
+  p.appendChild(add);
+}
+
+function cycleSecret(i) {
+  const cycle=['held','scored','failed'];
+  const cur=S.secretObjs[i].st||'held';
+  S.secretObjs[i].st=cycle[(cycle.indexOf(cur)+1)%3];
+  renderSecrets(); updateSums();
+}
+
+// ════════════════════════════════════════
+// VP BOARD
+// ════════════════════════════════════════
+function updateVPBoard() {
+  const board=el('vpboard'); if(!board)return;
+  board.innerHTML='';
+  const goal=parseInt(el('vpGoal')?.value||10);
+  const myVP=parseInt(el('myVP')?.value||0);
+  const all=[{n:S.myFaction||'You',vp:myVP,you:true},...S.opponents.map(o=>({n:o.f,vp:o.vp,you:false}))];
+  all.sort((a,b)=>b.vp-a.vp);
+  all.forEach(p=>{
+    const pct=Math.min(100,(p.vp/goal)*100);
+    const row=document.createElement('div'); row.className='vprow';
+    row.innerHTML='<span class="vpname'+(p.you?' you':'')+'">'+p.n+'</span><div class="vpbar-w"><div class="vpbar'+(p.you?' you':'')+'" style="width:'+pct+'%"></div></div><span class="vpnum'+(p.you?' you':'')+'">'+p.vp+'</span>';
+    board.appendChild(row);
+  });
+}
+
+// ════════════════════════════════════════
+// TECH
+// ════════════════════════════════════════
+function buildTechGrid() {
+  const g=el('techgrid'); g.innerHTML='';
+  const cats=[{k:'blue',l:'Propulsion (Blue)'},{k:'red',l:'Warfare (Red)'},{k:'yellow',l:'Cybernetic (Yellow)'},{k:'green',l:'Biotic (Green)'}];
+  cats.forEach(cat=>{
+    const div=document.createElement('div'); div.className='techcat';
+    div.innerHTML='<div class="techcatlbl '+cat.k+'">'+cat.l+'</div>';
+    TECHS[cat.k].forEach(tech=>{ div.appendChild(makeTechItem(tech,cat.k)); });
+    g.appendChild(div);
+  });
+  rebuildFacTechs();
+}
+
+function makeTechItem(tech, cls) {
+  const owned=S.ownedTechs.includes(tech.n);
+  const item=document.createElement('div');
+  item.className='techitem '+cls+(owned?' owned':'');
+  item.innerHTML='<div class="techcheck">'+(owned?'✓':'')+'</div><span class="techname">'+tech.n+'</span><span class="techpre">'+tech.p+'</span>';
+  item.onclick=()=>{
+    if(S.ownedTechs.includes(tech.n)){S.ownedTechs=S.ownedTechs.filter(t=>t!==tech.n);item.classList.remove('owned');item.querySelector('.techcheck').textContent='';}
+    else{S.ownedTechs.push(tech.n);item.classList.add('owned');item.querySelector('.techcheck').textContent='✓';}
+    updateSums();
+  };
+  return item;
+}
+
+function rebuildFacTechs() {
+  const g=el('techgrid'); if(!g)return;
+  const old=g.querySelector('.fac-tech-cat'); if(old)old.remove();
+  if(!S.myFaction||!FTECHS[S.myFaction])return;
+  const techs=[...new Set(FTECHS[S.myFaction])];
+  const div=document.createElement('div'); div.className='techcat fac-tech-cat';
+  div.innerHTML='<div class="techcatlbl faction">Faction Techs</div>';
+  techs.forEach(tn=>{
+    const item=makeTechItem({n:tn,p:'Faction'},'faction');
+    div.appendChild(item);
+  });
+  g.appendChild(div);
+}
+
+// ════════════════════════════════════════
+// ACTION CARDS
+// ════════════════════════════════════════
+const AC_TAGS=['combat','political','economic','tactical'];
+function renderAC() {
+  const p=el('acpanel'); if(!p)return;
+  p.innerHTML='';
+  S.actionCards.forEach((ac,i)=>{
+    const row=document.createElement('div'); row.className='acrow';
+    let tagsHtml=AC_TAGS.map(t=>'<button class="actag '+t+' '+(ac.tag===t?'active':'inactive')+'" onclick="setACTag('+i+',\''+t+'\')">'+t+'</button>').join('');
+    row.innerHTML='<input class="acname-in" type="text" value="'+ac.name+'" placeholder="Card name…" list="aclist" oninput="S.actionCards['+i+'].name=this.value;updateSums()">'+tagsHtml+'<button class="acclear" onclick="S.actionCards.splice('+i+',1);renderAC();updateSums()">✕</button>';
+    p.appendChild(row);
+  });
+  const add=document.createElement('button'); add.className='acaddbtn';
+  add.textContent='+ Add Action Card';
+  add.onclick=()=>{S.actionCards.push({name:'',tag:null});renderAC();updateSums();};
+  p.appendChild(add);
+}
+
+function setACTag(i,tag) {
+  S.actionCards[i].tag=(S.actionCards[i].tag===tag)?null:tag;
+  renderAC();
+}
+
+// ════════════════════════════════════════
+// AGENDA
+// ════════════════════════════════════════
+function buildAgendaSelect() {
+  const sel=el('agselect'); if(!sel)return;
+  sel.innerHTML='<option value="">— Select Agenda —</option>';
+  const laws=AGENDAS.filter(a=>a.t==='L'), dirs=AGENDAS.filter(a=>a.t==='D');
+  const lawGrp=document.createElement('optgroup'); lawGrp.label='Laws (Permanent)';
+  laws.forEach(a=>{const o=document.createElement('option');o.value=a.n;o.textContent=a.n;lawGrp.appendChild(o);});
+  const dirGrp=document.createElement('optgroup'); dirGrp.label='Directives (One-Time)';
+  dirs.forEach(a=>{const o=document.createElement('option');o.value=a.n;o.textContent=a.n;dirGrp.appendChild(o);});
+  sel.appendChild(lawGrp); sel.appendChild(dirGrp);
+}
+
+function showAgendaCard() {
+  const name=el('agselect').value;
+  const card=el('agcard');
+  if(!name){card.className='agcard';return;}
+  const ag=AGENDAS.find(a=>a.n===name);
+  if(!ag){card.className='agcard';return;}
+  const typeLbl=ag.t==='L'?'⚖ Law — Permanent Effect':'📋 Directive — Immediate Effect';
+  card.innerHTML='<div class="agcard-type '+(ag.t==='L'?'law':'directive')+'">'+typeLbl+'</div><div class="agcard-name">'+ag.n+'</div><div class="agcard-text">'+ag.e+'</div>'+(ag.el?'<div class="agcard-elect">Elect: '+ag.el+'</div>':'');
+  card.className='agcard visible';
+  updateSums();
+}
+
+function getAgendaAdvice() {
+  const name=el('agselect').value;
+  const forV=el('agfor').value;
+  const agV=el('agagainst').value;
+  if(!name){showToast('Select an agenda first');return;}
+  const ag=AGENDAS.find(a=>a.n===name);
+  let q='Active Agenda: '+name+' ('+( ag?ag.t==='L'?'Law':'Directive':'unknown')+')';
+  if(ag)q+='\nEffect: '+ag.e;
+  if(ag&&ag.el)q+='\nElect: '+ag.el;
+  if(forV||agV)q+='\nCurrent vote count — For: '+(forV||0)+', Against: '+(agV||0);
+  q+='\n\nGiven my faction, VP position, technologies, and opponents — how should I vote on this agenda? Should I use any Riders or Action Cards? Who should I negotiate votes with? What is the downside of FOR vs AGAINST for me specifically?';
+  quickAsk(q);
+}
+
+// ════════════════════════════════════════
+// JOURNAL
+// ════════════════════════════════════════
+function renderJournal() {
+  const p=el('journalpad'); if(!p)return;
+  p.innerHTML='';
+  S.journal.forEach((rnd,ri)=>{
+    const block=document.createElement('div'); block.className='journal-round-block';
+    block.innerHTML='<div class="journal-round-hdr"><span class="journal-round-lbl">Round '+rnd.round+'</span><button class="journal-round-del" onclick="S.journal.splice('+ri+',1);renderJournal();updateSums()" title="Delete round">✕</button></div><div class="journal-events" id="jev-'+ri+'"></div>';
+    p.appendChild(block);
+    const jevDiv=document.getElementById('jev-'+ri);
+    rnd.events.forEach((ev,ei)=>{
+      const erow=document.createElement('div'); erow.className='journal-event';
+      erow.innerHTML='<span style="color:var(--gold-dim);font-size:10px;margin-top:2px">▸</span><input class="journal-event-in" type="text" value="'+ev.replace(/"/g,'&quot;')+'" placeholder="Event…" oninput="S.journal['+ri+'].events['+ei+']=this.value"><button class="journal-event-del" onclick="S.journal['+ri+'].events.splice('+ei+',1);renderJournal()">✕</button>';
+      jevDiv.appendChild(erow);
+    });
+    const addEvBtn=document.createElement('button'); addEvBtn.className='journal-add-event';
+    addEvBtn.textContent='+ Add event';
+    addEvBtn.onclick=()=>{S.journal[ri].events.push('');renderJournal();};
+    jevDiv.appendChild(addEvBtn);
+  });
+  updateSums();
+}
+
+function addJournalRound() {
+  const nextRound=S.journal.length?S.journal[S.journal.length-1].round+1:1;
+  S.journal.push({round:nextRound,events:['']});
+  renderJournal(); updateSums();
+}
+
+function exportJournalText() {
+  if(!S.journal.length){showToast('No journal entries yet');return;}
+  let txt='TI4 GAME JOURNAL\n';
+  txt+='Faction: '+(S.myFaction||'Unknown')+'\n';
+  txt+='Players: '+document.getElementById('playerCount').value+'\n';
+  txt+='Opponents: '+S.opponents.map(o=>o.f).join(', ')+'\n\n';
+  S.journal.forEach(rnd=>{
+    txt+='=== ROUND '+rnd.round+' ===\n';
+    rnd.events.filter(e=>e.trim()).forEach(e=>{ txt+='  • '+e+'\n'; });
+    txt+='\n';
+  });
+  txt+='Final Score: '+(document.getElementById('myVP').value||0)+' VP\n';
+  const blob=new Blob([txt],{type:'text/plain'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='ti4-game-journal.txt'; a.click();
+  showToast('Journal exported!');
+}
+
+// ════════════════════════════════════════
+// COMBAT CALCULATOR
+// ════════════════════════════════════════
+function buildCombatRows() {
+  // Combat is still in the old 4-tab setup — we now put it as a section in Tech tab for space
+  // Actually we'll attach it directly in the sidebar. Let's add it as a collapsible after Tech.
+}
+
+// ════════════════════════════════════════
+// SAVE / LOAD / EXPORT / IMPORT
+// ════════════════════════════════════════
+function gatherState() {
+  return {
+    myFaction:S.myFaction, players:el('playerCount').value, round:el('roundNum').value,
+    myVP:el('myVP').value, vpGoal:el('vpGoal').value, position:el('position').value,
+    expansions:el('expansions').value, context:el('context').value,
+    opponents:S.opponents, ownedTechs:S.ownedTechs, secretObjs:S.secretObjs,
+    actionCards:S.actionCards, journal:S.journal, resources:S.resources,
+    cardHolders:SCARDS.reduce((acc,c)=>{acc[c.n]=getHolder(c.n);return acc;},{}),
+    objectives:qAll('.obj-in').map(i=>i.value),
+    promNotes:S.promNotes
+  };
+}
+
+function applyState(data) {
+  S.myFaction=data.myFaction||null;
+  S.opponents=data.opponents||[];
+  S.ownedTechs=data.ownedTechs||[];
+  S.secretObjs=data.secretObjs||[];
+  S.actionCards=data.actionCards||[];
+  S.journal=data.journal||[];
+  S.resources=data.resources||{};
+  S.promNotes=data.promNotes||{};
+  if(data.players) el('playerCount').value=data.players;
+  if(data.round) el('roundNum').value=data.round;
+  if(data.myVP!==undefined) el('myVP').value=data.myVP;
+  if(data.vpGoal) el('vpGoal').value=data.vpGoal;
+  if(data.position) el('position').value=data.position;
+  if(data.expansions) el('expansions').value=data.expansions;
+  if(data.context) el('context').value=data.context;
+  // Faction buttons
+  qAll('#myBaseFac .fbtn, #myPokFac .fbtn').forEach(b=>{b.classList.toggle('sel', b.dataset.n===S.myFaction);});
+  // Card holders
+  if(data.cardHolders) SCARDS.forEach(c=>{ const e=el('sc-'+c.n); if(e&&data.cardHolders[c.n]){e.value=data.cardHolders[c.n];onCardInput(e);}});
+  // Objectives
+  if(data.objectives) {const ins=qAll('.obj-in'); data.objectives.forEach((v,i)=>{if(ins[i]){ins[i].value=v;ins[i].classList.toggle('filled',!!v);}});}
+  renderOpps(); renderPromLedger(); rebuildResTable(); renderSecrets(); renderAC(); renderJournal(); buildTechGrid(); updateSums();
+}
+
+function saveState() {
+  try{localStorage.setItem('ti4-advisor-v4', JSON.stringify(gatherState())); showToast('Game state saved to browser ✓');}
+  catch(e){showToast('Save failed: '+e.message, 3000);}
+}
+
+function loadStateDialog() {
+  const saved=localStorage.getItem('ti4-advisor-v4');
+  if(!saved){showToast('No saved state found');return;}
+  if(confirm('Load saved game state? This will overwrite current settings.')){
+    try{applyState(JSON.parse(saved));showToast('State loaded ✓');}
+    catch(e){showToast('Load failed: '+e.message,3000);}
+  }
+}
+
+function exportStateJSON() {
+  const data=gatherState();
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='ti4-game-state.json'; a.click();
+  showToast('State exported as JSON ✓');
+}
+
+function importStateJSON(event) {
+  const file=event.target.files[0]; if(!file)return;
+  const reader=new FileReader();
+  reader.onload=(e)=>{
+    try{const data=JSON.parse(e.target.result);applyState(data);showToast('State imported ✓');}
+    catch(err){showToast('Import failed — invalid JSON',3000);}
+  };
+  reader.readAsText(file);
+  event.target.value='';
+}
+
+function confirmReset() {
+  if(confirm('Start a new game? This will clear all current state.')){
+    localStorage.removeItem('ti4-advisor-v4');
+    location.reload();
+  }
+}
+
+// ════════════════════════════════════════
+// PHOTO / BOARD SCAN
+// ════════════════════════════════════════
+function handlePhoto(event) {
+  const file=event.target.files[0]; if(!file)return;
+  const reader=new FileReader();
+  reader.onload=(e)=>{
+    const dataUrl=e.target.result;
+    photoData={base64:dataUrl.split(',')[1],mediaType:file.type||'image/jpeg'};
+    el('imgthumb').src=dataUrl;
+    el('imgpreview').classList.add('vis');
+  };
+  reader.readAsDataURL(file);
+  event.target.value='';
+}
+
+function clearPhoto() {
+  photoData=null;
+  el('imgpreview').classList.remove('vis');
+  el('imgthumb').src='';
+}
+
+function scanWith(prompt) {
+  el('userinput').value=prompt;
+  sendMsg();
+}
+
+// ════════════════════════════════════════
+// SYSTEM PROMPT
+// ════════════════════════════════════════
+// Static text cached by Anthropic — identical every call, billed at $0.30/M on cache hits
+const STATIC_SYSTEM = `You are an expert Twilight Imperium 4th Edition (TI4) advisor with encyclopedic knowledge of every faction, rule, strategy, and meta concept across the base game and Prophecy of Kings expansion.
+
+YOUR EXPERTISE:
+- All 25 base factions and 17 PoK factions: asymmetric abilities, flagship stats, faction techs, promissory notes, leaders, mechs
+- Every strategy card, action card, agenda, relic, and exploration card
+- Full technology tree across all four colors plus faction techs for every race
+- Complete objectives system: Public I & II, Secret Objectives, scoring math
+- Competitive meta: opening builds, tech paths, action economy, initiative order, political maneuvering, trade leverage, VP racing
+- Rules: can cite specific rule numbers, Living Rules Reference errata, and common competitive edge-case interpretations
+
+YOUR ROLE:
+- Give direct, opinionated, competitive advice tailored exactly to the game state provided
+- For rules questions: cite the specific rule; distinguish base game vs PoK when relevant; flag common misplays
+- For strategy: think like a high-level competitive player — initiative order, action economy, tech synergies, table politics, VP math
+- For faction questions: cover Strengths / Weaknesses / Tech Path / Win Condition / Key Tips
+- Use ALL structured game state provided — VP standings, strategy cards, objectives, techs, resources, journal, promissory notes — in every answer
+- Be sharp and enthusiastic, like a friend who has played hundreds of games
+- Format: ## and ### headers, **bold** key terms, bullet lists for clarity
+- Flag Rider plays, agenda swings, Support for the Throne VP notes, and Imperial timing proactively
+- CRITICAL: if the player tells you something in chat that updates game state, trust that over the panel values below`;
+
+function buildDynamicPrompt() {
+  const round=el('roundNum').value, myVP=el('myVP').value, vpGoal=el('vpGoal').value;
+  const players=el('playerCount').value, position=el('position').value;
+  const expansions=el('expansions').value, context=el('context').value;
+
+  let p='CURRENT GAME STATE:\nFaction: '+(S.myFaction||'Not selected')+' | Players: '+players+' | Round: '+round+' | VP Goal: '+vpGoal+'\nYour VP: '+myVP+' | Position: '+position+' | Expansions: '+(expansions==='pok'?'Base + PoK':'Base Only');
+  if(context) p+='\nContext: '+context;
+
+  if(S.opponents.length) {
+    const all=[{n:S.myFaction||'You',vp:parseInt(myVP),you:true},...S.opponents.map(o=>({n:o.f,vp:o.vp}))];
+    all.sort((a,b)=>b.vp-a.vp);
+    p+='\n\nVP STANDINGS:\n'+all.map(x=>(x.you?'► ':'')+x.n+': '+x.vp+' VP'+(x.vp>=vpGoal-2?' ⚠ DANGER':'')).join('\n');
+    p+='\n\nOPPONENTS: '+S.opponents.map(o=>o.f).join(', ');
+  }
+
+  p+='\n\nSTRATEGY CARDS (Round '+round+'):\n'+SCARDS.map(c=>'['+c.v+'] '+c.n+': '+(getHolder(c.n)||'Available')).join('\n');
+
+  const objInputs=qAll('.obj-in').map(i=>i.value.trim()).filter(Boolean);
+  if(objInputs.length) p+='\n\nPUBLIC OBJECTIVES:\nStage I: '+objInputs.slice(0,5).filter(Boolean).join(' | ')+'\nStage II: '+objInputs.slice(5).filter(Boolean).join(' | ');
+
+  if(S.ownedTechs.length) p+='\n\nYOUR TECHNOLOGIES: '+S.ownedTechs.join(', ');
+
+  const heldAC=S.actionCards.filter(c=>c.name);
+  if(heldAC.length) p+='\n\nACTION CARDS IN HAND:\n'+heldAC.map(c=>c.name+(c.tag?' ['+c.tag+']':'')).join(', ');
+
+  const activeAg=el('agselect')?.value;
+  if(activeAg) {
+    const ag=AGENDAS.find(a=>a.n===activeAg);
+    p+='\n\nACTIVE AGENDA: '+activeAg+(ag?' ('+ag.e+')':'');
+  }
+
+  const resLines=[];
+  Object.entries(S.resources).forEach(([name,r])=>{ resLines.push(name+': TG='+r.tg+' Com='+r.com+' CT='+r.ct); });
+  if(resLines.length) p+='\n\nRESOURCES & TOKENS:\n'+resLines.join('\n');
+
+  if(S.journal.length) {
+    p+='\n\nROUND JOURNAL:\n';
+    S.journal.forEach(rnd=>{
+      const evs=rnd.events.filter(e=>e.trim());
+      if(evs.length) p+='Round '+rnd.round+': '+evs.join('; ')+'\n';
+    });
+  }
+
+  const inHand=S.secretObjs.filter(s=>s.txt&&s.st==='held');
+  const scoredSec=S.secretObjs.filter(s=>s.txt&&s.st==='scored');
+  if(inHand.length||scoredSec.length) {
+    p+='\n\nSECRET OBJECTIVES (PRIVATE):\n';
+    if(inHand.length) p+='In Hand: '+inHand.map(s=>s.txt).join(' | ')+'\n';
+    if(scoredSec.length) p+='Scored: '+scoredSec.map(s=>s.txt).join(' | ')+'\n';
+    p+='Factor these into scoring advice and action priorities.\n';
+  }
+
+  const pnLines=[];
+  Object.entries(S.promNotes).forEach(([owner,notes])=>{
+    Object.entries(notes).forEach(([key,val])=>{
+      if(val&&val!=='own'){
+        const lbl=key==='sftt'?'Support for the Throne':key==='faction'?owner+' Faction Note':key==='alliance'?'Alliance':key.charAt(0).toUpperCase()+key.slice(1);
+        if(val==='inplay') pnLines.push(owner+"'s "+lbl+" IN PLAY (active effect)");
+        else if(val==='used') pnLines.push(owner+"'s "+lbl+" used/returned");
+        else pnLines.push(val+" holds "+owner+"'s "+lbl);
+      }
+    });
+  });
+  if(pnLines.length) p+='\n\nPROMISSORY NOTE LEDGER:\n'+pnLines.join('\n');
+
+  return p;
+}
+
+function buildSystemBlocks() {
+  return [
+    { type: 'text', text: STATIC_SYSTEM, cache_control: { type: 'ephemeral' } },
+    { type: 'text', text: buildDynamicPrompt() }
+  ];
+}
+
+// ════════════════════════════════════════
+// MARKDOWN RENDERER
+// ════════════════════════════════════════
+function renderMD(text) {
+  const lines=text.split('\n'); let html='', ul=false;
+  lines.forEach(line=>{
+    if(/^### (.+)$/.test(line)){if(ul){html+='</ul>';ul=false;}html+='<h4>'+fmt(line.slice(4))+'</h4>';}
+    else if(/^## (.+)$/.test(line)){if(ul){html+='</ul>';ul=false;}html+='<h3>'+fmt(line.slice(3))+'</h3>';}
+    else if(/^# (.+)$/.test(line)){if(ul){html+='</ul>';ul=false;}html+='<h3>'+fmt(line.slice(2))+'</h3>';}
+    else if(/^[-*] (.+)$/.test(line)){if(!ul){html+='<ul>';ul=true;}html+='<li>'+fmt(line.slice(2))+'</li>';}
+    else if(/^\d+\. (.+)$/.test(line)){if(!ul){html+='<ul>';ul=true;}html+='<li>'+fmt(line.replace(/^\d+\. /,''))+'</li>';}
+    else if(/^---+$/.test(line)){if(ul){html+='</ul>';ul=false;}html+='<hr>';}
+    else if(line.trim()===''){if(ul){html+='</ul>';ul=false;}}
+    else{if(ul){html+='</ul>';ul=false;}html+='<p>'+fmt(line)+'</p>';}
+  });
+  if(ul)html+='</ul>';
+  return html;
+}
+function fmt(s){return s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/`([^`]+)`/g,'<code>$1</code>');}
+
+// ════════════════════════════════════════
+// CHAT
+// ════════════════════════════════════════
+function addMsg(role, content) {
+  el('welcomescreen')?.remove();
+  const msgs=el('chatmsgs');
+  const div=document.createElement('div'); div.className='msg '+role;
+  const lbl=document.createElement('div'); lbl.className='msglbl';
+  lbl.textContent=role==='user'?'You':'⬡ TI4 Advisor';
+  div.appendChild(lbl);
+  const bub=document.createElement('div'); bub.className='msgbub';
+  if(role==='assistant'){
+    if(S.myFaction){const t=document.createElement('div');t.className='ftag';t.textContent=S.myFaction;bub.appendChild(t);}
+    const cd=document.createElement('div');cd.innerHTML=renderMD(content);bub.appendChild(cd);
+  } else { bub.textContent=content; }
+  div.appendChild(bub); msgs.appendChild(div); msgs.scrollTop=msgs.scrollHeight;
+}
+
+function setStatus(live, lbl) {
+  el('sdot').className='sdot'+(live?' live':'');
+  el('slbl').textContent=lbl;
+}
+
+function showThinking() {
+  el('welcomescreen')?.remove();
+  const msgs=el('chatmsgs');
+  const div=document.createElement('div'); div.id='thinking'; div.className='thinking';
+  div.innerHTML='<span style="color:var(--gold-dim);font-size:9px;letter-spacing:0.11em;text-transform:uppercase">Consulting the Galaxy</span><div class="dots"><span></span><span></span><span></span></div>';
+  msgs.appendChild(div); msgs.scrollTop=msgs.scrollHeight;
+}
+
+function hideThinking(){el('thinking')?.remove();}
+
+async function sendMsg() {
+  if(loading)return;
+  const inp=el('userinput'); const text=inp.value.trim(); if(!text)return;
+  inp.value=''; inp.style.height='auto';
+  loading=true; el('sendbtn').disabled=true; setStatus(true,'Transmitting…');
+  addMsg('user',text); showThinking();
+  let userContent;
+  if(photoData){
+    userContent=[{type:'image',source:{type:'base64',media_type:photoData.mediaType,data:photoData.base64}},{type:'text',text:text+'\n\n(Board photo attached. Analyze visible game state — factions, fleets, territory, VP, strategic situation — and integrate with the structured game state in the system prompt.)'}];
+    clearPhoto();
+  } else { userContent=text; }
+  history.push({role:'user',content:userContent});
+  try{
+    const resp=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,system:buildSystemBlocks(),messages:history})});
+    const data=await resp.json(); hideThinking();
+    if(data.error){addMsg('assistant','**Error**\n\n'+data.error.message);history.pop();setStatus(false,'Error');}
+    else{const reply=data.content?.find(b=>b.type==='text')?.text||'No response.';addMsg('assistant',reply);history.push({role:'assistant',content:reply});const n=history.filter(m=>m.role==='user').length;setStatus(false,n+' exchange'+(n!==1?'s':''));}
+  } catch(err){hideThinking();addMsg('assistant','**Network Error**\n\n`'+err.message+'`');history.pop();setStatus(false,'Disconnected');}
+  loading=false; el('sendbtn').disabled=false; el('userinput').focus();
+}
+
+function quickAsk(text){el('userinput').value=text;sendMsg();}
+
+
+// ════════════════════════════════════════
+// WIN THREAT MONITOR
+// ════════════════════════════════════════
+function updateThreatMonitor() {
+  const monitor = el('threatMonitor');
+  const rowsEl = el('threatRows');
+  const metaEl = el('threatMeta');
+  if (!monitor || !rowsEl) return;
+
+  const myVP = parseInt(el('myVP')?.value || 0);
+  const vpGoal = parseInt(el('vpGoal')?.value || 10);
+  const roundRaw = el('roundNum')?.value || '1';
+  const round = roundRaw === 'pre' ? 0 : roundRaw === '5+' ? 5 : parseInt(roundRaw) || 1;
+
+  const allPlayers = [
+    {n: S.myFaction || 'You', vp: myVP, you: true},
+    ...S.opponents.map(o => ({n: o.f, vp: o.vp, you: false}))
+  ];
+
+  if (allPlayers.length <= 1 && !S.opponents.length) { monitor.style.display = 'none'; return; }
+  monitor.style.display = 'flex';
+
+  const safeRound = Math.max(round, 1);
+  allPlayers.forEach(p => {
+    p.velocity = p.vp / safeRound;
+    p.etaRounds = p.velocity > 0 ? (vpGoal - p.vp) / p.velocity : 99;
+    p.etaRounds = Math.max(0, p.etaRounds);
+  });
+
+  allPlayers.sort((a, b) => b.vp - a.vp);
+  const leader = allPlayers[0];
+  const leaderETA = leader.etaRounds;
+
+  if (metaEl) {
+    metaEl.textContent = 'Rnd ' + roundRaw + ' · Goal ' + vpGoal + ' · ' +
+      (leaderETA < 1 ? '⚠ LEADER WINS NEXT ROUND' :
+       leaderETA < 2 ? 'Leader ~' + leaderETA.toFixed(1) + ' rds to win' :
+       'Leader ' + leaderETA.toFixed(1) + ' rds to win');
+  }
+
+  rowsEl.innerHTML = '';
+  allPlayers.forEach(p => {
+    const pct = Math.min(100, (p.vp / vpGoal) * 100);
+    const eta = p.etaRounds;
+    let etaClass = 'safe', etaText = '';
+    if (eta <= 0) { etaClass = 'crit'; etaText = '🏆 WIN'; }
+    else if (eta < 1) { etaClass = 'crit'; etaText = '<1 rd'; }
+    else if (eta < 2) { etaClass = 'hot'; etaText = '~'+eta.toFixed(1)+' rds'; }
+    else if (eta < 3) { etaClass = 'warn'; etaText = '~'+eta.toFixed(1)+' rds'; }
+    else { etaClass = 'safe'; etaText = eta.toFixed(1)+' rds'; }
+
+    // Bar color gradient: gold → orange → red as they approach win
+    const danger = Math.min(1, (pct / 100) * 1.3);
+    const r = Math.round(42 + (220 - 42) * danger);
+    const g = Math.round(154 - (154 - 70) * danger);
+    const b = Math.round(63 * (1 - danger * 0.8));
+    const barColor = p.you ? 'var(--gold)' : `rgb(${r},${g},${b})`;
+
+    const row = document.createElement('div');
+    row.className = 'threat-row';
+    row.innerHTML = '<span class="threat-name'+(p.you?' you':'')+'">'+p.n+'</span>' +
+      '<div class="threat-bar-w"><div class="threat-bar" style="width:'+pct+'%;background:'+barColor+'"></div></div>' +
+      '<span class="threat-eta '+etaClass+'">'+etaText+'</span>';
+    rowsEl.appendChild(row);
+  });
+}
+
+// ════════════════════════════════════════
+// PROMISSORY NOTES
+// ════════════════════════════════════════
+const PN_GENERICS = [
+  {key:'trade', label:'Trade Agr.'},
+  {key:'cease', label:'Ceasefire'},
+  {key:'polsec', label:'Pol. Secret'},
+  {key:'sftt', label:'⭐ SftT'}
+];
+const PN_FACTION = {key:'faction', label:'Faction Note'};
+const PN_ALLIANCE = {key:'alliance', label:'Alliance'};
+
+function initPNForPlayer(name) {
+  if (!S.promNotes[name]) {
+    S.promNotes[name] = {trade:'own', cease:'own', polsec:'own', sftt:'own', faction:'own', alliance:'own'};
+  }
+}
+
+function renderPromLedger() {
+  const ledger = el('pnLedger');
+  if (!ledger) return;
+  ledger.innerHTML = '';
+
+  const allPlayers = [
+    S.myFaction ? {n: S.myFaction, you: true, icon: FACTIONS.find(f=>f.n===S.myFaction)?.i || '⬡'} : null,
+    ...S.opponents.map(o => {const f=FACTIONS.find(x=>x.n===o.f); return {n:o.f, you:false, icon:f?.i||'◈'};})
+  ].filter(Boolean);
+
+  if (!allPlayers.length) {
+    ledger.innerHTML = '<div style="padding:0.3rem 0;font-size:0.65rem;color:var(--text-dim)">Select your faction and add opponents to track notes.</div>';
+    updatePNSummary();
+    return;
+  }
+
+  const isPok = (el('expansions')?.value || 'pok') === 'pok';
+  const allNames = allPlayers.map(p => p.n);
+
+  allPlayers.forEach(player => {
+    initPNForPlayer(player.n);
+    const pn = S.promNotes[player.n];
+
+    const row = document.createElement('div');
+    row.className = 'pn-player-row';
+
+    const hdr = document.createElement('div');
+    hdr.className = 'pn-player-hdr';
+    hdr.innerHTML = '<span class="pn-player-icon">'+player.icon+'</span>' +
+      '<span class="pn-player-name'+(player.you?' you':'')+'">'+player.n+'</span>';
+    row.appendChild(hdr);
+
+    const notesDiv = document.createElement('div');
+    notesDiv.className = 'pn-notes';
+
+    const notes = [...PN_GENERICS, PN_FACTION, ...(isPok ? [PN_ALLIANCE] : [])];
+    notes.forEach(note => {
+      const noteWrap = document.createElement('div');
+      noteWrap.className = 'pn-note';
+
+      const noteLabel = document.createElement('div');
+      noteLabel.className = 'pn-note-label';
+      noteLabel.textContent = note.label;
+      noteWrap.appendChild(noteLabel);
+
+      const sel = document.createElement('select');
+      sel.className = 'pn-note-sel';
+
+      const opts = [
+        {v:'own', t:'In Hand'},
+        ...allNames.filter(n=>n!==player.n).map(n=>({v:n, t:'→ '+n.split(' ').pop().slice(0,8)})),
+        {v:'inplay', t:'In Play ✦'},
+        {v:'used', t:'Used/Back'}
+      ];
+      opts.forEach(o => {
+        const opt = document.createElement('option');
+        opt.value = o.v; opt.textContent = o.t;
+        if (pn[note.key] === o.v) opt.selected = true;
+        sel.appendChild(opt);
+      });
+
+      const curVal = pn[note.key] || 'own';
+      if (curVal !== 'own' && curVal !== 'used') {
+        if (note.key === 'sftt' && curVal === 'inplay') sel.className = 'pn-note-sel sftt-alert';
+        else if (curVal === 'inplay') sel.className = 'pn-note-sel inplay';
+        else sel.className = 'pn-note-sel away';
+      } else if (curVal === 'used') {
+        sel.className = 'pn-note-sel used';
+      }
+
+      sel.onchange = () => {
+        S.promNotes[player.n][note.key] = sel.value;
+        const v = sel.value;
+        if (v !== 'own' && v !== 'used') {
+          sel.className = (note.key==='sftt' && v==='inplay') ? 'pn-note-sel sftt-alert' : v==='inplay' ? 'pn-note-sel inplay' : 'pn-note-sel away';
+        } else if (v === 'used') { sel.className = 'pn-note-sel used'; }
+        else { sel.className = 'pn-note-sel'; }
+        updatePNSummary();
+      };
+
+      noteWrap.appendChild(sel);
+      notesDiv.appendChild(noteWrap);
+    });
+
+    row.appendChild(notesDiv);
+    ledger.appendChild(row);
+  });
+  updatePNSummary();
+}
+
+function updatePNSummary() {
+  const sumEl = el('sum-pn');
+  if (!sumEl) return;
+  let awayCount = 0, sfttActive = 0;
+  Object.entries(S.promNotes).forEach(([owner, notes]) => {
+    Object.entries(notes).forEach(([key, val]) => {
+      if (val && val !== 'own') awayCount++;
+      if (key === 'sftt' && val === 'inplay') sfttActive++;
+    });
+  });
+  sumEl.textContent = awayCount + ' out' + (sfttActive ? ' · ' + sfttActive + ' SftT active' : '');
+}
+
+function getPNAdvice() {
+  const lines = [];
+  Object.entries(S.promNotes).forEach(([owner, notes]) => {
+    Object.entries(notes).forEach(([key, val]) => {
+      if (val && val !== 'own') {
+        const lbl = key === 'sftt' ? 'Support for the Throne' : key === 'faction' ? owner + ' Faction Note' : key;
+        if (val === 'inplay') lines.push(owner + "'s " + lbl + " is IN PLAY (active effect)");
+        else if (val !== 'used') lines.push(val + " holds " + owner + "'s " + lbl);
+      }
+    });
+  });
+  const pnSituation = lines.length ? lines.join('\n') : 'No notes tracked yet — assume defaults.';
+  let q = 'Current promissory note situation:\n' + pnSituation + '\n\nGiven this note ledger and my game state: What political leverage do I have? Who can I negotiate with most effectively? Are any Support for the Throne VP notes at risk? What should I demand or offer in my next transaction?';
+  quickAsk(q);
+}
+
+// ════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════
+buildFacGrids();
+buildMiniFacGrid();
+buildSCGrid();
+buildObjPanel();
+buildTechGrid();
+buildAgendaSelect();
+renderSecrets();
+renderAC();
+renderJournal();
+rebuildResTable();
+renderPromLedger();
+updateSums();
+
+// Try auto-load saved state
+try{const saved=localStorage.getItem('ti4-advisor-v4');if(saved){const data=JSON.parse(saved);if(data.myFaction&&confirm('Resume previous game as '+data.myFaction+'?')){applyState(data);}}}catch(e){}
+</script>
+</body>
+</html>
