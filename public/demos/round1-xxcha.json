@@ -1,0 +1,86 @@
+{
+  "myFaction": "Xxcha Kingdom",
+  "players": "6",
+  "round": "1",
+  "myVP": "1",
+  "vpGoal": "10",
+  "position": "left-speaker",
+  "expansions": "pok",
+  "context": "Strong slice with Bereg/Lirta, Hacan on left offering early trade deal",
+  "opponents": [
+    {"f": "Emirates of Hacan", "vp": 1},
+    {"f": "Federation of Sol", "vp": 0},
+    {"f": "Nekro Virus", "vp": 0},
+    {"f": "Jol-Nar", "vp": 1},
+    {"f": "Clan of Saar", "vp": 0}
+  ],
+  "ownedTechs": ["Graviton Laser System", "Instinct Training"],
+  "secretObjs": [
+    {"txt": "Become a Martyr — Lose a flagship or war sun in combat", "st": "held"}
+  ],
+  "actionCards": [
+    {"name": "Sabotage", "tag": null},
+    {"name": "Direct Hit", "tag": null},
+    {"name": "Political Favor", "tag": "save"}
+  ],
+  "journal": [
+    {
+      "round": 1,
+      "events": [
+        "Picked Leadership — needed the command tokens for early expansion",
+        "Took Bereg and Lirta IV with carrier + 3 infantry, exhausted both for 5 resources",
+        "Hacan offered a trade agreement — accepted, traded commodities for 2 TG",
+        "Built a PDS on Bereg as deterrent against Sol who's eyeing my border",
+        "Jol-Nar already has 2 techs researched — they grabbed Technology card turn 1",
+        "Scored public objective: Develop Weaponry (own 2 unit upgrades) — wait, I don't have upgrades yet. Scored: Spend 8 resources",
+        "Nekro Virus staying quiet in the corner, everyone nervous about them"
+      ]
+    }
+  ],
+  "resources": {
+    "Xxcha Kingdom": {"tg": 3, "com": 2, "ct": 3},
+    "Emirates of Hacan": {"tg": 0, "com": 0, "ct": 3},
+    "Federation of Sol": {"tg": 0, "com": 0, "ct": 3},
+    "Nekro Virus": {"tg": 0, "com": 0, "ct": 3},
+    "Jol-Nar": {"tg": 0, "com": 0, "ct": 3},
+    "Clan of Saar": {"tg": 0, "com": 0, "ct": 3}
+  },
+  "cardHolders": {
+    "Leadership": "Xxcha Kingdom",
+    "Diplomacy": "Clan of Saar",
+    "Politics": "Emirates of Hacan",
+    "Construction": "Federation of Sol",
+    "Trade": "Emirates of Hacan",
+    "Warfare": "Federation of Sol",
+    "Technology": "Jol-Nar",
+    "Imperial": "Nekro Virus"
+  },
+  "objectives": [
+    "Erect a Monument — Spend 8 resources",
+    "Develop Weaponry — Own 2 unit upgrade technologies",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "promNotes": {},
+  "planets": [
+    {"name": "Archon Ren", "res": 2, "inf": 3, "ready": true, "trait": "hazardous"},
+    {"name": "Archon Tau", "res": 1, "inf": 1, "ready": true, "trait": "hazardous"},
+    {"name": "Bereg", "res": 3, "inf": 1, "ready": false, "trait": "hazardous"},
+    {"name": "Lirta IV", "res": 2, "inf": 3, "ready": false, "trait": "cultural"}
+  ],
+  "fleets": [
+    {"system": "Home", "ships": "1 Flagship, 1 Carrier, 2 Cruisers, 3 Fighters"},
+    {"system": "Bereg/Lirta", "ships": "1 Carrier, 1 PDS, 3 Infantry"}
+  ],
+  "coachMode": false,
+  "chatHistory": [
+    {"role": "user", "content": "I just started a 6-player game as Xxcha. What should my Round 1 priorities be?"},
+    {"role": "assistant", "content": "## Xxcha Round 1 Priorities\n\nGreat pick — Xxcha is the galaxy's defensive powerhouse. Here's your Round 1 game plan:\n\n### Immediate Priorities\n- **Expand to your best planets** — grab Bereg (3R/1I) and Lirta IV (2R/3I) immediately. That's 5 resources and 4 influence in one system.\n- **Build a PDS on your forward planet** — this is YOUR identity. Graviton Laser System lets your PDS fire into adjacent systems. Make people afraid to come near you.\n- **Trade with Hacan** — they're offering, and you need the TG. Xxcha's economy is slow early; free trade goods accelerate your tech path.\n\n### Tech Path\nYou start with **Graviton Laser System** (your PDS fires into adjacent systems) and **Instinct Training** (+2 to ground combat defense). Your next tech should be:\n1. **PDS II** — this is your win condition tech. PDS II has Space Cannon 5 with DEEP SPACE CANNON.\n2. **Plasma Scoring** — +1 to bombardment AND space cannon rolls.\n\n### Watch Out For\n- **Jol-Nar** already has 2 techs. They'll outpace everyone on the tech tree.\n- **Nekro Virus** with Imperial is concerning — they're planning to score early.\n- **Sol** eyeing your border — that PDS on Bereg is critical deterrence.\n\n*Bottom line: turtle up, build PDS, trade for economy, and let everyone else fight while you quietly score objectives.*"}
+  ]
+}

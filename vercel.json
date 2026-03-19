@@ -9,6 +9,15 @@
     },
     "api/clone-voice.js": {
       "maxDuration": 60
+    },
+    "api/podcast-script.js": {
+      "maxDuration": 30
+    },
+    "api/music.js": {
+      "maxDuration": 120
+    },
+    "api/sfx.js": {
+      "maxDuration": 30
     }
   },
   "rewrites": [

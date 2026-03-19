@@ -15,7 +15,7 @@
 :root{
   --gold:#c9a84c;--gold-dim:#8a6f30;--gold-bright:#f0c060;
   --deep:#080c12;--panel:#0d1420;--panel2:#111929;--panel3:#0a1018;
-  --border:rgba(201,168,76,0.22);--text:#d4cfc4;--text-dim:#6a6560;--text-bright:#f0ead8;
+  --border:rgba(201,168,76,0.22);--text:#d4cfc4;--text-dim:#8a857e;--text-bright:#f0ead8;
   --blue-hi:#4a9adf;--red-hi:#df6a4a;--yellow-hi:#dfbf4a;--green-hi:#4adf8a;
   --purple-hi:#c47ae8;--teal-hi:#2ab89f;
 }
@@ -273,13 +273,15 @@ select option{background:#0d1420;}
 .rsd{font-size:0.66rem;color:var(--text-dim);text-align:center;margin-top:0.28rem;}
 
 /* CHAT */
-.chat-panel{display:flex;flex-direction:column;height:calc(100vh - 160px);min-height:520px;max-height:900px;position:relative;}
+.chat-panel{display:flex;flex-direction:column;height:calc(100vh - 160px);min-height:400px;max-height:720px;position:relative;}
 .chat-ph{background:var(--panel2);border-bottom:1px solid var(--border);padding:0.48rem 0.9rem;display:flex;align-items:center;gap:0.45rem;}
 .chat-ph .ptitle{font-family:'Cinzel',serif;font-size:0.65rem;color:var(--gold);letter-spacing:0.11em;text-transform:uppercase;font-weight:600;flex:1;}
 .spill{display:flex;align-items:center;gap:4px;font-size:0.58rem;color:var(--text-dim);letter-spacing:0.05em;text-transform:uppercase;}
 .sdot{width:5px;height:5px;border-radius:50%;background:var(--gold-dim);flex-shrink:0;}
 .sdot.live{background:#4caf82;animation:blink 1.5s ease-in-out infinite;}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.chat-act-btn{background:none;border:1px solid var(--border);border-radius:3px;color:var(--text-dim);font-size:0.68rem;width:26px;height:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.12s;flex-shrink:0;}
+.chat-act-btn:hover{border-color:var(--gold-dim);color:var(--gold);}
 .chat-msgs{flex:1;overflow-y:auto;padding:0.85rem;display:flex;flex-direction:column;gap:0.85rem;scrollbar-width:thin;scrollbar-color:var(--border) transparent;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;}
 .chat-msgs::-webkit-scrollbar{width:3px;}
 .chat-msgs::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
@@ -313,7 +315,7 @@ select option{background:#0d1420;}
 .msg.user{align-items:flex-end;}.msg.assistant{align-items:flex-start;}
 .msglbl{font-size:0.59rem;text-transform:uppercase;letter-spacing:0.09em;color:var(--text-dim);}
 .msg.user .msglbl{color:var(--gold-dim);}
-.msgbub{max-width:92%;padding:0.52rem 0.78rem;border-radius:3px;font-size:0.83rem;line-height:1.63;}
+.msgbub{max-width:92%;padding:0.52rem 0.78rem;border-radius:6px;font-size:0.83rem;line-height:1.63;}
 .msg.user .msgbub{background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.23);color:var(--text-bright);text-align:right;}
 .msg.assistant .msgbub{background:var(--panel2);border:1px solid var(--border);color:var(--text);width:100%;max-width:100%;}
 .msgbub strong{color:var(--gold-bright);font-weight:600;}
@@ -478,6 +480,29 @@ select option{background:#0d1420;}
 .vc-progress { font-size:0.65rem; color:var(--gold); margin-top:0.3rem; }
 .vc-actions { display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin-top:0.4rem; }
 .vc-timer { font-size:0.72rem; color:#ef8a8a; font-weight:600; font-variant-numeric:tabular-nums; }
+/* Podcast player */
+.podcast-widget { background:var(--panel2); border:1px solid var(--border); border-radius:6px; padding:0.6rem 0.75rem; margin:0.4rem 0.85rem 0.5rem; }
+.podcast-hdr { display:flex; align-items:center; gap:8px; margin-bottom:0.4rem; }
+.podcast-title { font-family:'Cinzel',serif; font-size:0.68rem; color:var(--gold); letter-spacing:0.06em; flex:1; }
+.podcast-gen-btn { background:rgba(196,122,232,0.12); border:1px solid rgba(196,122,232,0.35); border-radius:3px; color:var(--purple-hi); padding:0.35rem 0.7rem; cursor:pointer; font-family:'Rajdhani',sans-serif; font-size:0.68rem; font-weight:600; transition:all 0.13s; display:inline-flex; align-items:center; gap:5px; }
+.podcast-gen-btn:hover { background:rgba(196,122,232,0.22); border-color:rgba(196,122,232,0.6); }
+.podcast-gen-btn:disabled { opacity:0.4; pointer-events:none; }
+.podcast-progress { display:flex; flex-direction:column; gap:4px; margin:0.3rem 0; }
+.podcast-track { display:flex; align-items:center; gap:6px; font-size:0.6rem; color:var(--text-dim); }
+.podcast-track .track-name { min-width:55px; text-transform:uppercase; letter-spacing:0.05em; }
+.podcast-track .track-bar { flex:1; height:3px; background:rgba(255,255,255,0.06); border-radius:2px; overflow:hidden; }
+.podcast-track .track-fill { height:100%; background:var(--purple-hi); border-radius:2px; transition:width 0.3s; }
+.podcast-track.done .track-name { color:var(--green-hi); }
+.podcast-track.error .track-name { color:var(--red-hi); }
+.podcast-player { display:flex; align-items:center; gap:8px; margin-top:0.45rem; }
+.podcast-play-btn { background:rgba(196,122,232,0.15); border:1px solid rgba(196,122,232,0.4); border-radius:50%; width:34px; height:34px; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:14px; color:var(--purple-hi); transition:all 0.13s; flex-shrink:0; }
+.podcast-play-btn:hover { background:rgba(196,122,232,0.28); border-color:rgba(196,122,232,0.7); }
+.podcast-timeline { flex:1; display:flex; flex-direction:column; gap:2px; }
+.podcast-seek { width:100%; height:4px; -webkit-appearance:none; appearance:none; background:rgba(255,255,255,0.08); border-radius:2px; outline:none; cursor:pointer; }
+.podcast-seek::-webkit-slider-thumb { -webkit-appearance:none; width:10px; height:10px; border-radius:50%; background:var(--purple-hi); cursor:pointer; }
+.podcast-time { font-size:0.55rem; color:var(--text-dim); font-variant-numeric:tabular-nums; }
+.podcast-dl-btn { background:none; border:1px solid var(--border); border-radius:3px; color:var(--text-dim); font-size:0.58rem; padding:0.2rem 0.45rem; cursor:pointer; font-family:'Rajdhani',sans-serif; transition:all 0.12s; }
+.podcast-dl-btn:hover { border-color:var(--gold-dim); color:var(--gold); }
 .speak-wave { display:inline-flex; align-items:center; gap:1px; height:10px; }
 .speak-wave span { display:inline-block; width:2px; background:var(--blue-hi); border-radius:1px; animation:wavebar 0.8s ease-in-out infinite; }
 .speak-wave span:nth-child(1){height:4px;animation-delay:0s}
@@ -646,7 +671,9 @@ select option{background:#0d1420;}
     scrollbar-width: none; /* hide scrollbar on mobile */
   }
   .chat-msgs::-webkit-scrollbar { display: none; }
-  .msgbub { font-size: 0.86rem; padding: 0.5rem 0.75rem; }
+  .msgbub { font-size: 0.86rem; padding: 0.55rem 0.8rem; border-radius: 10px; }
+  .msg.user .msgbub { border-radius: 10px 10px 3px 10px; }
+  .msg.assistant .msgbub { border-radius: 10px 10px 10px 3px; }
 
   /* ═══ WELCOME SCREEN ═══ */
   .welcome {
@@ -692,8 +719,8 @@ select option{background:#0d1420;}
   .context-strip::-webkit-scrollbar { display: none; }
   .ctx-btn { font-size: 0.64rem; padding: 0.2rem 0.55rem; border-radius: 4px; }
   .quick-strip {
-    padding: 6px 10px; flex-wrap: nowrap; overflow-x: auto;
-    -webkit-overflow-scrolling: touch; gap: 6px; align-items: center;
+    padding: 4px 8px; flex-wrap: nowrap; overflow-x: auto;
+    -webkit-overflow-scrolling: touch; gap: 5px; align-items: center;
     flex-shrink: 0; border-top: 1px solid rgba(255,255,255,0.06);
     background: rgba(10,16,24,0.6); scrollbar-width: none;
   }
@@ -701,21 +728,24 @@ select option{background:#0d1420;}
   .quick-strip::before { content: '‹'; color: var(--text-dim); opacity: 0.35; font-size: 0.6rem; flex-shrink: 0; }
   .quick-strip::after  { content: '›'; color: var(--text-dim); opacity: 0.35; font-size: 0.6rem; flex-shrink: 0; }
   .qs-btn {
-    font-size: 0.64rem; padding: 0.2rem 0.55rem;
-    flex-shrink: 0; white-space: nowrap; border-radius: 4px;
+    font-size: 0.62rem; padding: 0.18rem 0.5rem;
+    flex-shrink: 0; white-space: nowrap; border-radius: 12px;
   }
 
   /* ═══ INPUT AREA ═══ */
   .input-area {
-    padding: 8px 10px; gap: 6px; flex-shrink: 0;
+    padding: 6px 8px; gap: 5px; flex-shrink: 0;
     border-top: 1px solid var(--border);
     background: var(--panel);
-    padding-bottom: calc(8px + env(safe-area-inset-bottom, 0));
+    padding-bottom: calc(6px + env(safe-area-inset-bottom, 0));
   }
-  .input-area textarea { font-size: 0.88rem; min-height: 40px; max-height: 80px; }
-  .send-btn { height: 40px; font-size: 0.64rem; padding: 0 0.85rem; border-radius: 4px; }
-  .scan-btn { height: 40px; padding: 0 0.6rem; font-size: 0.68rem; border-radius: 4px; }
-  .mic-btn  { width: 40px; height: 40px; font-size: 15px; border-radius: 4px; }
+  .input-area textarea {
+    font-size: 0.88rem; min-height: 38px; max-height: 72px;
+    border-radius: 19px; padding: 0.4rem 0.75rem;
+  }
+  .send-btn { height: 38px; font-size: 0.62rem; padding: 0 0.75rem; border-radius: 19px; }
+  .scan-btn { height: 38px; padding: 0 0.55rem; font-size: 0.66rem; border-radius: 19px; }
+  .mic-btn  { width: 38px; height: 38px; font-size: 15px; border-radius: 50%; }
 
   /* ═══ DRAWER CONTENT STYLING ═══ */
   .sidebar .panel { border-radius: 0; border: none; }
@@ -749,6 +779,13 @@ select option{background:#0d1420;}
 
   /* Coach banner: thin inline */
   .coach-banner { font-size: 0.58rem; padding: 0.2rem 0.6rem; flex-shrink: 0; }
+
+  /* ═══ MESSAGE ACTION BUTTONS ═══ */
+  .msg-actions { gap: 6px; margin-top: 0.35rem; }
+  .msg-copy-btn, .msg-speak-btn {
+    font-size: 0.64rem; padding: 0.22rem 0.55rem;
+    border-radius: 12px; min-height: 28px;
+  }
 }
 
 /* --- Small phones (≤380px) --- */
@@ -766,7 +803,7 @@ select option{background:#0d1420;}
 /* --- Tablet (901px–1100px): tighter sidebar --- */
 @media(min-width:901px) and (max-width:1100px) {
   .layout { grid-template-columns: 295px 1fr; gap: 0.85rem; }
-  .chat-panel { height: 760px; }
+  .chat-panel { height: calc(100vh - 180px); max-height: 660px; }
 }
 
 /* ── SECTION COLLAPSE VISUAL POLISH ── */
@@ -849,7 +886,7 @@ select option{background:#0d1420;}
     <span class="gs-chip round" id="gs-round">Round: 1</span>
     <span class="gs-chip vp" id="gs-vp">My VP: 0</span>
     <span class="gs-chip faction" id="gs-faction">Player 6</span>
-    <span class="gs-chip ai-ready" id="gs-ai">● AI Ready</span>
+    <span class="gs-chip ai-ready" id="gs-ai" style="opacity:0.5">◌ Warming…</span>
     <button class="round-advance-btn" onclick="advanceRound()" title="End this round, advance to next">▶ Next Round</button>
   </div>
   <div class="header-actions">
@@ -858,6 +895,11 @@ select option{background:#0d1420;}
     <button class="hbtn primary" onclick="exportStateJSON()">⬇ Export JSON</button>
     <button class="hbtn primary" onclick="document.getElementById('importFile').click()">⬆ Import JSON</button>
     <button class="hbtn danger" onclick="confirmReset()">↺ New Game</button>
+  </div>
+  <div class="header-actions" style="margin-top:0.25rem">
+    <button class="hbtn" onclick="loadDemo('round1-xxcha')" title="Load Round 1 example state">▸ Demo R1</button>
+    <button class="hbtn" onclick="loadDemo('round3-xxcha')" title="Load Round 3 example state">▸ Demo R3</button>
+    <button class="hbtn" onclick="loadDemo('round5-xxcha')" title="Load Round 5 example state">▸ Demo R5</button>
   </div>
   <input type="file" id="importFile" accept=".json" style="display:none" onchange="importStateJSON(event)">
 </header>
@@ -914,8 +956,14 @@ select option{background:#0d1420;}
       </div></div>
     </div>
     <div class="section collapsed" id="sec-voice">
-      <div class="sec-hdr" onclick="toggleSec('sec-voice')"><span class="sec-title">Voice Clone</span><span class="sec-sum" id="sum-voice">Not set</span><span class="chev">▾</span></div>
+      <div class="sec-hdr" onclick="toggleSec('sec-voice')"><span class="sec-title">Voice</span><span class="sec-sum" id="sum-voice">Default</span><span class="chev">▾</span></div>
       <div class="sec-body"><div class="fp" style="padding:0.55rem 0.85rem">
+        <div style="margin-bottom:0.5rem">
+          <label style="font-size:0.68rem;color:var(--blue-hi);font-weight:600;display:block;margin-bottom:0.25rem">Narrator Voice</label>
+          <select id="voicePicker" onchange="onVoicePickerChange()" style="width:100%;padding:0.35rem 0.5rem;background:rgba(10,18,30,0.7);border:1px solid rgba(74,122,175,0.35);color:var(--text);border-radius:3px;font-family:'Rajdhani',sans-serif;font-size:0.72rem;">
+            <option value="">Default</option>
+          </select>
+        </div>
         <div id="vcStatus" class="vc-status none">
           <span id="vcStatusIcon">🔇</span>
           <span id="vcStatusText">No voice cloned — using default voice</span>
@@ -927,7 +975,7 @@ select option{background:#0d1420;}
           </div>
         </div>
         <div id="vcSetupUI">
-          <p class="vc-hint">Record a 15–30 second voice sample and we'll clone your voice so the advisor speaks back in your voice.</p>
+          <p class="vc-hint">Or record a 15-30 second voice sample to clone your own voice.</p>
           <div class="vc-actions">
             <button class="vc-record-btn" id="vcRecordBtn" onclick="startVoiceClone()">🎙 Record Sample</button>
           </div>
@@ -1203,7 +1251,9 @@ select option{background:#0d1420;}
             <button class="jbtn accent" onclick="addJournalRound()">+ New Round</button>
             <button class="jbtn" onclick="quickAsk('Based on my round journal history, what patterns do you see in my play? What strategic adjustments should I make going forward?')">AI Analysis ↗</button>
             <button class="jbtn export" onclick="exportJournalText()">Export Summary</button>
+            <button class="podcast-gen-btn" onclick="generatePodcast()">🎙 Generate Podcast</button>
           </div>
+          <div id="podcastContainer"></div>
         </div>
       </div>
     </div>
@@ -1217,6 +1267,8 @@ select option{background:#0d1420;}
     <span style="color:var(--gold);font-size:10px">◉</span>
     <span class="ptitle" id="chatTitle">Strategy Command</span>
     <div class="spill"><div class="sdot" id="sdot"></div><span id="slbl">Ready</span></div>
+    <button class="chat-act-btn" onclick="undoLastMsg()" title="Undo last exchange">↩</button>
+    <button class="chat-act-btn" onclick="clearChat()" title="Clear chat history">🗑</button>
     <button class="coach-toggle" id="coachToggle" onclick="toggleCoachMode()" title="Toggle Coach Mode for beginner-friendly explanations">🎓 Coach</button>
   </div>
   <div class="coach-banner" id="coachBanner">🎓 Coach Mode — plain-language teaching, concrete examples, explains the "why"</div>
@@ -1928,7 +1980,8 @@ function renderJournal() {
   p.innerHTML='';
   S.journal.forEach((rnd,ri)=>{
     const block=document.createElement('div'); block.className='journal-round-block';
-    block.innerHTML='<div class="journal-round-hdr"><span class="journal-round-lbl">Round '+rnd.round+'</span><button class="journal-round-del" onclick="S.journal.splice('+ri+',1);renderJournal();updateSums()" title="Delete round">✕</button></div><div class="journal-events" id="jev-'+ri+'"></div>';
+    const hasArchive = podcastArchive[rnd.round] ? ' <span style="color:var(--purple-hi);font-size:0.6rem">🎙</span>' : '';
+    block.innerHTML='<div class="journal-round-hdr"><span class="journal-round-lbl">Round '+rnd.round+hasArchive+'</span><button class="podcast-dl-btn" onclick="generatePodcastForRound(S.journal['+ri+'])" title="Generate podcast for this round" style="font-size:0.55rem;padding:0.1rem 0.3rem">🎙</button><button class="journal-round-del" onclick="S.journal.splice('+ri+',1);renderJournal();updateSums()" title="Delete round">✕</button></div><div class="journal-events" id="jev-'+ri+'"></div>';
     p.appendChild(block);
     const jevDiv=document.getElementById('jev-'+ri);
     rnd.events.forEach((ev,ei)=>{
@@ -1980,6 +2033,14 @@ function buildCombatRows() {
 // SAVE / LOAD / EXPORT / IMPORT
 // ════════════════════════════════════════
 function gatherState() {
+  // Filter out image data from chat history to keep storage small
+  const savedHistory = history.map(m => {
+    if (Array.isArray(m.content)) {
+      // Strip base64 image data, keep text blocks only
+      return { role: m.role, content: m.content.filter(b => b.type === 'text').map(b => b.text).join('\n') };
+    }
+    return m;
+  });
   return {
     myFaction:S.myFaction, players:el('playerCount').value, round:el('roundNum').value,
     myVP:el('myVP').value, vpGoal:el('vpGoal').value, position:el('position').value,
@@ -1995,7 +2056,10 @@ function gatherState() {
     teStations:S.teStations||[],
     planets:S.planets||[],
     fleets:S.fleets||[],
-    coachMode:S.coachMode||false
+    coachMode:S.coachMode||false,
+    chatHistory:savedHistory,
+    voicePicker:localStorage.getItem('ti4-voice-picker')||'',
+    clonedVoiceId:localStorage.getItem('ti4-cloned-voice-id')||''
   };
 }
 
@@ -2031,14 +2095,29 @@ function applyState(data) {
   if(data.cardHolders) SCARDS.forEach(c=>{ const e=el('sc-'+c.n); if(e&&data.cardHolders[c.n]){e.value=data.cardHolders[c.n];onCardInput(e);}});
   // Objectives
   if(data.objectives) {const ins=qAll('.obj-in'); data.objectives.forEach((v,i)=>{if(ins[i]){ins[i].value=v;ins[i].classList.toggle('filled',!!v);}});}
+  // Restore chat history
+  if(data.chatHistory && data.chatHistory.length > 0) {
+    history = data.chatHistory;
+    // Re-render all messages into the chat UI
+    const msgs = el('chatmsgs');
+    el('welcomescreen')?.remove();
+    history.forEach(m => addMsg(m.role, typeof m.content === 'string' ? m.content : m.content));
+    const n = history.filter(m => m.role === 'user').length;
+    setStatus(false, n + ' exchange' + (n !== 1 ? 's' : ''));
+  }
+  // Restore voice selection
+  if(data.clonedVoiceId) { localStorage.setItem('ti4-cloned-voice-id', data.clonedVoiceId); showVoiceReady(data.clonedVoiceId); }
+  if(data.voicePicker) { localStorage.setItem('ti4-voice-picker', data.voicePicker); const p=el('voicePicker'); if(p) p.value=data.voicePicker; }
   renderOpps(); renderPromLedger(); rebuildResTable(); renderSecrets(); renderAC(); renderJournal(); buildTechGrid();
   renderPlanets(); renderFleets(); applyCoachModeUI(); updateSums();
+  loadPodcastArchive();
 }
 
-function saveState() {
-  try{localStorage.setItem('ti4-advisor-v4', JSON.stringify(gatherState())); showToast('Game state saved to browser ✓');}
-  catch(e){showToast('Save failed: '+e.message, 3000);}
+function saveState(silent) {
+  try{localStorage.setItem('ti4-advisor-v4', JSON.stringify(gatherState())); if(!silent) showToast('Game state saved to browser ✓');}
+  catch(e){if(!silent) showToast('Save failed: '+e.message, 3000);}
 }
+function autoSave() { saveState(true); }
 
 function loadStateDialog() {
   const saved=localStorage.getItem('ti4-advisor-v4');
@@ -2071,7 +2150,24 @@ function importStateJSON(event) {
 function confirmReset() {
   if(confirm('Start a new game? This will clear all current state.')){
     localStorage.removeItem('ti4-advisor-v4');
+    try { indexedDB.deleteDatabase('ti4-podcasts'); } catch(e) {}
     location.reload();
+  }
+}
+
+async function loadDemo(name) {
+  try {
+    const resp = await fetch('/demos/' + name + '.json');
+    if (!resp.ok) throw new Error('Demo not found');
+    const data = await resp.json();
+    // Clear existing chat
+    history = [];
+    el('chatmsgs').innerHTML = '';
+    // Apply the demo state (includes chat history)
+    applyState(data);
+    showToast('Demo loaded: ' + (data.myFaction || name) + ' Round ' + (data.round || '?'), 2000);
+  } catch (err) {
+    showToast('Failed to load demo: ' + err.message, 3000);
   }
 }
 
@@ -2345,16 +2441,59 @@ async function sendMsg() {
     clearPhoto();
   } else { userContent=text; }
   history.push({role:'user',content:userContent});
+  // Send only the last 20 messages to the API to cap token usage
+  const apiMessages = history.length > 20 ? history.slice(-20) : history;
   try{
-    const resp=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1700,system:buildSystemBlocks(),messages:history,_includeThundersEdge:(el('expansions')?.value==='te')})});
+    const resp=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1700,system:buildSystemBlocks(),messages:apiMessages,_includeThundersEdge:(el('expansions')?.value==='te')})});
     const data=await resp.json(); hideThinking();
     if(data.error){addMsg('assistant','**Error**\n\n'+data.error.message);history.pop();setStatus(false,'Error');}
-    else{const reply=data.content?.find(b=>b.type==='text')?.text||'No response.';addMsg('assistant',reply);history.push({role:'assistant',content:reply});const n=history.filter(m=>m.role==='user').length;setStatus(false,n+' exchange'+(n!==1?'s':''));}
+    else{const reply=data.content?.find(b=>b.type==='text')?.text||'No response.';addMsg('assistant',reply);history.push({role:'assistant',content:reply});const n=history.filter(m=>m.role==='user').length;setStatus(false,n+' exchange'+(n!==1?'s':''));autoSave();}
   } catch(err){hideThinking();addMsg('assistant','**Network Error**\n\n`'+err.message+'`');history.pop();setStatus(false,'Disconnected');}
   loading=false; el('sendbtn').disabled=false; el('sendbtn').classList.remove('loading'); el('sendbtn').textContent='Transmit'; el('userinput').focus();
 }
 
 function quickAsk(text){el('userinput').value=text;sendMsg();}
+
+function undoLastMsg() {
+  if(loading || history.length === 0) return;
+  const msgs = el('chatmsgs');
+  // Remove last assistant + user pair
+  if(history.length >= 2 && history[history.length-1].role === 'assistant') {
+    history.pop(); // assistant
+    history.pop(); // user
+    // Remove last 2 DOM messages
+    const children = msgs.querySelectorAll('.msg');
+    if(children.length >= 2) { children[children.length-1].remove(); children[children.length-2].remove(); }
+  } else if(history.length >= 1) {
+    history.pop();
+    const children = msgs.querySelectorAll('.msg');
+    if(children.length >= 1) children[children.length-1].remove();
+  }
+  const n = history.filter(m => m.role === 'user').length;
+  setStatus(false, n ? n + ' exchange' + (n !== 1 ? 's' : '') : 'Ready');
+  autoSave();
+  showToast('Last exchange removed', 1500);
+}
+
+function clearChat() {
+  if(loading || history.length === 0) return;
+  if(!confirm('Clear all chat history? Game state will be kept.')) return;
+  history = [];
+  const msgs = el('chatmsgs');
+  msgs.innerHTML = '';
+  buildWelcomeScreen();
+  setStatus(false, 'Ready');
+  autoSave();
+  showToast('Chat cleared', 1500);
+}
+
+function buildWelcomeScreen() {
+  const msgs = el('chatmsgs');
+  // Re-insert welcome screen
+  const w = document.createElement('div'); w.className = 'welcome'; w.id = 'welcomescreen';
+  w.innerHTML = '<div class="sigil">⬡</div><h2>Awaiting Orders, Supreme Commander</h2><p>Configure all five tabs for maximum advisor intelligence, then ask anything.</p>';
+  msgs.appendChild(w);
+}
 
 // ════════════════════════════════════════
 // VOICE NARRATION (ElevenLabs TTS)
@@ -2398,7 +2537,7 @@ async function speakText(content,btn){
     const resp=await fetch('/api/speak',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({text:plain,voiceId:localStorage.getItem('ti4-cloned-voice-id')||undefined})
+      body:JSON.stringify({text:plain,voiceId:getSelectedVoiceId()})
     });
 
     if(!resp.ok){
@@ -2447,33 +2586,90 @@ let vcChunks=[];
 let vcTimerInterval=null;
 let vcStartTime=0;
 
+function getSelectedVoiceId() {
+  // Priority: cloned voice > picker selection > undefined (server default)
+  const cloned=localStorage.getItem('ti4-cloned-voice-id');
+  const picker=el('voicePicker');
+  const pickerVal=picker?picker.value:'';
+  if(pickerVal==='__clone__'&&cloned) return cloned;
+  if(pickerVal&&pickerVal!=='__clone__') return pickerVal;
+  if(cloned) return cloned;
+  return undefined;
+}
+
+function onVoicePickerChange() {
+  const v=el('voicePicker').value;
+  localStorage.setItem('ti4-voice-picker',v);
+  const sum=el('sum-voice');
+  if(v==='__clone__') { if(sum) sum.textContent='My Clone'; }
+  else if(v) { const opt=el('voicePicker').selectedOptions[0]; if(sum) sum.textContent=opt.textContent; }
+  else { if(sum) sum.textContent='Default'; }
+}
+
+async function loadVoicePicker() {
+  try{
+    const resp=await fetch('/api/voices');
+    if(!resp.ok) return;
+    const data=await resp.json();
+    const picker=el('voicePicker');
+    for(const v of data.voices){
+      const opt=document.createElement('option');
+      opt.value=v.id;
+      opt.textContent=v.label;
+      picker.appendChild(opt);
+    }
+    // Add "My Clone" option if user has a cloned voice
+    const cloned=localStorage.getItem('ti4-cloned-voice-id');
+    if(cloned){
+      const opt=document.createElement('option');
+      opt.value='__clone__';
+      opt.textContent='My Clone ('+cloned.slice(0,8)+'…)';
+      picker.appendChild(opt);
+    }
+    // Restore saved selection
+    const saved=localStorage.getItem('ti4-voice-picker');
+    if(saved&&[...picker.options].some(o=>o.value===saved)){
+      picker.value=saved;
+      onVoicePickerChange();
+    }
+  }catch(e){console.warn('Could not load voice list',e);}
+}
+
 function initVoiceCloneUI() {
   const savedId=localStorage.getItem('ti4-cloned-voice-id');
   if(savedId){
     showVoiceReady(savedId);
   }
+  loadVoicePicker();
 }
 
 function showVoiceReady(voiceId) {
   const status=el('vcStatus'); const icon=el('vcStatusIcon'); const text=el('vcStatusText');
-  const readyActs=el('vcReadyActions'); const setupUI=el('vcSetupUI'); const sum=el('sum-voice');
+  const readyActs=el('vcReadyActions'); const setupUI=el('vcSetupUI');
   status.className='vc-status ready';
   icon.textContent='🎤';
   text.textContent='Your cloned voice is active ('+voiceId.slice(0,8)+'…)';
   readyActs.style.display='';
   setupUI.style.display='none';
-  if(sum) sum.textContent='Active';
+  // Add/update "My Clone" option in voice picker
+  const picker=el('voicePicker');
+  if(picker){
+    let cloneOpt=[...picker.options].find(o=>o.value==='__clone__');
+    if(!cloneOpt){cloneOpt=document.createElement('option');cloneOpt.value='__clone__';picker.appendChild(cloneOpt);}
+    cloneOpt.textContent='My Clone ('+voiceId.slice(0,8)+'…)';
+    picker.value='__clone__';
+    onVoicePickerChange();
+  }
 }
 
 function showVoiceNone() {
   const status=el('vcStatus'); const icon=el('vcStatusIcon'); const text=el('vcStatusText');
-  const readyActs=el('vcReadyActions'); const setupUI=el('vcSetupUI'); const sum=el('sum-voice');
+  const readyActs=el('vcReadyActions'); const setupUI=el('vcSetupUI');
   status.className='vc-status none';
   icon.textContent='🔇';
-  text.textContent='No voice cloned — using default voice';
+  text.textContent='No voice cloned';
   readyActs.style.display='none';
   setupUI.style.display='';
-  if(sum) sum.textContent='Not set';
   // Reset recording UI
   el('vcRecordingUI').style.display='none';
   el('vcProgress').style.display='none';
@@ -2482,6 +2678,10 @@ function showVoiceNone() {
 
 function removeClonedVoice() {
   localStorage.removeItem('ti4-cloned-voice-id');
+  localStorage.removeItem('ti4-voice-picker');
+  // Remove "My Clone" option from picker
+  const picker=el('voicePicker');
+  if(picker){const opt=[...picker.options].find(o=>o.value==='__clone__');if(opt)opt.remove();picker.value='';onVoicePickerChange();}
   showVoiceNone();
   showToast('Voice clone removed',1500);
 }
@@ -3614,6 +3814,606 @@ function combatAnalyze(type) {
 }
 
 // ════════════════════════════════════════
+// PODCAST GENERATOR
+// ════════════════════════════════════════
+let podcastAudioCtx = null;
+let podcastPlaying = false;
+let podcastSources = [];
+let podcastGains = {};
+let podcastStartTime = 0;
+let podcastDuration = 0;
+let podcastBuffers = {};
+let podcastSeekInterval = null;
+// Archive: { roundNum: { script, voiceB64, musicB64, sfxB64s[], createdAt } }
+let podcastArchive = {};
+let podcastDB = null;
+
+function openPodcastDB() {
+  return new Promise((resolve, reject) => {
+    if (podcastDB) { resolve(podcastDB); return; }
+    const req = indexedDB.open('ti4-podcasts', 1);
+    req.onupgradeneeded = (e) => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains('archive')) {
+        db.createObjectStore('archive', { keyPath: 'round' });
+      }
+    };
+    req.onsuccess = (e) => { podcastDB = e.target.result; resolve(podcastDB); };
+    req.onerror = (e) => { console.error('[podcast] IndexedDB error:', e); reject(e); };
+  });
+}
+
+async function loadPodcastArchive() {
+  try {
+    // Migrate from localStorage if present
+    const raw = localStorage.getItem('ti4-podcast-archive');
+    if (raw) {
+      const old = JSON.parse(raw);
+      const db = await openPodcastDB();
+      const tx = db.transaction('archive', 'readwrite');
+      const store = tx.objectStore('archive');
+      for (const [rn, entry] of Object.entries(old)) {
+        store.put({ round: parseInt(rn), ...entry });
+      }
+      localStorage.removeItem('ti4-podcast-archive');
+      console.log('[podcast] Migrated', Object.keys(old).length, 'podcasts from localStorage to IndexedDB');
+    }
+    // Load from IndexedDB
+    const db = await openPodcastDB();
+    const tx = db.transaction('archive', 'readonly');
+    const store = tx.objectStore('archive');
+    const all = await new Promise((resolve, reject) => {
+      const req = store.getAll();
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+    podcastArchive = {};
+    all.forEach(entry => { podcastArchive[entry.round] = entry; });
+  } catch(e) {
+    console.error('[podcast] Load archive failed:', e);
+    podcastArchive = {};
+  }
+  renderPodcastArchive();
+}
+
+async function savePodcastArchive() {
+  try {
+    const db = await openPodcastDB();
+    const tx = db.transaction('archive', 'readwrite');
+    const store = tx.objectStore('archive');
+    // Write all entries
+    for (const [rn, entry] of Object.entries(podcastArchive)) {
+      store.put({ round: parseInt(rn), ...entry });
+    }
+    await new Promise((resolve, reject) => {
+      tx.oncomplete = resolve;
+      tx.onerror = () => reject(tx.error);
+    });
+  } catch(e) {
+    console.warn('[podcast] Archive save failed:', e.message);
+    showToast('Podcast save failed: ' + e.message, 3000);
+  }
+}
+
+async function deletePodcastFromDB(roundNum) {
+  try {
+    const db = await openPodcastDB();
+    const tx = db.transaction('archive', 'readwrite');
+    tx.objectStore('archive').delete(parseInt(roundNum));
+  } catch(e) { console.warn('[podcast] Delete failed:', e); }
+}
+
+function blobToB64(blob) {
+  return new Promise(resolve => {
+    const r = new FileReader();
+    r.onloadend = () => resolve(r.result.split(',')[1]);
+    r.readAsDataURL(blob);
+  });
+}
+
+function b64ToBlob(b64, type) {
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new Blob([bytes], { type: type || 'audio/mpeg' });
+}
+
+function renderPodcastArchive() {
+  const container = el('podcastContainer');
+  if (!container) return;
+  const rounds = Object.keys(podcastArchive).sort((a,b) => parseInt(a) - parseInt(b));
+  if (!rounds.length) { container.innerHTML = ''; return; }
+  container.innerHTML = rounds.map(rn => {
+    const p = podcastArchive[rn];
+    const date = p.createdAt ? new Date(p.createdAt).toLocaleDateString() : '';
+    return `<div class="podcast-widget" id="pod-archive-${rn}">
+      <div class="podcast-hdr">
+        <span class="podcast-title">🎙 Round ${rn}</span>
+        <span class="podcast-time" style="flex:1;text-align:right;margin-right:6px">${date}</span>
+        <button class="podcast-dl-btn" onclick="playArchivedPodcast(${rn})" title="Play">▶ Play</button>
+        <button class="podcast-dl-btn" onclick="exportArchivedPodcast(${rn})" title="Download">⬇</button>
+        <button class="podcast-dl-btn" onclick="regeneratePodcast(${rn})" title="Regenerate">↻</button>
+        <button class="podcast-dl-btn" onclick="deleteArchivedPodcast(${rn})" title="Delete" style="color:var(--red-hi)">✕</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function deleteArchivedPodcast(roundNum) {
+  if (!confirm('Delete Round ' + roundNum + ' podcast?')) return;
+  delete podcastArchive[roundNum];
+  deletePodcastFromDB(roundNum);
+  stopPodcast();
+  renderPodcastArchive();
+  showToast('Round ' + roundNum + ' podcast deleted', 1500);
+}
+
+function regeneratePodcast(roundNum) {
+  const rnd = S.journal.find(r => r.round === roundNum);
+  if (!rnd) { showToast('No journal for Round ' + roundNum, 2000); return; }
+  generatePodcastForRound(rnd);
+}
+
+async function playArchivedPodcast(roundNum) {
+  const entry = podcastArchive[roundNum];
+  if (!entry) return;
+  showToast('Loading Round ' + roundNum + '…', 1500);
+  try {
+    if (!podcastAudioCtx) podcastAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const ctx = podcastAudioCtx;
+    const voiceBuf = await ctx.decodeAudioData(await b64ToBlob(entry.voiceB64).arrayBuffer());
+    const musicBuf = await ctx.decodeAudioData(await b64ToBlob(entry.musicB64).arrayBuffer());
+    const sfxBufs = [];
+    for (const sb of (entry.sfxB64s || [])) {
+      if (sb) { try { sfxBufs.push(await ctx.decodeAudioData(await b64ToBlob(sb).arrayBuffer())); } catch { sfxBufs.push(null); } }
+      else sfxBufs.push(null);
+    }
+    podcastBuffers = { voice: voiceBuf, music: musicBuf, sfx: sfxBufs, script: entry.script };
+    podcastDuration = Math.max(voiceBuf.duration + 10, 30);
+
+    // Replace the archive widget with a player inline
+    const widget = el('pod-archive-' + roundNum);
+    if (widget) {
+      widget.innerHTML = `
+        <div class="podcast-hdr">
+          <span class="podcast-title">🎙 Round ${roundNum}</span>
+          <button class="podcast-dl-btn" onclick="stopPodcast();renderPodcastArchive()" title="Close">✕ Close</button>
+        </div>
+        <div class="podcast-player">
+          <button class="podcast-play-btn" id="podPlayBtn" onclick="togglePodcast()">▶</button>
+          <div class="podcast-timeline">
+            <input type="range" class="podcast-seek" id="podSeek" min="0" max="1000" value="0" oninput="seekPodcast(this.value)">
+            <div style="display:flex;justify-content:space-between">
+              <span class="podcast-time" id="podTime">0:00</span>
+              <span class="podcast-time" id="podDur">${fmtTime(podcastDuration)}</span>
+            </div>
+          </div>
+        </div>`;
+    }
+    playPodcast(0);
+  } catch(err) {
+    showToast('Playback failed: ' + err.message, 2500);
+  }
+}
+
+async function exportArchivedPodcast(roundNum) {
+  const entry = podcastArchive[roundNum];
+  if (!entry) return;
+  showToast('Rendering Round ' + roundNum + '…', 2000);
+  try {
+    if (!podcastAudioCtx) podcastAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const ctx = podcastAudioCtx;
+    const voiceBuf = await ctx.decodeAudioData(await b64ToBlob(entry.voiceB64).arrayBuffer());
+    const musicBuf = await ctx.decodeAudioData(await b64ToBlob(entry.musicB64).arrayBuffer());
+    const sfxBufs = [];
+    for (const sb of (entry.sfxB64s || [])) {
+      if (sb) { try { sfxBufs.push(await ctx.decodeAudioData(await b64ToBlob(sb).arrayBuffer())); } catch { sfxBufs.push(null); } }
+      else sfxBufs.push(null);
+    }
+    podcastBuffers = { voice: voiceBuf, music: musicBuf, sfx: sfxBufs, script: entry.script };
+    podcastDuration = Math.max(voiceBuf.duration + 10, 30);
+    await exportPodcast(roundNum);
+  } catch(err) {
+    showToast('Export failed: ' + err.message, 2500);
+  }
+}
+
+async function generatePodcast() {
+  // Find the latest round with events
+  const roundsWithEvents = S.journal.filter(r => r.events.some(e => e.trim()));
+  if (!roundsWithEvents.length) { showToast('Add journal events first', 2000); return; }
+  const latestRound = roundsWithEvents[roundsWithEvents.length - 1];
+  generatePodcastForRound(latestRound);
+}
+
+async function generatePodcastForRound(targetRound) {
+  const container = el('podcastContainer');
+  if (!container) return;
+
+  const events = targetRound.events.filter(e => e.trim());
+  if (!events.length) { showToast('No events in Round ' + targetRound.round, 2000); return; }
+
+  // Build progress UI — prepend to container so archive stays visible
+  renderPodcastArchive();
+  const progressWidget = document.createElement('div');
+  progressWidget.className = 'podcast-widget';
+  progressWidget.id = 'pod-progress-widget';
+  progressWidget.innerHTML = `
+      <div class="podcast-hdr">
+        <span class="podcast-title">🎙 Generating Round ${targetRound.round}…</span>
+      </div>
+      <div class="podcast-progress" id="podProgress">
+        <div class="podcast-track" id="pt-script"><span class="track-name">Script</span><div class="track-bar"><div class="track-fill" style="width:0%"></div></div></div>
+        <div class="podcast-track" id="pt-voice"><span class="track-name">Voice</span><div class="track-bar"><div class="track-fill" style="width:0%"></div></div></div>
+        <div class="podcast-track" id="pt-music"><span class="track-name">Music</span><div class="track-bar"><div class="track-fill" style="width:0%"></div></div></div>
+        <div class="podcast-track" id="pt-sfx"><span class="track-name">SFX</span><div class="track-bar"><div class="track-fill" style="width:0%"></div></div></div>
+      </div>`;
+  container.prepend(progressWidget);
+
+  function trackProgress(id, pct) {
+    const t = el(id);
+    if (!t) return;
+    t.querySelector('.track-fill').style.width = pct + '%';
+    if (pct >= 100) t.classList.add('done');
+  }
+  function trackError(id) {
+    const t = el(id);
+    if (t) { t.classList.add('error'); t.querySelector('.track-fill').style.width = '100%'; t.querySelector('.track-fill').style.background = 'var(--red-hi)'; }
+  }
+
+  try {
+    // Step 1: Generate script from Claude
+    trackProgress('pt-script', 20);
+    const scriptResp = await fetch('/api/podcast-script', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        round: targetRound.round,
+        events,
+        faction: S.myFaction || 'Unknown',
+        opponents: S.opponents.map(o => o.f).join(', '),
+        vp: parseInt(el('myVP')?.value || 0),
+        vpGoal: parseInt(el('vpGoal')?.value || 10),
+        roundTotal: el('roundNum')?.value || '6',
+        gameContext: el('context')?.value || ''
+      })
+    });
+    if (!scriptResp.ok) { const e = await scriptResp.json(); throw new Error(e.error?.message || 'Script failed'); }
+    const script = await scriptResp.json();
+    trackProgress('pt-script', 100);
+    console.log('[podcast] Script:', script.narration.length, 'chars,', script.sfx.length, 'SFX cues');
+
+    // Step 2: Fire all audio generation in parallel
+    const voiceId = getSelectedVoiceId();
+
+    const voicePromise = fetch('/api/speak', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: script.narration, voiceId, model: 'eleven_multilingual_v2' })
+    }).then(r => { trackProgress('pt-voice', 50); if (!r.ok) throw new Error('Voice failed'); return r.blob(); })
+      .then(b => { trackProgress('pt-voice', 100); return b; })
+      .catch(e => { trackError('pt-voice'); throw e; });
+
+    const musicPromise = fetch('/api/music', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: script.music_prompt, duration_ms: 120000 })
+    }).then(r => { trackProgress('pt-music', 50); if (!r.ok) throw new Error('Music failed'); return r.blob(); })
+      .then(b => { trackProgress('pt-music', 100); return b; })
+      .catch(e => { trackError('pt-music'); throw e; });
+
+    const sfxPromises = script.sfx.map((sfx, i) =>
+      fetch('/api/sfx', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: sfx.prompt, duration_seconds: sfx.duration || 4 })
+      }).then(r => {
+        trackProgress('pt-sfx', Math.round(((i + 1) / script.sfx.length) * 50));
+        if (!r.ok) throw new Error('SFX ' + i + ' failed');
+        return r.blob();
+      }).catch(e => { console.warn('[podcast] SFX', i, 'failed:', e.message); return null; })
+    );
+
+    const [voiceBlob, musicBlob, ...sfxBlobs] = await Promise.all([
+      voicePromise, musicPromise, ...sfxPromises
+    ]);
+    trackProgress('pt-sfx', 100);
+
+    // Step 3: Decode all audio into buffers
+    if (!podcastAudioCtx) podcastAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const ctx = podcastAudioCtx;
+
+    const voiceBuf = await ctx.decodeAudioData(await voiceBlob.arrayBuffer());
+    const musicBuf = await ctx.decodeAudioData(await musicBlob.arrayBuffer());
+    const sfxBufs = [];
+    for (const blob of sfxBlobs) {
+      if (blob) {
+        try { sfxBufs.push(await ctx.decodeAudioData(await blob.arrayBuffer())); }
+        catch { sfxBufs.push(null); }
+      } else { sfxBufs.push(null); }
+    }
+
+    podcastBuffers = { voice: voiceBuf, music: musicBuf, sfx: sfxBufs, script };
+    podcastDuration = Math.max(voiceBuf.duration + 10, 30); // voice + outro
+
+    // Archive: convert blobs to base64 for localStorage
+    const [voiceB64, musicB64, ...sfxB64s] = await Promise.all([
+      blobToB64(voiceBlob), blobToB64(musicBlob),
+      ...sfxBlobs.map(b => b ? blobToB64(b) : Promise.resolve(null))
+    ]);
+    podcastArchive[targetRound.round] = {
+      script, voiceB64, musicB64, sfxB64s,
+      createdAt: new Date().toISOString()
+    };
+    savePodcastArchive();
+
+    // Remove progress widget, rebuild archive list with new entry, then auto-play it
+    const pw = el('pod-progress-widget');
+    if (pw) pw.remove();
+    renderPodcastArchive();
+    playArchivedPodcast(targetRound.round);
+    showToast('Podcast ready!', 2000);
+
+  } catch (err) {
+    console.error('[podcast] Error:', err);
+    showToast('Podcast generation failed: ' + err.message, 3000);
+    const pw = el('pod-progress-widget');
+    if (pw) pw.remove();
+  }
+}
+
+// buildPodcastPlayer is no longer used directly — players are rendered inline
+// from the archive list via playArchivedPodcast()
+
+function fmtTime(s) {
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return m + ':' + (sec < 10 ? '0' : '') + sec;
+}
+
+function togglePodcast() {
+  if (podcastPlaying) { stopPodcast(); return; }
+  playPodcast(0);
+}
+
+function playPodcast(startOffset) {
+  if (!podcastBuffers.voice || !podcastAudioCtx) return;
+  stopPodcast(); // clean up any previous playback
+
+  const ctx = podcastAudioCtx;
+  if (ctx.state === 'suspended') ctx.resume();
+
+  const { voice, music, sfx, script } = podcastBuffers;
+  podcastSources = [];
+  podcastGains = {};
+
+  const masterGain = ctx.createGain();
+  masterGain.gain.value = 1.0;
+  masterGain.connect(ctx.destination);
+
+  const VOICE_DELAY = 4; // seconds of music intro before voice starts
+  const voiceDur = voice.duration;
+
+  // Music track — full duration, with ducking
+  const musicSrc = ctx.createBufferSource();
+  musicSrc.buffer = music;
+  const musicGain = ctx.createGain();
+  musicSrc.connect(musicGain);
+  musicGain.connect(masterGain);
+  podcastGains.music = musicGain;
+  podcastSources.push(musicSrc);
+
+  // Music ducking automation
+  const now = ctx.currentTime;
+  const startAt = now - startOffset;
+  musicGain.gain.setValueAtTime(0.5, now);
+  // Duck when voice starts
+  musicGain.gain.linearRampToValueAtTime(0.04, startAt + VOICE_DELAY + 1);
+  // Stay ducked during voice
+  musicGain.gain.setValueAtTime(0.04, startAt + VOICE_DELAY + voiceDur - 1);
+  // Swell back up after voice
+  musicGain.gain.linearRampToValueAtTime(0.35, startAt + VOICE_DELAY + voiceDur + 2);
+  // Fade out at the end
+  const fadeStart = startAt + VOICE_DELAY + voiceDur + 8;
+  musicGain.gain.setValueAtTime(0.35, fadeStart);
+  musicGain.gain.linearRampToValueAtTime(0, fadeStart + 5);
+
+  musicSrc.start(Math.max(startAt, now), Math.max(startOffset, 0));
+
+  // Voice track
+  const voiceSrc = ctx.createBufferSource();
+  voiceSrc.buffer = voice;
+  const voiceGain = ctx.createGain();
+  voiceGain.gain.value = 1.0;
+  voiceSrc.connect(voiceGain);
+  voiceGain.connect(masterGain);
+  podcastGains.voice = voiceGain;
+  podcastSources.push(voiceSrc);
+
+  const voiceStartTime = Math.max(startAt + VOICE_DELAY, now);
+  if (startOffset < VOICE_DELAY) {
+    voiceSrc.start(voiceStartTime);
+  } else {
+    voiceSrc.start(now, startOffset - VOICE_DELAY);
+  }
+
+  // SFX tracks — timed to narration percentages
+  script.sfx.forEach((cue, i) => {
+    if (!sfx[i]) return;
+    const sfxSrc = ctx.createBufferSource();
+    sfxSrc.buffer = sfx[i];
+    const sfxGain = ctx.createGain();
+    sfxGain.gain.value = 0.12;
+    sfxSrc.connect(sfxGain);
+    sfxGain.connect(masterGain);
+    podcastSources.push(sfxSrc);
+
+    // Calculate SFX timing from percentage of narration
+    const sfxOffset = VOICE_DELAY + (voiceDur * (cue.at_percent || 50) / 100);
+    const sfxTime = startAt + sfxOffset;
+
+    if (sfxTime > now) {
+      sfxSrc.start(sfxTime);
+      // Brief music duck for SFX
+      musicGain.gain.setValueAtTime(0.04, sfxTime);
+      musicGain.gain.linearRampToValueAtTime(0.02, sfxTime + 0.3);
+      musicGain.gain.linearRampToValueAtTime(0.04, sfxTime + (cue.duration || 4));
+    }
+  });
+
+  podcastPlaying = true;
+  podcastStartTime = now - startOffset;
+  podcastDuration = VOICE_DELAY + voiceDur + 13; // intro + voice + outro
+  el('podPlayBtn').textContent = '⏸';
+  el('podDur').textContent = fmtTime(podcastDuration);
+
+  // Update seek bar
+  podcastSeekInterval = setInterval(() => {
+    if (!podcastPlaying) return;
+    const elapsed = ctx.currentTime - podcastStartTime;
+    if (elapsed >= podcastDuration) { stopPodcast(); return; }
+    const pct = (elapsed / podcastDuration) * 1000;
+    const seek = el('podSeek');
+    if (seek) seek.value = pct;
+    const timeEl = el('podTime');
+    if (timeEl) timeEl.textContent = fmtTime(elapsed);
+  }, 250);
+
+  // Auto-stop when voice ends + outro
+  voiceSrc.onended = () => {
+    setTimeout(() => { if (podcastPlaying) stopPodcast(); }, 13000);
+  };
+}
+
+function stopPodcast() {
+  podcastSources.forEach(s => { try { s.stop(); } catch {} });
+  podcastSources = [];
+  podcastPlaying = false;
+  if (podcastSeekInterval) { clearInterval(podcastSeekInterval); podcastSeekInterval = null; }
+  const btn = el('podPlayBtn');
+  if (btn) btn.textContent = '▶';
+}
+
+function seekPodcast(val) {
+  const offset = (val / 1000) * podcastDuration;
+  if (podcastPlaying) {
+    playPodcast(offset);
+  } else {
+    const timeEl = el('podTime');
+    if (timeEl) timeEl.textContent = fmtTime(offset);
+  }
+}
+
+async function exportPodcast(roundNum) {
+  if (!podcastBuffers.voice || !podcastAudioCtx) { showToast('No podcast to export'); return; }
+  showToast('Rendering podcast…', 3000);
+
+  const { voice, music, sfx, script } = podcastBuffers;
+  const VOICE_DELAY = 4;
+  const totalDur = VOICE_DELAY + voice.duration + 13;
+  const sampleRate = 44100;
+  const offline = new OfflineAudioContext(2, Math.ceil(totalDur * sampleRate), sampleRate);
+
+  // Recreate the same audio graph in offline context
+  const masterGain = offline.createGain();
+  masterGain.gain.value = 1.0;
+  masterGain.connect(offline.destination);
+
+  // Music
+  const musicSrc = offline.createBufferSource();
+  musicSrc.buffer = music;
+  const musicGain = offline.createGain();
+  musicSrc.connect(musicGain);
+  musicGain.connect(masterGain);
+  musicGain.gain.setValueAtTime(0.5, 0);
+  musicGain.gain.linearRampToValueAtTime(0.04, VOICE_DELAY + 1);
+  musicGain.gain.setValueAtTime(0.04, VOICE_DELAY + voice.duration - 1);
+  musicGain.gain.linearRampToValueAtTime(0.35, VOICE_DELAY + voice.duration + 2);
+  const fadeStart = VOICE_DELAY + voice.duration + 8;
+  musicGain.gain.setValueAtTime(0.35, fadeStart);
+  musicGain.gain.linearRampToValueAtTime(0, fadeStart + 5);
+  musicSrc.start(0);
+
+  // Voice
+  const voiceSrc = offline.createBufferSource();
+  voiceSrc.buffer = voice;
+  const voiceGain = offline.createGain();
+  voiceGain.gain.value = 1.0;
+  voiceSrc.connect(voiceGain);
+  voiceGain.connect(masterGain);
+  voiceSrc.start(VOICE_DELAY);
+
+  // SFX
+  script.sfx.forEach((cue, i) => {
+    if (!sfx[i]) return;
+    const sfxSrc = offline.createBufferSource();
+    sfxSrc.buffer = sfx[i];
+    const sfxGain = offline.createGain();
+    sfxGain.gain.value = 0.12;
+    sfxSrc.connect(sfxGain);
+    sfxGain.connect(masterGain);
+    const t = VOICE_DELAY + (voice.duration * (cue.at_percent || 50) / 100);
+    sfxSrc.start(t);
+    musicGain.gain.setValueAtTime(0.04, t);
+    musicGain.gain.linearRampToValueAtTime(0.02, t + 0.3);
+    musicGain.gain.linearRampToValueAtTime(0.04, t + (cue.duration || 4));
+  });
+
+  const rendered = await offline.startRendering();
+
+  // Convert to WAV
+  const wavBlob = audioBufferToWav(rendered);
+  const url = URL.createObjectURL(wavBlob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'ti4-round-' + (roundNum || (S.journal.length ? S.journal[S.journal.length - 1].round : 1)) + '-podcast.wav';
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 5000);
+  showToast('Podcast downloaded!', 2000);
+}
+
+function audioBufferToWav(buffer) {
+  const numChannels = buffer.numberOfChannels;
+  const sampleRate = buffer.sampleRate;
+  const format = 1; // PCM
+  const bitDepth = 16;
+  const channels = [];
+  for (let i = 0; i < numChannels; i++) channels.push(buffer.getChannelData(i));
+  const numSamples = buffer.length;
+  const bytesPerSample = bitDepth / 8;
+  const blockAlign = numChannels * bytesPerSample;
+  const dataSize = numSamples * blockAlign;
+  const headerSize = 44;
+  const buf = new ArrayBuffer(headerSize + dataSize);
+  const view = new DataView(buf);
+
+  function writeStr(offset, str) { for (let i = 0; i < str.length; i++) view.setUint8(offset + i, str.charCodeAt(i)); }
+  writeStr(0, 'RIFF');
+  view.setUint32(4, headerSize + dataSize - 8, true);
+  writeStr(8, 'WAVE');
+  writeStr(12, 'fmt ');
+  view.setUint32(16, 16, true);
+  view.setUint16(20, format, true);
+  view.setUint16(22, numChannels, true);
+  view.setUint32(24, sampleRate, true);
+  view.setUint32(28, sampleRate * blockAlign, true);
+  view.setUint16(32, blockAlign, true);
+  view.setUint16(34, bitDepth, true);
+  writeStr(36, 'data');
+  view.setUint32(40, dataSize, true);
+
+  let offset = 44;
+  for (let i = 0; i < numSamples; i++) {
+    for (let ch = 0; ch < numChannels; ch++) {
+      const s = Math.max(-1, Math.min(1, channels[ch][i]));
+      view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+      offset += 2;
+    }
+  }
+  return new Blob([buf], { type: 'audio/wav' });
+}
+
+// ════════════════════════════════════════
 // INIT
 // ════════════════════════════════════════
 buildFacGrids();
@@ -3638,10 +4438,52 @@ rebuildResTable();
 renderPromLedger();
 applyCoachModeUI();
 initVoiceCloneUI();
+loadPodcastArchive();
 updateSums();
 
-// Try auto-load saved state
-try{const saved=localStorage.getItem('ti4-advisor-v4');if(saved){const data=JSON.parse(saved);if(data.myFaction&&confirm('Resume previous game as '+data.myFaction+'?')){applyState(data);}}}catch(e){}
+// Try auto-load saved state (includes chat history)
+try{
+  const saved=localStorage.getItem('ti4-advisor-v4');
+  if(saved){
+    const data=JSON.parse(saved);
+    const chatCount = (data.chatHistory||[]).filter(m=>m.role==='user').length;
+    const label = data.myFaction ? 'Resume as '+data.myFaction+(chatCount ? ' ('+chatCount+' exchanges)':'') : 'Resume previous session'+(chatCount ? ' ('+chatCount+' exchanges)':'');
+    if((data.myFaction || chatCount) && confirm(label+'?')){
+      applyState(data);
+    }
+  }
+}catch(e){}
+
+// ════════════════════════════════════════
+// CACHE WARMUP — prime Anthropic prompt cache on page load
+// ════════════════════════════════════════
+// Fires a minimal background request so the rulebook PDFs are cached
+// before the user sends their first real question. The cache lasts 5 min.
+(function warmCache() {
+  const isTE = el('expansions')?.value === 'te';
+  fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1,
+      system: [{ type: 'text', text: 'Reply OK.' }],
+      messages: [{ role: 'user', content: 'ping' }],
+      _includeThundersEdge: isTE,
+      _warmCache: true
+    })
+  }).then(r => r.json()).then(d => {
+    const chip = el('gs-ai');
+    if (d.warmed) {
+      console.log('[cache] Rulebook cache warmed', d.usage ? `(writes=${d.usage.cache_creation_input_tokens||0} hits=${d.usage.cache_read_input_tokens||0})` : '');
+      if (chip) { chip.textContent = '● AI Ready'; chip.style.opacity = '1'; }
+    }
+  }).catch(e => {
+    console.log('[cache] Warmup skipped:', e.message);
+    const chip = el('gs-ai');
+    if (chip) { chip.textContent = '● AI Ready'; chip.style.opacity = '1'; }
+  });
+})();
 </script>
 </body>
 </html>

@@ -38,6 +38,18 @@ app.all('/api/chat', (req, res) => chatHandler(req, res));
 const { default: speakHandler } = await import('./api/speak.js');
 app.all('/api/speak', (req, res) => speakHandler(req, res));
 
+const { default: podcastScriptHandler } = await import('./api/podcast-script.js');
+app.all('/api/podcast-script', (req, res) => podcastScriptHandler(req, res));
+
+const { default: musicHandler } = await import('./api/music.js');
+app.all('/api/music', (req, res) => musicHandler(req, res));
+
+const { default: sfxHandler } = await import('./api/sfx.js');
+app.all('/api/sfx', (req, res) => sfxHandler(req, res));
+
+const { default: voicesHandler } = await import('./api/voices.js');
+app.all('/api/voices', (req, res) => voicesHandler(req, res));
+
 // Static files
 app.use(express.static(path.join(__dirname, 'public')));
 

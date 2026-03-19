@@ -1,0 +1,115 @@
+{
+  "myFaction": "Xxcha Kingdom",
+  "players": "6",
+  "round": "3",
+  "myVP": "3",
+  "vpGoal": "10",
+  "position": "left-speaker",
+  "expansions": "pok",
+  "context": "Hacan just grabbed Mecatol, Sol building a war fleet, Nekro copied my Graviton Laser System",
+  "opponents": [
+    {"f": "Emirates of Hacan", "vp": 5},
+    {"f": "Federation of Sol", "vp": 3},
+    {"f": "Nekro Virus", "vp": 2},
+    {"f": "Jol-Nar", "vp": 4},
+    {"f": "Clan of Saar", "vp": 2}
+  ],
+  "ownedTechs": ["Graviton Laser System", "Instinct Training", "PDS II", "Plasma Scoring", "Neural Motivator", "Nullification Field"],
+  "secretObjs": [
+    {"txt": "Become a Martyr — Lose a flagship or war sun in combat", "st": "held"},
+    {"txt": "Betray a Friend — Win combat vs a player whose promissory note you hold", "st": "held"}
+  ],
+  "actionCards": [
+    {"name": "Sabotage", "tag": "save"},
+    {"name": "Political Favor", "tag": "save"},
+    {"name": "Parley", "tag": null},
+    {"name": "Plague", "tag": null},
+    {"name": "Reparations", "tag": null}
+  ],
+  "journal": [
+    {
+      "round": 1,
+      "events": [
+        "Picked Leadership — grabbed Bereg and Lirta IV with carrier + infantry",
+        "Traded with Hacan for 2 TG, built PDS on Bereg",
+        "Scored Erect a Monument (spend 8 resources)"
+      ]
+    },
+    {
+      "round": 2,
+      "events": [
+        "Researched PDS II — now have deep space cannon covering 3 systems",
+        "Hacan took Mecatol Rex with a surprise fleet, scored Imperial point",
+        "Sol started building war fleet — 2 dreadnoughts and carrier group near my border",
+        "Nekro attacked Saar, killed a cruiser, and COPIED my Graviton Laser System",
+        "Jol-Nar scored 2 objectives in one round — they're at 4 VP already",
+        "Scored Develop Weaponry (PDS II + Plasma Scoring count as unit upgrades)"
+      ]
+    },
+    {
+      "round": 3,
+      "events": [
+        "Hacan used Imperial primary from Mecatol — jumped to 5 VP, 2-point lead",
+        "Sol fleet moved to my border — 2 Dreadnoughts, 1 Carrier, 4 Infantry staring at Bereg",
+        "Fired PDS into Sol fleet as they moved through adjacent system — got 2 hits with Plasma Scoring!",
+        "Sol backed off and redirected toward Jol-Nar instead — PDS wall worked perfectly",
+        "Agenda phase: Anti-Intellectual Revolution proposed — would destroy all tech specialties. Spent 6 influence to vote it down",
+        "Nekro is lurking at 2 VP but has MY Graviton Laser System plus Jol-Nar's Antimass Deflectors — dangerous combo",
+        "Saar floating around with 3 space docks, building everywhere, hard to pin down",
+        "Scored public objective: Corner the Market (control 4 planet with tech specialties) — barely made it with 4 exactly"
+      ]
+    }
+  ],
+  "resources": {
+    "Xxcha Kingdom": {"tg": 5, "com": 1, "ct": 2},
+    "Emirates of Hacan": {"tg": 8, "com": 3, "ct": 2},
+    "Federation of Sol": {"tg": 2, "com": 0, "ct": 1},
+    "Nekro Virus": {"tg": 3, "com": 0, "ct": 3},
+    "Jol-Nar": {"tg": 4, "com": 2, "ct": 1},
+    "Clan of Saar": {"tg": 6, "com": 2, "ct": 2}
+  },
+  "cardHolders": {
+    "Leadership": "Federation of Sol",
+    "Diplomacy": "Xxcha Kingdom",
+    "Politics": "Emirates of Hacan",
+    "Construction": "Jol-Nar",
+    "Trade": "Emirates of Hacan",
+    "Warfare": "Federation of Sol",
+    "Technology": "Nekro Virus",
+    "Imperial": "Emirates of Hacan"
+  },
+  "objectives": [
+    "Erect a Monument — Spend 8 resources",
+    "Develop Weaponry — Own 2 unit upgrade technologies",
+    "Corner the Market — Control 4 planets each with tech specialty",
+    "Diversify Research — Own 2 techs in 2 different colors",
+    "",
+    "Lead from the Front — Spend 3 tokens from your tactic pool",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "promNotes": {},
+  "planets": [
+    {"name": "Archon Ren", "res": 2, "inf": 3, "ready": true, "trait": "hazardous"},
+    {"name": "Archon Tau", "res": 1, "inf": 1, "ready": true, "trait": "hazardous"},
+    {"name": "Bereg", "res": 3, "inf": 1, "ready": true, "trait": "hazardous"},
+    {"name": "Lirta IV", "res": 2, "inf": 3, "ready": false, "trait": "cultural"},
+    {"name": "Abyz", "res": 3, "inf": 0, "ready": true, "trait": "hazardous"},
+    {"name": "Fria", "res": 2, "inf": 2, "ready": true, "trait": "hazardous"},
+    {"name": "Rigel I", "res": 0, "inf": 1, "ready": true, "trait": "hazardous"},
+    {"name": "Rigel II", "res": 1, "inf": 2, "ready": false, "trait": "cultural"}
+  ],
+  "fleets": [
+    {"system": "Home", "ships": "1 Flagship, 1 Carrier, 2 Fighters, 2 PDS"},
+    {"system": "Bereg/Lirta", "ships": "2 Cruisers, 1 PDS, 4 Infantry"},
+    {"system": "Abyz/Fria", "ships": "1 Carrier, 2 Infantry, 1 PDS"},
+    {"system": "Rigel", "ships": "1 Destroyer, 1 Infantry"}
+  ],
+  "coachMode": false,
+  "chatHistory": [
+    {"role": "user", "content": "Hacan is at 5 VP and controls Mecatol. Sol has a war fleet near my border. What do I do?"},
+    {"role": "assistant", "content": "## Critical Situation Analysis\n\nHacan at 5 VP with Mecatol is the **#1 table threat** right now. But your immediate problem is Sol's fleet.\n\n### Sol Fleet (Immediate)\nYour PDS wall is working — you literally just got 2 hits on them with Plasma Scoring. They redirected toward Jol-Nar. **Do not provoke them.** Keep Diplomacy locked and let them fight Jol-Nar. That war benefits you enormously.\n\n### Hacan (Strategic)\nHacan needs to be stopped but NOT by you alone. You need a **table coalition**:\n- **Propose to Sol**: \"If you take Mecatol from Hacan, I won't interfere.\" Sol wants glory, give them a target.\n- **Propose to Saar**: They can float space docks near Mecatol's supply lines.\n- **Save your Sabotage** for when Hacan tries to play Imperial again.\n\n### Your VP Path to Win\nYou're at 3 VP. Here's your scoring plan:\n- **Round 4**: Lead from the Front (spend 3 tactics) — easy if you plan ahead\n- **Round 4-5**: Secret objective if opportunity arises\n- **Round 5**: Stage II objectives start appearing — your PDS empire makes \"control X systems\" objectives easy\n\n### Key Move This Round\nUse **Political Favor** in the Agenda Phase to kingmake. You have 6 influence — that's serious voting power. Extract promises from whoever you help.\n\n*The turtle is patient. The turtle wins.*"}
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "myFaction": "Xxcha Kingdom",
+  "players": "6",
+  "round": "5",
+  "myVP": "7",
+  "vpGoal": "10",
+  "position": "left-speaker",
+  "expansions": "pok",
+  "context": "Three-way race for the win. Hacan at 8, Jol-Nar at 7, I'm at 7. Sol kingmaker. Nekro wildcard. This is the final push.",
+  "opponents": [
+    {"f": "Emirates of Hacan", "vp": 8},
+    {"f": "Federation of Sol", "vp": 5},
+    {"f": "Nekro Virus", "vp": 4},
+    {"f": "Jol-Nar", "vp": 7},
+    {"f": "Clan of Saar", "vp": 3}
+  ],
+  "ownedTechs": ["Graviton Laser System", "Instinct Training", "PDS II", "Plasma Scoring", "Neural Motivator", "Nullification Field", "Sarween Tools", "Transit Diodes"],
+  "secretObjs": [
+    {"txt": "Become a Martyr — Lose a flagship or war sun in combat", "st": "held"},
+    {"txt": "Betray a Friend — Win combat vs a player whose promissory note you hold", "st": "scored"},
+    {"txt": "Destroy Their Greatest Ship — Destroy another player's flagship or war sun", "st": "held"}
+  ],
+  "actionCards": [
+    {"name": "Sabotage", "tag": "save"},
+    {"name": "Direct Hit", "tag": "save"},
+    {"name": "Disable", "tag": null},
+    {"name": "Courageous to the End", "tag": null},
+    {"name": "Emergency Repairs", "tag": "save"},
+    {"name": "Political Favor", "tag": "save"},
+    {"name": "Rider", "tag": "save"}
+  ],
+  "journal": [
+    {
+      "round": 1,
+      "events": [
+        "Grabbed Bereg/Lirta, traded with Hacan, built first PDS",
+        "Scored Erect a Monument"
+      ]
+    },
+    {
+      "round": 2,
+      "events": [
+        "Researched PDS II, established PDS network covering 3 systems",
+        "Hacan took Mecatol, scored Imperial. Jol-Nar scored 2 objectives",
+        "Scored Develop Weaponry"
+      ]
+    },
+    {
+      "round": 3,
+      "events": [
+        "PDS wall deterred Sol invasion — redirected their fleet toward Jol-Nar",
+        "Hacan at 5 VP, voted down Anti-Intellectual Revolution in agenda",
+        "Scored Corner the Market"
+      ]
+    },
+    {
+      "round": 4,
+      "events": [
+        "Sol and Jol-Nar went to war — massive fleet battle over Jol-Nar's home system",
+        "Sol destroyed Jol-Nar's flagship with 3 dreadnoughts but lost 2 carriers in the process",
+        "Used the distraction to quietly take Mecatol Rex while everyone watched the war",
+        "Hacan furious — I took THEIR Mecatol. They're calling for a coalition against me",
+        "Nekro attacked Saar again, copied Transit Diodes from Sol",
+        "Agenda: Classified Document Leaks — all secret objectives revealed. My Betray a Friend is now public",
+        "Scored Betray a Friend — attacked Hacan's undefended system while holding their trade agreement. Table gasped.",
+        "Scored Lead from the Front (spent 3 tactics tokens)"
+      ]
+    },
+    {
+      "round": 5,
+      "events": [
+        "This is it. Three-way race: Hacan 8, Jol-Nar 7, me 7. Everyone else is kingmaking.",
+        "Hacan has Imperial AGAIN and controls 2 systems adjacent to Mecatol — they will try to retake it",
+        "Jol-Nar rebuilt their fleet and is going for Diversify Research + a Stage II objective to win",
+        "Sol offered me a deal: they'll block Hacan's Mecatol attack if I support their agenda vote",
+        "Nekro is the wildcard — 4 VP but has copied 6 technologies including my PDS II. Could spoil anyone.",
+        "I have Mecatol, Rider in hand, and my PDS network covers the approaches. If I can hold Mecatol and score Imperial, that's 8 VP.",
+        "Need 3 more VP this round: Imperial primary (1), Stage II objective (2) if a good one flips, or 2x Stage I + secret",
+        "Saar player wants to go home early and offered to throw their votes my way for a trade good. Done.",
+        "This round decides everything. PDS wall or die."
+      ]
+    }
+  ],
+  "resources": {
+    "Xxcha Kingdom": {"tg": 8, "com": 0, "ct": 1},
+    "Emirates of Hacan": {"tg": 12, "com": 0, "ct": 1},
+    "Federation of Sol": {"tg": 3, "com": 0, "ct": 0},
+    "Nekro Virus": {"tg": 5, "com": 0, "ct": 2},
+    "Jol-Nar": {"tg": 2, "com": 1, "ct": 0},
+    "Clan of Saar": {"tg": 4, "com": 1, "ct": 1}
+  },
+  "cardHolders": {
+    "Leadership": "Jol-Nar",
+    "Diplomacy": "Clan of Saar",
+    "Politics": "Xxcha Kingdom",
+    "Construction": "Nekro Virus",
+    "Trade": "Emirates of Hacan",
+    "Warfare": "Federation of Sol",
+    "Technology": "Xxcha Kingdom",
+    "Imperial": "Emirates of Hacan"
+  },
+  "objectives": [
+    "Erect a Monument — Spend 8 resources",
+    "Develop Weaponry — Own 2 unit upgrade technologies",
+    "Corner the Market — Control 4 planets each with tech specialty",
+    "Diversify Research — Own 2 techs in 2 different colors",
+    "Amass Wealth — Spend 3 influence, 3 resources, 3 TG",
+    "Lead from the Front — Spend 3 tokens from your tactic pool",
+    "Establish Hegemony — Control planets totaling 12+ influence",
+    "",
+    "",
+    ""
+  ],
+  "promNotes": {},
+  "planets": [
+    {"name": "Archon Ren", "res": 2, "inf": 3, "ready": true, "trait": "hazardous"},
+    {"name": "Archon Tau", "res": 1, "inf": 1, "ready": true, "trait": "hazardous"},
+    {"name": "Bereg", "res": 3, "inf": 1, "ready": true, "trait": "hazardous"},
+    {"name": "Lirta IV", "res": 2, "inf": 3, "ready": true, "trait": "cultural"},
+    {"name": "Abyz", "res": 3, "inf": 0, "ready": true, "trait": "hazardous"},
+    {"name": "Fria", "res": 2, "inf": 2, "ready": true, "trait": "hazardous"},
+    {"name": "Rigel I", "res": 0, "inf": 1, "ready": true, "trait": "hazardous"},
+    {"name": "Rigel II", "res": 1, "inf": 2, "ready": true, "trait": "cultural"},
+    {"name": "Mecatol Rex", "res": 1, "inf": 6, "ready": false, "trait": "cultural"},
+    {"name": "Wellon", "res": 1, "inf": 2, "ready": true, "trait": "industrial"},
+    {"name": "Tar'Mann", "res": 1, "inf": 1, "ready": true, "trait": "industrial"}
+  ],
+  "fleets": [
+    {"system": "Home", "ships": "1 Carrier, 2 Fighters, 2 PDS"},
+    {"system": "Bereg/Lirta", "ships": "2 Cruisers, 1 PDS, 3 Infantry"},
+    {"system": "Abyz/Fria", "ships": "1 Carrier, 2 Infantry, 1 PDS"},
+    {"system": "Mecatol Rex", "ships": "1 Flagship, 2 Cruisers, 1 Carrier, 4 Infantry, 2 PDS, 3 Fighters"},
+    {"system": "Rigel", "ships": "1 Destroyer, 2 Infantry"},
+    {"system": "Wellon/Tar'Mann", "ships": "1 Carrier, 2 Infantry, 1 PDS"}
+  ],
+  "coachMode": false,
+  "chatHistory": [
+    {"role": "user", "content": "It's Round 5. Hacan is at 8 VP, Jol-Nar at 7, I'm at 7. Hacan has Imperial. I control Mecatol. How do I win THIS round?"},
+    {"role": "assistant", "content": "## THIS IS YOUR ROUND. Here's the exact plan.\n\nYou're at 7 VP. You need 3 more. Here's how:\n\n### VP Path (need 3)\n1. **Imperial Primary via Politics** — Wait. Hacan has Imperial, not you. But you have **Politics**. Here's the move: as Speaker, you choose the agenda. Pick something that forces Hacan to spend their influence defending themselves instead of attacking Mecatol.\n2. **Stage II Objective** — Establish Hegemony (control 12+ influence) is revealed. Count your planets: Archon Ren(3) + Archon Tau(1) + Lirta(3) + Rigel II(2) + Mecatol(6) = **15 influence**. You score this.\n3. **Secret Objective** — Destroy Their Greatest Ship. If Hacan sends their flagship at Mecatol, your PDS wall might kill it. Or use Direct Hit.\n\nThat's: Stage II (2) + Secret (1) = **3 VP = 10 = WIN.**\n\n### Defending Mecatol\nHacan WILL come for it. Your defense:\n- **6 PDS shots** into the adjacent system as they approach (PDS II + Plasma Scoring = hitting on 4+)\n- **Flagship + 2 Cruisers + 3 Fighters** in the system\n- **Direct Hit in hand** — if their flagship survives the PDS barrage, delete it and score your secret\n- **Emergency Repairs** if your flagship takes a hit\n- **Sabotage** ready to cancel any action card they play\n\n### The Sol Deal\nTake it. Sol blocking one approach to Mecatol is worth whatever agenda vote they want. You have the Saar votes too. You'll control the agenda.\n\n### Timing\n1. Let Hacan activate Imperial early — they'll try to score before attacking you\n2. Use your PDS to punish any fleet movement near Mecatol\n3. Score your Stage II during Status Phase\n4. If Hacan's flagship dies in the assault, score your secret\n\n**The turtle doesn't just survive. The turtle wins.**"}
+  ]
+}
