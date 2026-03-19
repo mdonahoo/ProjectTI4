@@ -45,7 +45,8 @@ function buildRulebookMessage(includeTE) {
   const content = [];
 
   // Block 1: TI4 base rulebook PDF (no cache_control — shares slot with pok-lrr)
-  if (rulebookB64) content.push({
+  // Skip when TE is active — the PoK LRR supersedes it, and all 3 PDFs exceed 200k tokens
+  if (rulebookB64 && !includeTE) content.push({
     type: 'document',
     source: { type: 'base64', media_type: 'application/pdf', data: rulebookB64 },
     title: 'Twilight Imperium 4th Edition Rulebook'
@@ -183,13 +184,36 @@ export default async function handler(req, res) {
       body.messages = [rulebookMsg, RULEBOOK_ACK, ...body.messages];
     }
 
-    const upstream = await fetch('https://api.anthropic.com/v1/messages', {
+    let upstream = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: apiHeaders,
       body: JSON.stringify(body)
     });
 
     let data = await upstream.json();
+
+    // If prompt is too long, progressively trim conversation history and retry
+    if (!upstream.ok && data.error?.message?.includes('prompt is too long')) {
+      console.warn('[chat] Prompt too long, trimming conversation history:', data.error.message);
+      let trimmedMessages = [...userMessages];
+      while (trimmedMessages.length > 1 && data.error?.message?.includes('prompt is too long')) {
+        // Drop the oldest user+assistant pair (first 2 messages)
+        trimmedMessages = trimmedMessages.slice(2);
+        console.log(`[chat] Retrying with ${trimmedMessages.length} messages (trimmed ${userMessages.length - trimmedMessages.length})`);
+        const trimmedBody = {
+          ...body,
+          messages: rulebookMsg
+            ? [rulebookMsg, RULEBOOK_ACK, ...trimmedMessages]
+            : trimmedMessages
+        };
+        upstream = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: apiHeaders,
+          body: JSON.stringify(trimmedBody)
+        });
+        data = await upstream.json();
+      }
+    }
 
     // If the API rejects a PDF, retry without PDFs so the user isn't stuck
     if (!upstream.ok && data.error?.message?.toLowerCase().includes('pdf')) {

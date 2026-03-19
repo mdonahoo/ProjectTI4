@@ -2441,8 +2441,10 @@ async function sendMsg() {
     clearPhoto();
   } else { userContent=text; }
   history.push({role:'user',content:userContent});
-  // Send only the last 20 messages to the API to cap token usage
-  const apiMessages = history.length > 20 ? history.slice(-20) : history;
+  // Send only recent messages to the API to cap token usage.
+  // Thunder's Edge adds an 11MB PDF rulebook, so use a tighter cap.
+  const histCap = (el('expansions')?.value === 'te') ? 10 : 20;
+  const apiMessages = history.length > histCap ? history.slice(-histCap) : history;
   try{
     const resp=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1700,system:buildSystemBlocks(),messages:apiMessages,_includeThundersEdge:(el('expansions')?.value==='te')})});
     const data=await resp.json(); hideThinking();
