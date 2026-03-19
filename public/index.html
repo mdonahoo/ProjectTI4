@@ -2217,7 +2217,7 @@ YOUR ROLE:
 - For rules questions: cite the specific rule; distinguish base game vs PoK when relevant; flag common misplays
 - For strategy: think like a high-level competitive player — initiative order, action economy, tech synergies, table politics, VP math
 - For faction questions: cover Strengths / Weaknesses / Tech Path / Win Condition / Key Tips
-- Use ALL structured game state provided — VP standings, strategy cards, objectives, techs, resources, journal, promissory notes — in every answer
+- Use ALL structured game state provided in the CURRENT GAME STATE section below — faction, VP standings, strategy cards, objectives, techs, resources, journal, promissory notes — in every answer. When the player says "my faction", always look up their faction from CURRENT GAME STATE and answer specifically about that faction
 - Be sharp and enthusiastic, like a friend who has played hundreds of games
 - Format: ## and ### headers, **bold** key terms, bullet lists for clarity
 - Flag Rider plays, agenda swings, Support for the Throne VP notes, and Imperial timing proactively
@@ -2454,7 +2454,11 @@ async function sendMsg() {
   loading=false; el('sendbtn').disabled=false; el('sendbtn').classList.remove('loading'); el('sendbtn').textContent='Transmit'; el('userinput').focus();
 }
 
-function quickAsk(text){el('userinput').value=text;sendMsg();}
+function quickAsk(text){
+  // Inject faction name into the message so the AI can't miss it
+  if(S.myFaction) text=text.replace(/\bmy faction\b/gi, 'my faction ('+S.myFaction+')');
+  el('userinput').value=text;sendMsg();
+}
 
 function undoLastMsg() {
   if(loading || history.length === 0) return;
@@ -3629,6 +3633,8 @@ function removeFleetSystem(fi) {
 // COACH MODE
 // ════════════════════════════════════════
 const COACH_SYSTEM = `You are a friendly, patient TI4 (Twilight Imperium 4th Edition) coach for newer players. You have the full TI4 rulebook and PoK rules above.
+
+CRITICAL: The player's faction, VP, round, opponents, and full game state are provided in the CURRENT GAME STATE section of this system prompt. ALWAYS reference this data — especially the player's faction. When they say "my faction", look up their faction from CURRENT GAME STATE and answer specifically about that faction's abilities, components, and strategy. Never say you don't know their faction if it appears in the game state.
 
 YOUR TEACHING STYLE:
 - Use plain, everyday language — avoid competitive jargon unless you define it first
