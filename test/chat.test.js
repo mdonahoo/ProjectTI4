@@ -265,7 +265,7 @@ describe('chat handler', () => {
 
   // ── Rulebook message structure ────────────────────────────────────────
 
-  it('respects the 4 cache_control block limit', async () => {
+  it('uses at most 3 cached blocks in rulebook (leaving 1 for system prompt)', async () => {
     pushFetchResponse(200, {
       content: [{ type: 'text', text: 'ok' }],
       usage: { input_tokens: 10, output_tokens: 2 }
@@ -276,12 +276,27 @@ describe('chat handler', () => {
       model: 'claude-sonnet-4-20250514',
       max_tokens: 100,
       _includeThundersEdge: true,
+      system: [{ type: 'text', text: 'System prompt', cache_control: { type: 'ephemeral' } }],
       messages: [{ role: 'user', content: 'test' }]
     }), res);
 
-    const rulebookContent = fetchCalls[0].body.messages[0].content;
-    const cachedBlocks = rulebookContent.filter(b => b.cache_control);
-    assert.ok(cachedBlocks.length <= 4, `Expected at most 4 cached blocks, got ${cachedBlocks.length}`);
+    const sentBody = fetchCalls[0].body;
+    // Count ALL cached blocks across system + messages
+    let totalCached = 0;
+    if (sentBody.system) {
+      totalCached += sentBody.system.filter(b => b.cache_control).length;
+    }
+    for (const msg of sentBody.messages) {
+      if (Array.isArray(msg.content)) {
+        totalCached += msg.content.filter(b => b.cache_control).length;
+      }
+    }
+    assert.ok(totalCached <= 4, `Expected at most 4 total cached blocks, got ${totalCached}`);
+
+    // Rulebook alone should use at most 3
+    const rulebookContent = sentBody.messages[0].content;
+    const rulebookCached = rulebookContent.filter(b => b.cache_control).length;
+    assert.ok(rulebookCached <= 3, `Expected at most 3 rulebook cached blocks, got ${rulebookCached}`);
   });
 
   // ── Error handling ────────────────────────────────────────────────────

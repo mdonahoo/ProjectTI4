@@ -38,29 +38,29 @@ console.log('[startup]',
 );
 
 // Anthropic API limit: maximum 4 blocks with cache_control per request.
-// Budget: rulebook(1) + pok-lrr(2) + text-supplements(3) + te-rulebook(4, TE only)
-// Text supplements (Dane rulings + optional TE summary) are merged into one cached block.
+// The frontend system prompt uses 1 cached block, so we budget 3 here.
+// Budget: rulebook+pok-lrr(1) + text-supplements(2) + te-rulebook(3, TE only)
+// The two base PDFs share one cache slot; text supplements get another.
 function buildRulebookMessage(includeTE) {
   const content = [];
 
-  // Block 1: TI4 base rulebook PDF
+  // Block 1: TI4 base rulebook PDF (no cache_control — shares slot with pok-lrr)
   if (rulebookB64) content.push({
     type: 'document',
     source: { type: 'base64', media_type: 'application/pdf', data: rulebookB64 },
-    title: 'Twilight Imperium 4th Edition Rulebook',
-    cache_control: { type: 'ephemeral' }   // cache slot 1
+    title: 'Twilight Imperium 4th Edition Rulebook'
   });
 
-  // Block 2: PoK Living Rules Reference PDF
+  // Block 2: PoK Living Rules Reference PDF — cache_control on last PDF of the pair
   if (pokLRRB64) content.push({
     type: 'document',
     source: { type: 'base64', media_type: 'application/pdf', data: pokLRRB64 },
     title: 'Prophecy of Kings Living Rules Reference',
-    cache_control: { type: 'ephemeral' }   // cache slot 2
+    cache_control: { type: 'ephemeral' }   // cache slot 1 (covers both base PDFs)
   });
 
   // Block 3: Text supplements — Dane rulings always included; TE faction data appended when active.
-  // Merged into one block so we never exceed 4 cached blocks even with TE PDF.
+  // Merged into one block to minimize cache slots.
   const supplementParts = [];
   if (daneRulings) supplementParts.push(daneRulings);
   if (includeTE && teRulesSummary) supplementParts.push(teRulesSummary);
@@ -71,17 +71,17 @@ function buildRulebookMessage(includeTE) {
       title: includeTE
         ? 'Official Dane Beltrami Rulings + Thunder\'s Edge Faction Reference'
         : 'Official Dane Beltrami Rulings & Errata (override RAW when they conflict)',
-      cache_control: { type: 'ephemeral' }  // cache slot 3
+      cache_control: { type: 'ephemeral' }  // cache slot 2
     });
   }
 
-  // Block 4: Thunder's Edge rulebook PDF (only when TE active — uses the 4th and final cache slot)
+  // Block 4: Thunder's Edge rulebook PDF (only when TE active)
   if (includeTE && teRulebookB64) {
     content.push({
       type: 'document',
       source: { type: 'base64', media_type: 'application/pdf', data: teRulebookB64 },
       title: "Thunder's Edge Official Expansion Rulebook",
-      cache_control: { type: 'ephemeral' }  // cache slot 4 (only used for TE games)
+      cache_control: { type: 'ephemeral' }  // cache slot 3
     });
   }
 
