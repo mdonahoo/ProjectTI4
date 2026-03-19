@@ -42,7 +42,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 
 /* LAYOUT */
 .layout{display:grid;grid-template-columns:335px 1fr;gap:1.25rem;align-items:start;position:relative;}
-@media(max-width:900px){.layout{grid-template-columns:1fr;padding-bottom:52px;}}
+@media(max-width:900px){.layout{grid-template-columns:1fr;}}
 
 /* PANEL */
 .panel{background:var(--panel);border:1px solid var(--border);border-radius:4px;overflow:hidden;}
@@ -292,6 +292,21 @@ select option{background:#0d1420;}
 .qbtns{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:0.15rem;}
 .qbtn{background:var(--panel2);border:1px solid var(--border);border-radius:3px;padding:0.32rem 0.65rem;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.78rem;color:var(--text-dim);transition:all 0.11s;}
 .qbtn:hover{border-color:var(--gold-dim);color:var(--text);}
+/* Mobile welcome icon grid */
+.qbtns-grid{display:none;}
+.qbtn-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:var(--panel2);border:1px solid var(--border);border-radius:5px;padding:0.6rem 0.3rem;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.65rem;font-weight:600;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.05em;transition:all 0.13s;text-align:center;line-height:1.2;}
+.qbtn-card:hover,.qbtn-card:active{border-color:var(--gold-dim);color:var(--text);background:rgba(201,168,76,0.05);}
+.qbtn-card .qcard-icon{font-size:1.5rem;line-height:1;filter:grayscale(0.2);}
+/* Context strip (gold-bordered feature shortcuts) */
+.context-strip{display:none;border-top:1px solid var(--border);background:var(--panel3);padding:0.35rem 0.6rem;gap:6px;align-items:center;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.context-strip::-webkit-scrollbar{display:none;}
+.ctx-arrow{color:var(--text-dim);font-size:0.7rem;flex-shrink:0;opacity:0.5;}
+.ctx-btn{background:transparent;border:1px solid var(--gold-dim);border-radius:3px;padding:0.28rem 0.7rem;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.72rem;color:var(--gold);white-space:nowrap;transition:all 0.12s;flex-shrink:0;}
+.ctx-btn:hover,.ctx-btn:active{background:rgba(201,168,76,0.08);border-color:var(--gold);color:var(--gold);}
+/* Dot pagination indicator */
+.welcome-dots{display:none;gap:6px;justify-content:center;margin-top:0.3rem;}
+.welcome-dot{width:7px;height:7px;border-radius:50%;background:var(--text-dim);opacity:0.3;}
+.welcome-dot.active{opacity:0.9;background:var(--gold-dim);}
 
 /* MESSAGES */
 .msg{display:flex;flex-direction:column;gap:0.18rem;}
@@ -420,6 +435,7 @@ select option{background:#0d1420;}
 .gs-chip.faction { border-color:rgba(201,168,76,0.4); color:var(--gold); font-weight:600; }
 .gs-chip.vp { border-color:rgba(74,154,223,0.3); color:var(--blue-hi); }
 .gs-chip.round { color:var(--text); }
+.gs-chip.ai-ready { border-color:rgba(76,175,130,0.4); color:#4caf82; font-weight:600; margin-left:auto; }
 .round-advance-btn { background:rgba(74,154,223,0.1); border:1px solid rgba(74,154,223,0.4); border-radius:3px; color:var(--blue-hi); font-family:'Cinzel',serif; font-size:0.68rem; letter-spacing:0.06em; padding:0.22rem 0.75rem; cursor:pointer; transition:all 0.13s; text-transform:uppercase; white-space:nowrap; }
 .round-advance-btn:hover { background:rgba(74,154,223,0.2); border-color:var(--blue-hi); color:#7bc8f8; }
 
@@ -441,6 +457,34 @@ select option{background:#0d1420;}
 .msg-copy-btn { background:none; border:1px solid var(--border); border-radius:2px; color:var(--text-dim); font-size:0.62rem; padding:0.1rem 0.42rem; cursor:pointer; font-family:'Rajdhani',sans-serif; transition:all 0.11s; display:flex; align-items:center; gap:3px; }
 .msg-copy-btn:hover { border-color:var(--gold-dim); color:var(--gold); }
 .msg-copy-btn.copied { border-color:rgba(74,223,138,0.45); color:var(--teal-hi); }
+.msg-speak-btn { background:none; border:1px solid var(--border); border-radius:2px; color:var(--text-dim); font-size:0.62rem; padding:0.1rem 0.42rem; cursor:pointer; font-family:'Rajdhani',sans-serif; transition:all 0.11s; display:flex; align-items:center; gap:3px; }
+.msg-speak-btn:hover { border-color:var(--gold-dim); color:var(--gold); }
+.msg-speak-btn.speaking { border-color:rgba(74,154,223,0.5); color:var(--blue-hi); animation:speakpulse 1.2s ease-in-out infinite; }
+.msg-speak-btn.loading { opacity:0.5; pointer-events:none; }
+@keyframes speakpulse{0%,100%{opacity:1}50%{opacity:0.5}}
+/* Voice clone UI */
+.vc-status { font-size:0.68rem; padding:0.4rem 0.55rem; border-radius:3px; margin-bottom:0.5rem; display:flex; align-items:center; gap:6px; }
+.vc-status.ready { background:rgba(50,180,80,0.12); border:1px solid rgba(50,180,80,0.3); color:#5fd47a; }
+.vc-status.none { background:rgba(180,150,50,0.1); border:1px solid rgba(180,150,50,0.25); color:var(--text-dim); }
+.vc-record-btn { background:rgba(200,50,50,0.15); border:1px solid rgba(200,60,60,0.4); color:#ef8a8a; padding:0.45rem 0.8rem; border-radius:3px; cursor:pointer; font-family:'Rajdhani',sans-serif; font-size:0.72rem; font-weight:600; transition:all 0.15s; display:inline-flex; align-items:center; gap:5px; }
+.vc-record-btn:hover { background:rgba(200,50,50,0.25); border-color:rgba(230,80,80,0.6); }
+.vc-record-btn.recording { background:rgba(200,50,50,0.3); border-color:rgba(230,80,80,0.8); animation:micpulse 1s ease-in-out infinite; }
+.vc-clone-btn { background:rgba(42,90,138,0.2); border:1px solid rgba(74,122,175,0.4); color:var(--blue-hi); padding:0.45rem 0.8rem; border-radius:3px; cursor:pointer; font-family:'Rajdhani',sans-serif; font-size:0.72rem; font-weight:600; transition:all 0.15s; display:inline-flex; align-items:center; gap:5px; }
+.vc-clone-btn:hover { background:rgba(42,90,188,0.3); border-color:rgba(74,154,223,0.6); }
+.vc-clone-btn:disabled { opacity:0.4; pointer-events:none; }
+.vc-remove-btn { background:none; border:1px solid var(--border); color:var(--text-dim); padding:0.3rem 0.6rem; border-radius:3px; cursor:pointer; font-family:'Rajdhani',sans-serif; font-size:0.62rem; transition:all 0.12s; }
+.vc-remove-btn:hover { border-color:rgba(200,60,60,0.5); color:#ef8a8a; }
+.vc-hint { font-size:0.6rem; color:var(--text-dim); margin-top:0.35rem; line-height:1.4; }
+.vc-progress { font-size:0.65rem; color:var(--gold); margin-top:0.3rem; }
+.vc-actions { display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin-top:0.4rem; }
+.vc-timer { font-size:0.72rem; color:#ef8a8a; font-weight:600; font-variant-numeric:tabular-nums; }
+.speak-wave { display:inline-flex; align-items:center; gap:1px; height:10px; }
+.speak-wave span { display:inline-block; width:2px; background:var(--blue-hi); border-radius:1px; animation:wavebar 0.8s ease-in-out infinite; }
+.speak-wave span:nth-child(1){height:4px;animation-delay:0s}
+.speak-wave span:nth-child(2){height:7px;animation-delay:0.15s}
+.speak-wave span:nth-child(3){height:5px;animation-delay:0.3s}
+.speak-wave span:nth-child(4){height:8px;animation-delay:0.1s}
+@keyframes wavebar{0%,100%{transform:scaleY(0.4)}50%{transform:scaleY(1)}}
 
 /* ── SIDEBAR DRAWER — always fixed, outside grid ── */
 .sidebar-drawer {
@@ -479,223 +523,244 @@ select option{background:#0d1420;}
 
 /* --- Mobile layout: stacked, chat-first --- */
 @media(max-width:900px) {
-  /* Remove desktop padding, use full width */
-  .app { padding:0 0 0 0; }
-
-  /* Stack layout vertically, chat on top */
+  /* ═══ APP SHELL ═══ */
+  html { height: 100dvh; overflow: hidden; }
+  body {
+    position: fixed; width: 100%; height: 100dvh;
+    overflow: hidden; overscroll-behavior: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .app { padding: 0; height: 100%; display: flex; flex-direction: column; }
   .layout {
-    grid-template-columns: 1fr;
-    gap: 0;
-    display: flex;
-    flex-direction: column;
+    display: flex; flex-direction: column; flex: 1;
+    min-height: 0; gap: 0; overflow: hidden;
+    padding-bottom: 56px; /* fixed bottom tab bar */
   }
 
-  /* Chat panel comes first on mobile */
-  .chat-panel {
-    order: 1;
-    height: calc(100dvh - 52px); /* full viewport minus bottom nav */
-    min-height: 0;
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-  }
-
-  /* Sidebar sits below chat, accessible via bottom nav */
-  .sidebar {
-    order: 2;
-    flex-direction: column;
-    /* hidden until tab selected */
-  }
-
-  /* --- Header: ultra-compact on mobile --- */
+  /* ═══ HEADER: single compact bar ═══ */
   .header {
-    padding: 0.65rem 1rem 0.55rem;
-    margin-bottom: 0;
-    border-radius: 0;
+    padding: 0.4rem 0.75rem 0.3rem;
+    margin-bottom: 0; border-radius: 0;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0; background: var(--panel);
   }
   .header .header-deco { display: none; }
-  .header h1 { font-size: 1.1rem; letter-spacing: 0.03em; }
-  .header-sub { font-size: 0.65rem; margin-top: 0.1rem; display: none; }
+  .header h1 { font-size: 1.05rem; letter-spacing: 0.06em; margin-bottom: 0.05rem; }
+  .header-sub {
+    display: block; font-size: 0.5rem; margin-top: 0;
+    color: var(--text-dim); letter-spacing: 0.12em; text-transform: uppercase;
+  }
   .header-actions {
-    gap: 0.3rem;
-    margin-top: 0.45rem;
+    display: flex; gap: 3px; margin-top: 0.25rem;
+    flex-wrap: wrap; justify-content: center;
   }
-  .hbtn {
-    font-size: 0.62rem;
-    padding: 0.25rem 0.55rem;
+  .hbtn { font-size: 0.52rem; padding: 0.15rem 0.38rem; border-radius: 3px; }
+  /* Status bar */
+  .game-status-bar {
+    display: flex !important; gap: 0.2rem; margin-top: 0.2rem;
+    padding: 0.15rem 0 0; border-top: 1px solid rgba(201,168,76,0.08);
+    align-items: center; flex-wrap: nowrap;
   }
-
-  /* Game status bar replaces header on mobile when active */
+  .gs-chip { font-size: 0.58rem; padding: 0.1rem 0.35rem; border-radius: 3px; }
+  .gs-chip.ai-ready { margin-left: auto; }
+  .round-advance-btn { font-size: 0.58rem; padding: 0.12rem 0.4rem; display: none; }
+  /* Game active: collapse to status only */
+  .header.game-active { padding: 0.25rem 0.75rem 0.2rem; }
   .header.game-active h1,
+  .header.game-active .header-sub,
   .header.game-active .header-actions { display: none; }
-  .header.game-active { padding: 0.4rem 0.75rem; }
-  .game-status-bar { gap: 0.35rem; }
-  .gs-chip { font-size: 0.68rem; padding: 0.2rem 0.5rem; }
-  .round-advance-btn { font-size: 0.65rem; padding: 0.2rem 0.55rem; }
+  .header.game-active .game-status-bar { border-top: none; margin-top: 0; }
+  .header.game-active .round-advance-btn { display: inline-block; }
 
-  /* --- Bottom tab navigation (iOS/Android style) --- */
-  .tab-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    border-top: 1px solid var(--border);
-    border-bottom: none;
-    background: rgba(13,20,32,0.97);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    padding-bottom: env(safe-area-inset-bottom, 0); /* iPhone notch */
-    height: 52px;
+  /* ═══ SIDEBAR ═══ */
+  .sidebar {
+    height: 0 !important; min-height: 0 !important;
+    overflow: visible !important; border: none !important;
+    background: transparent !important; flex-shrink: 0; padding: 0 !important;
   }
-  .tab-btn {
-    padding: 0.3rem 0.1rem 0.2rem;
-    font-size: 0.58rem;
-    border-right: none;
-    border-bottom: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1px;
-  }
-  .tab-btn .ticon { font-size: 16px; margin-bottom: 0; }
-  .tab-btn.active {
-    border-bottom: none;
-    border-top: 2px solid var(--gold);
-    color: var(--gold);
-  }
-
-  /* --- Sidebar panel: slides up from bottom when tab selected --- */
-  .sidebar .panel {
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
-    max-height: 65vh;
-    overflow-y: auto;
-  }
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
-
-  /* Drawer overlay — defined globally above, mobile just ensures backdrop */
+  .sidebar .tab-content { display: none !important; }
   .sidebar.drawer-open {
-    position: fixed !important;
-    bottom: 52px !important;
-    left: 0 !important;
-    right: 0 !important;
-    z-index: 90 !important;
-    max-height: 72vh !important;
-    overflow-y: auto !important;
-    border-radius: 12px 12px 0 0 !important;
-    border: 1px solid var(--border) !important;
-    border-bottom: none !important;
-    box-shadow: 0 -8px 32px rgba(0,0,0,0.55) !important;
-    animation: slideUp 0.22s cubic-bezier(0.4,0,0.2,1) !important;
+    position: fixed !important; bottom: 56px !important;
+    left: 0 !important; right: 0 !important;
+    height: auto !important; z-index: 90 !important;
+    max-height: 75vh !important; overflow-y: auto !important; overflow-x: hidden !important;
+    border-radius: 16px 16px 0 0 !important;
+    border: 1px solid var(--border) !important; border-bottom: none !important;
+    box-shadow: 0 -16px 48px rgba(0,0,0,0.65) !important;
+    background: var(--panel) !important;
+    animation: slideUp 0.2s cubic-bezier(0.4,0,0.2,1) !important;
+    overscroll-behavior-y: contain;
+  }
+  .sidebar.drawer-open .tab-content.active { display: block !important; }
+  .sidebar.drawer-open .tab-bar { display: none !important; }
+  .sidebar.drawer-open::before {
+    content: ''; display: block; width: 36px; height: 4px;
+    background: rgba(255,255,255,0.15); border-radius: 2px;
+    margin: 10px auto 6px; flex-shrink: 0;
   }
   @keyframes slideUp {
-    from { transform: translateY(30px); opacity:0.5; }
-    to   { transform: translateY(0);    opacity:1; }
+    from { transform: translateY(24px); opacity: 0.6; }
+    to   { transform: translateY(0);    opacity: 1; }
   }
 
-  /* --- Chat: full-height, thumb-friendly --- */
-  .chat-ph { padding: 0.5rem 0.85rem; }
-  .chat-msgs { padding: 0.6rem 0.75rem; gap: 0.7rem; }
-  .msgbub { font-size: 0.88rem; padding: 0.55rem 0.8rem; }
-
-  /* Bigger input area for fat fingers */
-  .input-area {
-    padding: 0.5rem 0.65rem;
-    gap: 0.35rem;
-    padding-bottom: calc(0.5rem + env(safe-area-inset-bottom, 0));
+  /* ═══ BOTTOM TAB BAR ═══ */
+  .tab-bar {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+    border-top: 1px solid rgba(201,168,76,0.15); border-bottom: none;
+    background: rgba(8,12,18,0.97);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    height: 56px;
   }
-  .input-area textarea {
-    font-size: 0.9rem;
-    min-height: 40px;
+  .tab-btn {
+    padding: 6px 2px 4px; font-size: 0.52rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    border: none; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 2px;
+    color: rgba(106,101,96,0.7); transition: color 0.15s;
+    min-height: 48px; /* Apple HIG touch target */
   }
-  .send-btn { height: 40px; font-size: 0.68rem; padding: 0 0.85rem; }
-  .scan-btn { height: 40px; padding: 0 0.6rem; font-size: 0.72rem; }
-  .mic-btn  { width: 40px; height: 40px; font-size: 16px; }
+  .tab-btn .ticon { font-size: 20px; margin-bottom: 0; }
+  .tab-btn.active {
+    color: var(--gold);
+    background: linear-gradient(to bottom, rgba(201,168,76,0.08), transparent);
+    border-top: 2px solid var(--gold);
+  }
 
-  /* Quick strip: horizontally scrollable, no wrap */
+  /* ═══ CHAT PANEL ═══ */
+  .chat-panel {
+    flex: 1; min-height: 0; border-radius: 0; border: none;
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  .chat-ph {
+    padding: 0.3rem 0.75rem; border-bottom: 1px solid var(--border); flex-shrink: 0;
+  }
+  .chat-msgs-wrap {
+    flex: 1; min-height: 0; overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .chat-msgs {
+    flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain; display: flex; flex-direction: column;
+    padding: 0.5rem 0.7rem; gap: 0.65rem;
+    scrollbar-width: none; /* hide scrollbar on mobile */
+  }
+  .chat-msgs::-webkit-scrollbar { display: none; }
+  .msgbub { font-size: 0.86rem; padding: 0.5rem 0.75rem; }
+
+  /* ═══ WELCOME SCREEN ═══ */
+  .welcome {
+    padding: 0; gap: 0; justify-content: center; align-items: center;
+  }
+  .welcome .sigil {
+    font-size: 3.2rem; opacity: 0.08; margin-bottom: 0.4rem;
+    /* Hexagonal AI look */
+    width: 72px; height: 72px; display: flex; align-items: center; justify-content: center;
+    border: 2px solid rgba(201,168,76,0.12); border-radius: 50%;
+  }
+  .welcome h2 { font-size: 0.85rem; margin-bottom: 0.15rem; }
+  .welcome p { font-size: 0.66rem; max-width: 260px; margin-bottom: 0.8rem; line-height: 1.55; opacity: 0.7; }
+  .qbtns { display: none !important; }
+  .qbtns-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px; width: 100%; max-width: 340px;
+    padding: 0 0.5rem;
+  }
+  .qbtn-card {
+    padding: 0.7rem 0.15rem; font-size: 0.52rem;
+    border-radius: 8px; border-color: rgba(201,168,76,0.18);
+    background: rgba(17,25,41,0.6); min-height: 76px; gap: 6px;
+    /* Subtle inner glow */
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+  }
+  .qbtn-card:active {
+    background: rgba(201,168,76,0.1); border-color: var(--gold);
+    transform: scale(0.94); transition: all 0.08s;
+  }
+  .qbtn-card .qcard-icon { font-size: 1.6rem; }
+  .welcome-dots { display: flex !important; margin-top: 0.6rem; }
+
+  /* ═══ STRIPS: context + quick ═══ */
+  .context-strip {
+    display: flex !important; flex-shrink: 0;
+    padding: 6px 10px; gap: 6px;
+    border-top: 1px solid rgba(201,168,76,0.12);
+    background: rgba(8,12,18,0.4);
+    scrollbar-width: none;
+  }
+  .context-strip::-webkit-scrollbar { display: none; }
+  .ctx-btn { font-size: 0.64rem; padding: 0.2rem 0.55rem; border-radius: 4px; }
   .quick-strip {
-    padding: 0.35rem 0.6rem;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    gap: 5px;
+    padding: 6px 10px; flex-wrap: nowrap; overflow-x: auto;
+    -webkit-overflow-scrolling: touch; gap: 6px; align-items: center;
+    flex-shrink: 0; border-top: 1px solid rgba(255,255,255,0.06);
+    background: rgba(10,16,24,0.6); scrollbar-width: none;
   }
+  .quick-strip::-webkit-scrollbar { display: none; }
+  .quick-strip::before { content: '‹'; color: var(--text-dim); opacity: 0.35; font-size: 0.6rem; flex-shrink: 0; }
+  .quick-strip::after  { content: '›'; color: var(--text-dim); opacity: 0.35; font-size: 0.6rem; flex-shrink: 0; }
   .qs-btn {
-    font-size: 0.75rem;
-    padding: 0.3rem 0.65rem;
-    flex-shrink: 0;
-    white-space: nowrap;
+    font-size: 0.64rem; padding: 0.2rem 0.55rem;
+    flex-shrink: 0; white-space: nowrap; border-radius: 4px;
   }
 
-  /* Faction grid: bigger tap targets */
+  /* ═══ INPUT AREA ═══ */
+  .input-area {
+    padding: 8px 10px; gap: 6px; flex-shrink: 0;
+    border-top: 1px solid var(--border);
+    background: var(--panel);
+    padding-bottom: calc(8px + env(safe-area-inset-bottom, 0));
+  }
+  .input-area textarea { font-size: 0.88rem; min-height: 40px; max-height: 80px; }
+  .send-btn { height: 40px; font-size: 0.64rem; padding: 0 0.85rem; border-radius: 4px; }
+  .scan-btn { height: 40px; padding: 0 0.6rem; font-size: 0.68rem; border-radius: 4px; }
+  .mic-btn  { width: 40px; height: 40px; font-size: 15px; border-radius: 4px; }
+
+  /* ═══ DRAWER CONTENT STYLING ═══ */
+  .sidebar .panel { border-radius: 0; border: none; }
   .fgrid { grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); gap: 4px; }
   .fbtn { padding: 0.42rem 0.25rem; font-size: 0.76rem; }
   .fbtn .fi { font-size: 14px; }
-
-  /* Forms: full-width, larger touch targets */
-  .fp { padding: 0.65rem 0.75rem; gap: 0.6rem; }
-  select, input[type=number], input[type=text] { font-size: 0.92rem; padding: 0.45rem 0.65rem; }
-  .lbl { font-size: 0.76rem; }
+  .fp { padding: 0.6rem 0.75rem; gap: 0.55rem; }
+  select, input[type=number], input[type=text] { font-size: 0.9rem; padding: 0.4rem 0.6rem; }
+  .lbl { font-size: 0.74rem; }
   .r2 { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
-
-  /* Sections: easier to read headers */
-  .sec-hdr { padding: 0.55rem 0.85rem; }
-  .sec-title { font-size: 0.8rem; }
-  .sec-sum { font-size: 0.72rem; }
-
-  /* Opponents: larger VP counters */
+  .sec-hdr { padding: 0.5rem 0.85rem; }
+  .sec-title { font-size: 0.78rem; }
+  .sec-sum { font-size: 0.7rem; }
   .opp-vp-ctr .resctr-btn { width: 28px; height: 28px; font-size: 14px; }
   .opp-vp-ctr .resctr-val { font-size: 1rem; min-width: 28px; }
-
-  /* Tech: slightly more breathing room */
   .techname { font-size: 0.82rem; }
   .techitem { padding: 0.28rem 0.4rem; }
-
-  /* Action cards */
   .acname-in { font-size: 0.84rem; }
   .actag { font-size: 0.7rem; padding: 0.1rem 0.38rem; }
-
-  /* Journal */
   .journal-event-in { font-size: 0.86rem; }
   .jbtn { font-size: 0.75rem; padding: 0.38rem 0.6rem; }
-
-  /* Threat monitor: compact on mobile */
   .threat-monitor { padding: 0.35rem 0.75rem; }
   .threat-name { min-width: 72px; font-size: 0.68rem; }
   .threat-eta { font-size: 0.64rem; min-width: 46px; }
-
-  /* Welcome screen */
-  .welcome { padding: 1.5rem 1rem; }
-  .welcome h2 { font-size: 0.85rem; }
-  .qbtns { gap: 5px; }
-  .qbtn { font-size: 0.76rem; padding: 0.3rem 0.6rem; }
-
-  /* Section padding reduction */
   .objsec, .scgrid, .vpboard, .oppslots, .acsec, .agsec, .restable,
   .pn-ledger, .journal-pad, .techgrid { padding-left: 0.75rem; padding-right: 0.75rem; }
-
-  /* Resources table: scrollable */
   .restable { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .restable table { min-width: 280px; }
   .resctr-btn { width: 20px; height: 20px; }
+  .scroll-to-bottom { bottom: 0.5rem; right: 0.5rem; width: 34px; height: 34px; font-size: 14px; }
 
-  /* Scroll to bottom: position for mobile */
-  .scroll-to-bottom { bottom: 0.5rem; right: 0.5rem; width: 32px; height: 32px; font-size: 13px; }
+  /* Coach banner: thin inline */
+  .coach-banner { font-size: 0.58rem; padding: 0.2rem 0.6rem; flex-shrink: 0; }
 }
 
-/* --- Very small phones (≤380px) --- */
+/* --- Small phones (≤380px) --- */
 @media(max-width:380px) {
-  .header h1 { font-size: 0.95rem; }
-  .hbtn { font-size: 0.58rem; padding: 0.22rem 0.45rem; }
-  .tab-btn { font-size: 0.52rem; }
-  .tab-btn .ticon { font-size: 14px; }
-  .fgrid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
-  .gs-chip { font-size: 0.62rem; padding: 0.18rem 0.4rem; }
+  .header h1 { font-size: 0.92rem; }
+  .hbtn { font-size: 0.5rem; padding: 0.14rem 0.35rem; }
+  .tab-btn { font-size: 0.48rem; }
+  .tab-btn .ticon { font-size: 17px; }
+  .gs-chip { font-size: 0.54rem; padding: 0.1rem 0.32rem; }
+  .qbtns-grid { gap: 7px; max-width: 300px; }
+  .qbtn-card { padding: 0.55rem 0.1rem; font-size: 0.5rem; min-height: 66px; }
+  .qbtn-card .qcard-icon { font-size: 1.3rem; }
 }
 
 /* --- Tablet (901px–1100px): tighter sidebar --- */
@@ -706,6 +771,68 @@ select option{background:#0d1420;}
 
 /* ── SECTION COLLAPSE VISUAL POLISH ── */
 .sec-body { transition:max-height 0.28s cubic-bezier(0.4,0,0.2,1), opacity 0.2s; }
+
+/* ── PLANET TRACKER ── */
+.planet-summary{display:flex;gap:0.6rem;align-items:center;padding:0.35rem 0.6rem;background:rgba(201,168,76,0.06);border:1px solid var(--border);border-radius:3px;font-size:0.74rem;margin:0 0.85rem 0.35rem;}
+.ps-label{color:var(--text-dim);font-size:0.62rem;text-transform:uppercase;letter-spacing:0.06em;}
+.ps-val{font-family:'Cinzel',serif;font-weight:600;}
+.ps-res{color:var(--yellow-hi);}.ps-inf{color:var(--blue-hi);}
+.planet-list{padding:0 0.85rem 0.5rem;display:flex;flex-direction:column;gap:3px;}
+.planet-row{display:flex;align-items:center;gap:0.35rem;padding:0.24rem 0.45rem;background:var(--deep);border:1px solid var(--border);border-radius:3px;transition:all 0.12s;}
+.planet-row.exhausted{opacity:0.4;border-style:dashed;}
+.planet-name{font-size:0.73rem;color:var(--text-bright);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.planet-stat{font-size:0.72rem;min-width:16px;text-align:center;font-family:'Cinzel',serif;}
+.planet-stat.res{color:var(--yellow-hi);}.planet-stat.inf{color:var(--blue-hi);}
+.planet-trait{font-size:0.56rem;color:var(--text-dim);min-width:14px;text-align:center;text-transform:uppercase;}
+.planet-trait.cultural{color:var(--blue-hi);}.planet-trait.industrial{color:var(--yellow-hi);}.planet-trait.hazardous{color:var(--red-hi);}
+.planet-skip{font-size:0.52rem;font-weight:600;min-width:10px;}
+.planet-skip.B{color:var(--blue-hi);}.planet-skip.R{color:var(--red-hi);}.planet-skip.Y{color:var(--yellow-hi);}.planet-skip.G{color:var(--green-hi);}
+.planet-toggle{background:none;border:1px solid var(--border);border-radius:2px;color:var(--text-dim);font-size:0.56rem;padding:0.06rem 0.28rem;cursor:pointer;white-space:nowrap;transition:all 0.11s;text-transform:uppercase;}
+.planet-toggle.ready{border-color:rgba(74,223,138,0.45);color:var(--teal-hi);background:rgba(20,80,50,0.15);}
+.planet-toggle.exhausted{border-color:rgba(223,106,74,0.3);color:var(--red-hi);}
+.planet-rm{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:9px;transition:color 0.11s;}.planet-rm:hover{color:#df6a5a;}
+.planet-add-row{display:flex;gap:0.35rem;padding:0 0.85rem 0.5rem;}
+.planet-add-row input{flex:1;}
+.planet-add-row button{white-space:nowrap;}
+.planet-bulk-btns{display:flex;gap:0.3rem;padding:0 0.85rem 0.55rem;}
+.planet-bulk-btns button{flex:1;}
+
+/* ── FLEET TRACKER ── */
+.fleet-list{padding:0 0.85rem 0.5rem;display:flex;flex-direction:column;gap:4px;}
+.fleet-system{background:var(--deep);border:1px solid var(--border);border-radius:3px;overflow:hidden;}
+.fleet-sys-hdr{display:flex;align-items:center;gap:0.4rem;padding:0.3rem 0.5rem;cursor:pointer;background:var(--panel2);user-select:none;}
+.fleet-sys-hdr:hover{background:rgba(201,168,76,0.04);}
+.fleet-sys-name{font-size:0.73rem;color:var(--text-bright);font-weight:600;}
+.fleet-sys-sum{font-size:0.62rem;color:var(--text-dim);flex:1;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.fleet-sys-rm{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:9px;transition:color 0.11s;}.fleet-sys-rm:hover{color:#df6a5a;}
+.fleet-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:3px;padding:0.35rem 0.5rem;}
+.fleet-unit{display:flex;flex-direction:column;align-items:center;gap:1px;padding:0.1rem 0.15rem;}
+.fleet-unit-name{font-size:0.5rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.02em;text-align:center;line-height:1.1;}
+.fleet-unit-ctr{display:flex;align-items:center;gap:2px;}
+.fleet-add-row{display:flex;gap:0.35rem;padding:0 0.85rem 0.5rem;}
+.fleet-add-row input{flex:1;}
+
+/* ── COACH MODE ── */
+.coach-toggle{background:none;border:1px solid var(--border);border-radius:3px;padding:0.18rem 0.5rem;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.65rem;color:var(--text-dim);transition:all 0.13s;white-space:nowrap;}
+.coach-toggle:hover{border-color:var(--blue-hi);color:var(--blue-hi);}
+.coach-toggle.active{background:rgba(74,154,223,0.15);border-color:var(--blue-hi);color:var(--blue-hi);}
+.chat-ph.coach-active{background:rgba(74,154,223,0.12);border-bottom-color:rgba(74,154,223,0.3);}
+.chat-ph.coach-active .ptitle{color:var(--blue-hi);}
+.coach-banner{padding:0.3rem 0.8rem;background:rgba(74,154,223,0.08);border-bottom:1px solid rgba(74,154,223,0.2);font-size:0.68rem;color:var(--blue-hi);display:none;text-align:center;}
+.coach-banner.vis{display:block;}
+
+/* ── COMBAT PHOTO ANALYZER ── */
+.combat-photo-sec{padding:0.55rem 0.85rem;display:flex;flex-direction:column;gap:0.5rem;}
+.combat-photo-area{display:flex;gap:0.55rem;align-items:flex-start;}
+.combat-photo-thumb-w{position:relative;flex-shrink:0;}
+.combat-photo-thumb{width:80px;height:80px;object-fit:cover;border-radius:3px;border:1px solid rgba(223,106,74,0.35);}
+.combat-photo-rm{position:absolute;top:-4px;right:-4px;background:#b84a3a;border:none;color:white;border-radius:50%;width:13px;height:13px;font-size:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;}
+.combat-analysis-btns{display:flex;flex-direction:column;gap:4px;flex:1;}
+.combat-abtn{width:100%;background:rgba(223,106,74,0.06);border:1px solid rgba(223,106,74,0.22);color:var(--red-hi);font-family:'Rajdhani',sans-serif;font-size:0.72rem;padding:0.3rem 0.5rem;border-radius:3px;cursor:pointer;transition:all 0.13s;text-align:left;}
+.combat-abtn:hover{background:rgba(223,106,74,0.13);border-color:rgba(223,106,74,0.4);}
+.combat-abtn .cb-icon{margin-right:4px;}
+.combat-upload-btn{width:100%;background:rgba(223,106,74,0.08);border:1px dashed rgba(223,106,74,0.3);color:var(--red-hi);font-family:'Rajdhani',sans-serif;font-size:0.74rem;padding:0.45rem;border-radius:3px;cursor:pointer;transition:all 0.13s;text-align:center;}
+.combat-upload-btn:hover{background:rgba(223,106,74,0.15);border-color:rgba(223,106,74,0.5);}
 </style>
 </head>
 <body>
@@ -719,9 +846,10 @@ select option{background:#0d1420;}
   <h1>TWILIGHT IMPERIUM <span>IV</span></h1>
   <div class="header-sub" id="headerSub">AI Strategy Advisor &nbsp;·&nbsp; Base Game + Prophecy of Kings</div>
   <div class="game-status-bar" id="gameStatusBar">
-    <span class="gs-chip faction" id="gs-faction">—</span>
-    <span class="gs-chip round" id="gs-round">Round 1</span>
-    <span class="gs-chip vp" id="gs-vp">0 VP</span>
+    <span class="gs-chip round" id="gs-round">Round: 1</span>
+    <span class="gs-chip vp" id="gs-vp">My VP: 0</span>
+    <span class="gs-chip faction" id="gs-faction">Player 6</span>
+    <span class="gs-chip ai-ready" id="gs-ai">● AI Ready</span>
     <button class="round-advance-btn" onclick="advanceRound()" title="End this round, advance to next">▶ Next Round</button>
   </div>
   <div class="header-actions">
@@ -740,11 +868,11 @@ select option{background:#0d1420;}
 <!-- SIDEBAR -->
 <div class="panel sidebar" id="sidebarPanel">
   <div class="tab-bar">
-    <button class="tab-btn active" onclick="switchTab('setup')" id="tab-setup"><span class="ticon">⬡</span>Setup</button>
-    <button class="tab-btn" onclick="switchTab('table')" id="tab-table"><span class="ticon">◉</span>Table</button>
-    <button class="tab-btn" onclick="switchTab('tech')" id="tab-tech"><span class="ticon">🔬</span>Tech</button>
-    <button class="tab-btn" onclick="switchTab('actions')" id="tab-actions"><span class="ticon">📋</span>Actions</button>
-    <button class="tab-btn" onclick="switchTab('journal')" id="tab-journal"><span class="ticon">📜</span>Journal</button>
+    <button class="tab-btn active" onclick="switchTab('setup')" id="tab-setup"><span class="ticon">⚙</span>Setup</button>
+    <button class="tab-btn" onclick="switchTab('table')" id="tab-table"><span class="ticon">🌐</span>Table</button>
+    <button class="tab-btn" onclick="switchTab('tech')" id="tab-tech"><span class="ticon">⚗</span>Tech</button>
+    <button class="tab-btn" onclick="switchTab('actions')" id="tab-actions"><span class="ticon">⚔</span>Actions</button>
+    <button class="tab-btn" onclick="switchTab('journal')" id="tab-journal"><span class="ticon">📓</span>Journal</button>
   </div>
 
   <!-- ═ SETUP ═ -->
@@ -782,6 +910,35 @@ select option{background:#0d1420;}
         </div>
         <div><label class="lbl">Extra Context</label>
           <input type="text" id="context" placeholder="e.g. Hacan neighbor, weak slice…">
+        </div>
+      </div></div>
+    </div>
+    <div class="section collapsed" id="sec-voice">
+      <div class="sec-hdr" onclick="toggleSec('sec-voice')"><span class="sec-title">Voice Clone</span><span class="sec-sum" id="sum-voice">Not set</span><span class="chev">▾</span></div>
+      <div class="sec-body"><div class="fp" style="padding:0.55rem 0.85rem">
+        <div id="vcStatus" class="vc-status none">
+          <span id="vcStatusIcon">🔇</span>
+          <span id="vcStatusText">No voice cloned — using default voice</span>
+        </div>
+        <div id="vcReadyActions" style="display:none">
+          <div class="vc-actions">
+            <button class="vc-remove-btn" onclick="removeClonedVoice()">Remove Clone</button>
+            <button class="vc-record-btn" onclick="startVoiceClone()" style="font-size:0.62rem;padding:0.3rem 0.6rem">Re-clone</button>
+          </div>
+        </div>
+        <div id="vcSetupUI">
+          <p class="vc-hint">Record a 15–30 second voice sample and we'll clone your voice so the advisor speaks back in your voice.</p>
+          <div class="vc-actions">
+            <button class="vc-record-btn" id="vcRecordBtn" onclick="startVoiceClone()">🎙 Record Sample</button>
+          </div>
+          <div id="vcRecordingUI" style="display:none">
+            <div class="vc-actions" style="margin-top:0.4rem">
+              <span class="vc-timer" id="vcTimer">0:00</span>
+              <button class="vc-clone-btn" id="vcStopBtn" onclick="stopVoiceRecording()">⏹ Stop & Clone</button>
+            </div>
+            <p class="vc-hint" style="margin-top:0.25rem">Speak naturally — read anything aloud, describe your faction, or just talk about your day.</p>
+          </div>
+          <div id="vcProgress" class="vc-progress" style="display:none"></div>
         </div>
       </div></div>
     </div>
@@ -827,6 +984,42 @@ select option{background:#0d1420;}
         <div class="pn-ledger" id="pnLedger"></div>
         <div style="padding:0 0.85rem 0.6rem">
           <button class="pn-ai-btn" onclick="getPNAdvice()">Leverage Analysis — who holds what? ↗</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Planet Tracker -->
+    <div class="section collapsed" id="sec-planets">
+      <div class="sec-hdr" onclick="toggleSec('sec-planets')"><span class="sec-title">🌍 Planet Tracker</span><span class="sec-sum" id="sum-planets">0 planets</span><span class="chev">▾</span></div>
+      <div class="sec-body">
+        <div class="planet-summary" id="planetSummary" style="display:none">
+          <span class="ps-label">Ready</span>
+          <span><span class="ps-val ps-res" id="ps-ready-res">0</span>/<span class="ps-val ps-res" id="ps-total-res">0</span> <span class="ps-label">Res</span></span>
+          <span><span class="ps-val ps-inf" id="ps-ready-inf">0</span>/<span class="ps-val ps-inf" id="ps-total-inf">0</span> <span class="ps-label">Inf</span></span>
+        </div>
+        <div class="planet-list" id="planetList"></div>
+        <div class="planet-add-row">
+          <input type="text" id="planetAddInput" placeholder="Planet name…" list="planetlist" onkeydown="if(event.key==='Enter'){event.preventDefault();addPlanet();}">
+          <button class="addbtn" style="width:auto;margin:0;padding:0.28rem 0.6rem" onclick="addPlanet()">+ Add</button>
+        </div>
+        <div class="planet-bulk-btns">
+          <button class="sbbtn" style="border-color:rgba(74,223,138,0.3);color:var(--teal-hi)" onclick="readyAllPlanets()">✓ Ready All</button>
+          <button class="sbbtn" style="border-color:rgba(223,106,74,0.3);color:var(--red-hi)" onclick="exhaustAllPlanets()">✕ Exhaust All</button>
+        </div>
+        <div style="padding:0 0.85rem 0.55rem">
+          <button class="ac-ai-btn" onclick="getBuildAdvice()">🏭 Build Advice — plan production from ready planets ↗</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fleet Tracker -->
+    <div class="section collapsed" id="sec-fleet">
+      <div class="sec-hdr" onclick="toggleSec('sec-fleet')"><span class="sec-title">🚀 Fleet Tracker</span><span class="sec-sum" id="sum-fleet">0 systems</span><span class="chev">▾</span></div>
+      <div class="sec-body">
+        <div class="fleet-list" id="fleetList"></div>
+        <div class="fleet-add-row">
+          <input type="text" id="fleetAddInput" placeholder="System name…" onkeydown="if(event.key==='Enter'){event.preventDefault();addFleetSystem();}">
+          <button class="addbtn" style="width:auto;margin:0;padding:0.28rem 0.6rem" onclick="addFleetSystem()">+ Add System</button>
         </div>
       </div>
     </div>
@@ -934,6 +1127,41 @@ select option{background:#0d1420;}
         </div>
       </div>
     </div>
+    <!-- Combat Photo Analyzer -->
+    <div class="section collapsed" id="sec-combat-photo">
+      <div class="sec-hdr" onclick="toggleSec('sec-combat-photo')">
+        <span class="sec-title">⚔️ Combat Photo Analyzer</span>
+        <span class="sec-sum" id="sum-combat-photo">—</span>
+        <span class="chev">▾</span>
+      </div>
+      <div class="sec-body">
+        <div style="padding:0.35rem 0.85rem 0.15rem;font-size:0.63rem;color:var(--text-dim);line-height:1.5">
+          Photograph the combat — the AI applies your faction, techs, and game state automatically.
+        </div>
+        <div class="combat-photo-sec" id="combatPhotoSec">
+          <div id="combatPhotoEmpty">
+            <button class="combat-upload-btn" onclick="document.getElementById('combatPhotoInput').click()">📷 Tap to photograph the combat</button>
+          </div>
+          <div id="combatPhotoLoaded" style="display:none">
+            <div class="combat-photo-area">
+              <div class="combat-photo-thumb-w">
+                <img id="combatPhotoThumb" class="combat-photo-thumb" src="" alt="Combat">
+                <button class="combat-photo-rm" onclick="clearCombatPhoto()">✕</button>
+              </div>
+              <div class="combat-analysis-btns">
+                <button class="combat-abtn" onclick="combatAnalyze('space')"><span class="cb-icon">🎯</span> Space Battle Odds</button>
+                <button class="combat-abtn" onclick="combatAnalyze('ground')"><span class="cb-icon">⚔️</span> Ground Combat Odds</button>
+                <button class="combat-abtn" onclick="combatAnalyze('attack')"><span class="cb-icon">❓</span> Should I Attack?</button>
+                <button class="combat-abtn" onclick="combatAnalyze('retreat')"><span class="cb-icon">🏃</span> Retreat Analysis</button>
+                <button class="combat-abtn" onclick="combatAnalyze('bombard')"><span class="cb-icon">💥</span> Bombardment</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <input type="file" id="combatPhotoInput" accept="image/*" capture="environment" style="display:none" onchange="handleCombatPhoto(event)">
+
     <div class="section collapsed" id="sec-vpo">
       <div class="sec-hdr" onclick="toggleSec('sec-vpo')">
         <span class="sec-title">🎯 Victory Path Optimizer</span>
@@ -985,11 +1213,13 @@ select option{background:#0d1420;}
 
 <!-- CHAT -->
 <div class="panel chat-panel">
-  <div class="chat-ph">
+  <div class="chat-ph" id="chatPH">
     <span style="color:var(--gold);font-size:10px">◉</span>
-    <span class="ptitle">Strategy Command</span>
+    <span class="ptitle" id="chatTitle">Strategy Command</span>
     <div class="spill"><div class="sdot" id="sdot"></div><span id="slbl">Ready</span></div>
+    <button class="coach-toggle" id="coachToggle" onclick="toggleCoachMode()" title="Toggle Coach Mode for beginner-friendly explanations">🎓 Coach</button>
   </div>
+  <div class="coach-banner" id="coachBanner">🎓 Coach Mode — plain-language teaching, concrete examples, explains the "why"</div>
   <div class="threat-monitor" id="threatMonitor" style="display:none">
     <div class="threat-hdr">
       <span class="threat-title">⚡ Win Threat Monitor</span>
@@ -1004,6 +1234,7 @@ select option{background:#0d1420;}
       <div class="sigil">⬡</div>
       <h2>Awaiting Orders, Supreme Commander</h2>
       <p>Configure all five tabs for maximum advisor intelligence, then ask anything.</p>
+      <!-- Desktop: text buttons -->
       <div class="qbtns">
         <button class="qbtn" onclick="quickAsk('Give me a full faction breakdown — strengths, weaknesses, tech path, and win condition.')">Faction Breakdown</button>
         <button class="qbtn" onclick="quickAsk('What is my ideal opening strategy for Round 1?')">Opening Strategy</button>
@@ -1016,6 +1247,18 @@ select option{background:#0d1420;}
         <button class="qbtn" onclick="quickAsk('Given the revealed public objectives, what should I score first?')">Objective Priority</button>
         <button class="qbtn" onclick="quickAsk('Which techs should I skip and which are must-haves?')">Tech Skip List</button>
       </div>
+      <!-- Mobile: icon card grid -->
+      <div class="qbtns-grid" id="welcomeGrid">
+        <button class="qbtn-card" onclick="quickAsk('Give me a full faction breakdown — strengths, weaknesses, tech path, and win condition.')"><span class="qcard-icon">🏛</span>Faction Analysis</button>
+        <button class="qbtn-card" onclick="quickAsk('What is my ideal opening strategy for Round 1?')"><span class="qcard-icon">🎯</span>Opening Strategy</button>
+        <button class="qbtn-card" onclick="quickAsk('What technology path should I prioritize and why?')"><span class="qcard-icon">⚙</span>Tech Path</button>
+        <button class="qbtn-card" onclick="quickAsk('What is my win condition and VP strategy?')"><span class="qcard-icon">🏆</span>Win Condition</button>
+        <button class="qbtn-card" onclick="quickAsk('What political threats should I watch for in the Agenda Phase?')"><span class="qcard-icon">⚖</span>Political Threats</button>
+        <button class="qbtn-card" onclick="quickAsk('Which Strategy Card should I take this round and why?')"><span class="qcard-icon">🃏</span>Strategy Cards</button>
+        <button class="qbtn-card" onclick="quickAsk('Who is my biggest threat and how do I handle them?')"><span class="qcard-icon">⚠</span>Threat Assessment</button>
+        <button class="qbtn-card" onclick="quickAsk('Walk me through the trade negotiation meta — what should I offer and demand?')"><span class="qcard-icon">💰</span>Trade Meta</button>
+      </div>
+      <div class="welcome-dots"><span class="welcome-dot active"></span><span class="welcome-dot"></span><span class="welcome-dot"></span></div>
     </div>
   </div>
   </div><!-- /chat-msgs-wrap -->
@@ -1029,6 +1272,14 @@ select option{background:#0d1420;}
         <button class="scan-qbtn" onclick="scanWith('What tactical opportunities and dangers are visible on this board?')">Opportunities</button>
       </div>
     </div>
+  </div>
+  <div class="context-strip" id="contextStrip">
+    <span class="ctx-arrow">‹</span>
+    <button class="ctx-btn" onclick="el('threatMonitor').style.display=el('threatMonitor').style.display==='none'?'block':'none'">Win Threat Monitor</button>
+    <button class="ctx-btn" onclick="switchTab('actions')">Promissory Notes</button>
+    <button class="ctx-btn" onclick="switchTab('setup')">Planet Tracker</button>
+    <button class="ctx-btn" onclick="switchTab('tech')">Fleet Tracker</button>
+    <span class="ctx-arrow">›</span>
   </div>
   <div class="quick-strip" id="quickStrip">
     <!-- populated by JS based on active tab -->
@@ -1101,6 +1352,7 @@ select option{background:#0d1420;}
   <option value="Turn their Fleets to Dust — Destroy 3+ ships in one combat">
   <option value="Unveil Flagship — Have your flagship on the board">
 </datalist>
+<datalist id="planetlist"></datalist>
 <datalist id="aclist">
   <option value="Morale Boost"><option value="Direct Hit"><option value="Shields Holding"><option value="Sabotage">
   <option value="Unstable Planet"><option value="Signal Jamming"><option value="Tactical Bombardment">
@@ -1217,6 +1469,48 @@ const UNITS = {
   warsun:{d:'War Sun',c:3,dice:3,s:true,afb:false,ad:0,av:0,pr:5}
 };
 
+// Planet database: n=name, r=resources, i=influence, t=trait, s=tech skip
+const PLANETS = [
+  {n:'Mecatol Rex',r:1,i:6,t:'',s:''},{n:'Abyz',r:3,i:0,t:'hazardous',s:''},{n:'Fria',r:2,i:0,t:'hazardous',s:''},
+  {n:'Arinam',r:1,i:2,t:'industrial',s:''},{n:'Meer',r:0,i:4,t:'hazardous',s:''},{n:'Arnor',r:2,i:1,t:'industrial',s:''},
+  {n:'Lor',r:1,i:2,t:'industrial',s:''},{n:'Bereg',r:3,i:1,t:'hazardous',s:''},{n:'Lirta IV',r:2,i:3,t:'hazardous',s:''},
+  {n:'Centauri',r:1,i:3,t:'cultural',s:''},{n:'Gral',r:1,i:1,t:'industrial',s:''},{n:'Corneeq',r:1,i:2,t:'cultural',s:''},
+  {n:'Resculon',r:2,i:0,t:'cultural',s:''},{n:'Dal Bootha',r:0,i:2,t:'cultural',s:''},{n:'Xxehan',r:1,i:1,t:'cultural',s:''},
+  {n:'Lazar',r:1,i:0,t:'industrial',s:'Y'},{n:'Sakulag',r:2,i:1,t:'hazardous',s:''},{n:'Lodor',r:3,i:1,t:'cultural',s:''},
+  {n:'Mehar Xull',r:1,i:3,t:'industrial',s:''},{n:'New Albion',r:1,i:1,t:'industrial',s:'G'},{n:'Starpoint',r:3,i:1,t:'hazardous',s:''},
+  {n:'Quann',r:2,i:1,t:'cultural',s:''},{n:"Qucen'n",r:1,i:2,t:'industrial',s:''},{n:'Rarron',r:0,i:3,t:'cultural',s:''},
+  {n:'Saudor',r:2,i:2,t:'industrial',s:''},{n:"Tar'mann",r:1,i:1,t:'industrial',s:'G'},{n:"Tequ'ran",r:2,i:0,t:'hazardous',s:''},
+  {n:'Thibah',r:1,i:1,t:'industrial',s:'B'},{n:'Torkan',r:0,i:3,t:'cultural',s:''},{n:'Wellon',r:1,i:2,t:'industrial',s:'Y'},
+  {n:'Vefut II',r:2,i:2,t:'hazardous',s:''},{n:'Nestphar',r:3,i:2,t:'industrial',s:''},{n:'Mellon',r:0,i:2,t:'cultural',s:''},
+  {n:'Zohbat',r:3,i:1,t:'hazardous',s:''},{n:'Cormund',r:2,i:0,t:'hazardous',s:''},{n:'Everra',r:3,i:1,t:'cultural',s:''},
+  {n:'Accoen',r:2,i:3,t:'industrial',s:''},{n:'Jeol Ir',r:2,i:3,t:'industrial',s:''},{n:'Kraag',r:2,i:1,t:'hazardous',s:''},
+  {n:'Siig',r:0,i:2,t:'hazardous',s:''},{n:"Ba'kal",r:3,i:2,t:'industrial',s:''},{n:'Alio Prima',r:1,i:1,t:'cultural',s:''},
+  {n:'Lisis',r:2,i:2,t:'industrial',s:''},{n:'Velnor',r:2,i:1,t:'industrial',s:'R'},{n:'Cealdri',r:0,i:2,t:'cultural',s:'Y'},
+  {n:'Xanhact',r:0,i:1,t:'hazardous',s:''},{n:'Vega Major',r:2,i:1,t:'cultural',s:''},{n:'Vega Minor',r:1,i:2,t:'cultural',s:''},
+  {n:'Abaddon',r:1,i:0,t:'cultural',s:''},{n:'Loki',r:1,i:2,t:'cultural',s:''},{n:'Ashtroth',r:2,i:0,t:'hazardous',s:''},
+  {n:'Rigel I',r:0,i:1,t:'hazardous',s:'G'},{n:'Rigel II',r:1,i:2,t:'industrial',s:''},{n:'Rigel III',r:1,i:1,t:'industrial',s:'B'},
+  {n:'Mallice',r:0,i:3,t:'cultural',s:''},{n:"Hope's End",r:3,i:0,t:'hazardous',s:''},{n:'Primor',r:2,i:1,t:'cultural',s:''},
+  {n:'Mirage',r:1,i:2,t:'cultural',s:''},{n:'Elysium',r:4,i:1,t:'',s:''},{n:'The Dark',r:3,i:4,t:'',s:''},
+  {n:'Naazir',r:2,i:1,t:'',s:''},{n:'Rokha',r:1,i:2,t:'',s:''},{n:'Arcturus',r:4,i:4,t:'',s:''},
+  {n:'Avar',r:1,i:1,t:'',s:''},{n:'Ylir',r:0,i:2,t:'',s:''},{n:'Valk',r:2,i:0,t:'',s:''},
+  {n:'Jord',r:4,i:2,t:'',s:''},{n:'Moll Primus',r:4,i:1,t:'',s:''},{n:'Arc Prime',r:4,i:0,t:'',s:''},
+  {n:'Wren Terra',r:2,i:1,t:'',s:''},{n:'Druaa',r:3,i:1,t:'',s:''},{n:'Maaluuk',r:0,i:2,t:'',s:''},
+  {n:'[0.0.0]',r:5,i:0,t:'',s:''},{n:'Creuss',r:4,i:2,t:'',s:''},{n:"Tren'lak",r:1,i:0,t:'',s:''},
+  {n:'Quinarra',r:3,i:1,t:'',s:''},{n:'Archon Ren',r:2,i:3,t:'',s:''},{n:'Archon Tau',r:1,i:1,t:'',s:''},
+  {n:'Mordai II',r:4,i:0,t:'',s:''},{n:'Nar',r:2,i:3,t:'',s:''},{n:'Jol',r:1,i:2,t:'',s:''},
+  {n:'Retillion',r:2,i:3,t:'',s:''},{n:'Shalloq',r:1,i:2,t:'',s:''},{n:'Muaat',r:4,i:1,t:'',s:''},
+  {n:'Nest',r:3,i:2,t:'',s:''},{n:'Arretze',r:2,i:0,t:'',s:''},{n:'Hercant',r:1,i:1,t:'',s:''},
+  {n:'Kamdorn',r:0,i:1,t:'',s:''},{n:'Lisis II',r:1,i:0,t:'',s:''},{n:'Ragh',r:2,i:1,t:'',s:''},
+  {n:'Darien',r:4,i:4,t:'',s:''},{n:'Acheron',r:4,i:0,t:'',s:''},{n:'Ixth',r:3,i:5,t:'',s:''},
+  {n:'Winnu',r:3,i:4,t:'',s:''},{n:'Perimeter',r:2,i:1,t:'',s:''}
+];
+const FLEET_SHIP_TYPES = [
+  {k:'carrier',d:'Carrier',icon:'🚢'},{k:'cruiser',d:'Cruiser',icon:'⚡'},{k:'destroyer',d:'Destroyer',icon:'🔫'},
+  {k:'dreadnought',d:'Dreadnought',icon:'🛡️'},{k:'fighter',d:'Fighter',icon:'✈️'},{k:'flagship',d:'Flagship',icon:'⭐'},
+  {k:'pds',d:'PDS',icon:'🎯'},{k:'infantry',d:'Infantry',icon:'🪖'},{k:'mech',d:'Mech',icon:'🤖'},
+  {k:'spacedock',d:'Space Dock',icon:'🏗️'},{k:'warsun',d:'War Sun',icon:'☀️'}
+];
+
 // ════════════════════════════════════════
 // STATE
 // ════════════════════════════════════════
@@ -1226,7 +1520,8 @@ let S = {
   teExpedition:null, teBreakthroughs:null, teEvents:['','',''], teStations:[{name:'',controller:''},{name:'',controller:''},{name:'',controller:''}],
   opponents:[], ownedTechs:[], secretObjs:[],
   actionCards:[], journal:[], resources:{},
-  cardHolders:{}, promNotes:{}
+  cardHolders:{}, promNotes:{},
+  planets:[], fleets:[], coachMode:false
 };
 let photoData = null;
 let history = [];
@@ -1238,6 +1533,7 @@ let loading = false;
 function isMobile() { return window.innerWidth <= 900; }
 
 function switchTab(name) {
+  const prevTab = _currentTab;
   renderQuickStrip(name);
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
@@ -1248,8 +1544,8 @@ function switchTab(name) {
     const sidebar = document.getElementById('sidebarPanel');
     const drawer = document.getElementById('sidebarDrawer');
     const isAlreadyOpen = sidebar?.classList.contains('drawer-open');
-    // If same tab tapped while open → close; otherwise open
-    if (isAlreadyOpen && _currentTab === name) {
+    // If same tab tapped while open → close; otherwise open/switch
+    if (isAlreadyOpen && prevTab === name) {
       closeSidebarDrawer();
     } else {
       sidebar?.classList.add('drawer-open');
@@ -1310,6 +1606,8 @@ function updateSums() {
   el('sum-journal').textContent = S.journal.length+' rounds';
   const res = el('sum-res');
   if (res) { const myRes = S.resources[S.myFaction]; res.textContent = myRes ? 'TG:'+myRes.tg+' Com:'+myRes.com : '—'; }
+  updatePlanetSummary();
+  el('sum-fleet').textContent = S.fleets.length+' system'+(S.fleets.length!==1?'s':'');
   updateVPBoard();
   updateThreatMonitor();
   buildTETracker();
@@ -1694,7 +1992,10 @@ function gatherState() {
     teExpedition:S.teExpedition||null,
     teBreakthroughs:S.teBreakthroughs||null,
     teEvents:S.teEvents||['','',''],
-    teStations:S.teStations||[]
+    teStations:S.teStations||[],
+    planets:S.planets||[],
+    fleets:S.fleets||[],
+    coachMode:S.coachMode||false
   };
 }
 
@@ -1719,6 +2020,10 @@ function applyState(data) {
   if(data.teBreakthroughs) S.teBreakthroughs=data.teBreakthroughs;
   if(data.teEvents) S.teEvents=data.teEvents;
   if(data.teStations) S.teStations=data.teStations;
+  // Planets & Fleets
+  S.planets=data.planets||[];
+  S.fleets=data.fleets||[];
+  S.coachMode=data.coachMode||false;
   // Faction buttons — include TE faction grid
   qAll('#myBaseFac .fbtn, #myPokFac .fbtn, #myTEFac .fbtn').forEach(b=>{b.classList.toggle('sel', b.dataset.n===S.myFaction);});
   updateHeaderSub();
@@ -1726,7 +2031,8 @@ function applyState(data) {
   if(data.cardHolders) SCARDS.forEach(c=>{ const e=el('sc-'+c.n); if(e&&data.cardHolders[c.n]){e.value=data.cardHolders[c.n];onCardInput(e);}});
   // Objectives
   if(data.objectives) {const ins=qAll('.obj-in'); data.objectives.forEach((v,i)=>{if(ins[i]){ins[i].value=v;ins[i].classList.toggle('filled',!!v);}});}
-  renderOpps(); renderPromLedger(); rebuildResTable(); renderSecrets(); renderAC(); renderJournal(); buildTechGrid(); updateSums();
+  renderOpps(); renderPromLedger(); rebuildResTable(); renderSecrets(); renderAC(); renderJournal(); buildTechGrid();
+  renderPlanets(); renderFleets(); applyCoachModeUI(); updateSums();
 }
 
 function saveState() {
@@ -1819,7 +2125,10 @@ YOUR ROLE:
 - Be sharp and enthusiastic, like a friend who has played hundreds of games
 - Format: ## and ### headers, **bold** key terms, bullet lists for clarity
 - Flag Rider plays, agenda swings, Support for the Throne VP notes, and Imperial timing proactively
-- CRITICAL: if the player tells you something in chat that updates game state, trust that over the panel values below`;
+- CRITICAL: if the player tells you something in chat that updates game state, trust that over the panel values below
+
+VOICE SUMMARY:
+At the end of EVERY response, include a <speak_summary> tag with a brief, natural-sounding summary (2-4 sentences) of your advice — as if you're a friend casually explaining the key point at game night. Keep it conversational, skip citations and formatting, and focus on what the player should actually DO. Example: <speak_summary>Hey so basically you want to grab Warfare this round so you can build after taking Mecatol. Don't worry about teching right now, just get bodies on the map.</speak_summary>`;
 
 function buildDynamicPrompt() {
   const round=el('roundNum').value, myVP=el('myVP').value, vpGoal=el('vpGoal').value;
@@ -1887,6 +2196,29 @@ function buildDynamicPrompt() {
   });
   if(pnLines.length) p+='\n\nPROMISSORY NOTE LEDGER:\n'+pnLines.join('\n');
 
+  // Planet tracker
+  if(S.planets.length) {
+    const ready=S.planets.filter(pl=>!pl.exhausted);
+    const exhausted=S.planets.filter(pl=>pl.exhausted);
+    const totalR=S.planets.reduce((s,pl)=>s+pl.r,0);
+    const totalI=S.planets.reduce((s,pl)=>s+pl.i,0);
+    const readyR=ready.reduce((s,pl)=>s+pl.r,0);
+    const readyI=ready.reduce((s,pl)=>s+pl.i,0);
+    p+='\n\nPLANET TRACKER ('+S.planets.length+' planets, Ready Res: '+readyR+'/'+totalR+', Ready Inf: '+readyI+'/'+totalI+'):';
+    if(ready.length) p+='\nReady: '+ready.map(pl=>pl.name+' ('+pl.r+'R/'+pl.i+'I'+(pl.trait?' '+pl.trait:'')+(pl.techSkip?' '+pl.techSkip+'-skip':'')+')').join(', ');
+    if(exhausted.length) p+='\nExhausted: '+exhausted.map(pl=>pl.name+' ('+pl.r+'R/'+pl.i+'I)').join(', ');
+  }
+
+  // Fleet tracker
+  if(S.fleets.length) {
+    p+='\n\nFLEET POSITIONS:';
+    S.fleets.forEach(fl=>{
+      const units=FLEET_SHIP_TYPES.filter(t=>fl.ships[t.k]>0).map(t=>fl.ships[t.k]+'× '+t.d);
+      if(units.length) p+='\n'+fl.system+': '+units.join(', ');
+      else p+='\n'+fl.system+': (empty)';
+    });
+  }
+
   // Thunder's Edge state
   if(expansions==='te') {
     const teLines=[];
@@ -1912,12 +2244,23 @@ function buildDynamicPrompt() {
 function buildSystemBlocks() {
   // IMPORTANT: Anthropic system array ONLY accepts type:'text' blocks.
   // Documents/PDFs go in the messages array (handled server-side in api/chat.js).
+  const systemText = S.coachMode ? COACH_SYSTEM : STATIC_SYSTEM;
   const blocks = [
-    { type: 'text', text: STATIC_SYSTEM, cache_control: { type: 'ephemeral' } },
+    { type: 'text', text: systemText, cache_control: { type: 'ephemeral' } },
     { type: 'text', text: buildDynamicPrompt() }
   ];
   // Safety: filter out any non-text blocks to prevent API validation errors
   return blocks.filter(b => b.type === 'text' && typeof b.text === 'string');
+}
+
+// ════════════════════════════════════════
+// SPEAK SUMMARY EXTRACTION
+// ════════════════════════════════════════
+function extractSpeakSummary(text) {
+  const m = text.match(/<speak_summary>([\s\S]*?)<\/speak_summary>/);
+  const summary = m ? m[1].trim() : null;
+  const clean = text.replace(/<speak_summary>[\s\S]*?<\/speak_summary>/g, '').trim();
+  return { summary, clean };
 }
 
 // ════════════════════════════════════════
@@ -1952,18 +2295,25 @@ function addMsg(role, content) {
   div.appendChild(lbl);
   const bub=document.createElement('div'); bub.className='msgbub';
   if(role==='assistant'){
+    const { summary: speakSummary, clean: displayContent } = extractSpeakSummary(content);
     if(S.myFaction){const t=document.createElement('div');t.className='ftag';t.textContent=S.myFaction;bub.appendChild(t);}
-    const cd=document.createElement('div');cd.innerHTML=renderMD(content);bub.appendChild(cd);
+    const cd=document.createElement('div');cd.innerHTML=renderMD(displayContent);bub.appendChild(cd);
     // Copy + actions row
     const acts=document.createElement('div');acts.className='msg-actions';
     const cpyBtn=document.createElement('button');cpyBtn.className='msg-copy-btn';cpyBtn.innerHTML='📋 Copy';
     cpyBtn.onclick=()=>{
-      navigator.clipboard.writeText(content).then(()=>{
+      navigator.clipboard.writeText(displayContent).then(()=>{
         cpyBtn.innerHTML='✓ Copied';cpyBtn.classList.add('copied');
         setTimeout(()=>{cpyBtn.innerHTML='📋 Copy';cpyBtn.classList.remove('copied');},1800);
       }).catch(()=>showToast('Copy failed',1500));
     };
-    acts.appendChild(cpyBtn);bub.appendChild(acts);
+    acts.appendChild(cpyBtn);
+    // Speak button — narrate this response via ElevenLabs TTS (uses conversational summary if available)
+    const spkBtn=document.createElement('button');spkBtn.className='msg-speak-btn';spkBtn.innerHTML='🔊 Speak';
+    spkBtn.dataset.speakText=speakSummary||displayContent;
+    spkBtn.onclick=()=>speakText(spkBtn.dataset.speakText,spkBtn);
+    acts.appendChild(spkBtn);
+    bub.appendChild(acts);
   } else { bub.textContent=content; }
   div.appendChild(bub); msgs.appendChild(div); msgs.scrollTop=msgs.scrollHeight;
 }
@@ -1996,7 +2346,7 @@ async function sendMsg() {
   } else { userContent=text; }
   history.push({role:'user',content:userContent});
   try{
-    const resp=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,system:buildSystemBlocks(),messages:history,_includeThundersEdge:(el('expansions')?.value==='te')})});
+    const resp=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1700,system:buildSystemBlocks(),messages:history,_includeThundersEdge:(el('expansions')?.value==='te')})});
     const data=await resp.json(); hideThinking();
     if(data.error){addMsg('assistant','**Error**\n\n'+data.error.message);history.pop();setStatus(false,'Error');}
     else{const reply=data.content?.find(b=>b.type==='text')?.text||'No response.';addMsg('assistant',reply);history.push({role:'assistant',content:reply});const n=history.filter(m=>m.role==='user').length;setStatus(false,n+' exchange'+(n!==1?'s':''));}
@@ -2006,6 +2356,223 @@ async function sendMsg() {
 
 function quickAsk(text){el('userinput').value=text;sendMsg();}
 
+// ════════════════════════════════════════
+// VOICE NARRATION (ElevenLabs TTS)
+// ════════════════════════════════════════
+let currentSpeakAudio=null;
+let currentSpeakBtn=null;
+
+function stopSpeaking(){
+  if(currentSpeakAudio){currentSpeakAudio.pause();currentSpeakAudio.src='';currentSpeakAudio=null;}
+  if(currentSpeakBtn){currentSpeakBtn.innerHTML='🔊 Speak';currentSpeakBtn.classList.remove('speaking');currentSpeakBtn=null;}
+}
+
+// Strip markdown formatting for cleaner TTS
+function stripMD(text){
+  return text
+    .replace(/^#{1,4}\s+/gm,'')
+    .replace(/\*\*(.+?)\*\*/g,'$1')
+    .replace(/\*(.+?)\*/g,'$1')
+    .replace(/`([^`]+)`/g,'$1')
+    .replace(/^[-*]\s+/gm,'')
+    .replace(/^\d+\.\s+/gm,'')
+    .replace(/^---+$/gm,'')
+    .replace(/\n{3,}/g,'\n\n')
+    .trim();
+}
+
+async function speakText(content,btn){
+  // If already speaking this message, stop
+  if(currentSpeakBtn===btn){stopSpeaking();return;}
+  // Stop any other playing audio
+  stopSpeaking();
+
+  const plain=stripMD(content);
+  if(!plain){showToast('Nothing to speak',1500);return;}
+
+  btn.classList.add('loading');
+  btn.innerHTML='⏳ Loading…';
+  currentSpeakBtn=btn;
+
+  try{
+    const resp=await fetch('/api/speak',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({text:plain,voiceId:localStorage.getItem('ti4-cloned-voice-id')||undefined})
+    });
+
+    if(!resp.ok){
+      const err=await resp.json().catch(()=>({error:{message:'TTS failed'}}));
+      throw new Error(err.error?.message||'TTS request failed');
+    }
+
+    const blob=await resp.blob();
+    const url=URL.createObjectURL(blob);
+    const audio=new Audio(url);
+    currentSpeakAudio=audio;
+
+    audio.onplay=()=>{
+      btn.classList.remove('loading');
+      btn.classList.add('speaking');
+      btn.innerHTML='<span class="speak-wave"><span></span><span></span><span></span><span></span></span> Stop';
+    };
+    audio.onended=()=>{
+      URL.revokeObjectURL(url);
+      btn.classList.remove('speaking');
+      btn.innerHTML='🔊 Speak';
+      if(currentSpeakBtn===btn){currentSpeakAudio=null;currentSpeakBtn=null;}
+    };
+    audio.onerror=()=>{
+      URL.revokeObjectURL(url);
+      btn.classList.remove('speaking','loading');
+      btn.innerHTML='🔊 Speak';
+      showToast('Audio playback failed',1800);
+      if(currentSpeakBtn===btn){currentSpeakAudio=null;currentSpeakBtn=null;}
+    };
+
+    await audio.play();
+  }catch(err){
+    btn.classList.remove('loading','speaking');
+    btn.innerHTML='🔊 Speak';
+    currentSpeakBtn=null;currentSpeakAudio=null;
+    showToast('Voice: '+err.message,2500);
+  }
+}
+
+// ════════════════════════════════════════
+// VOICE CLONING
+// ════════════════════════════════════════
+let vcMediaRecorder=null;
+let vcChunks=[];
+let vcTimerInterval=null;
+let vcStartTime=0;
+
+function initVoiceCloneUI() {
+  const savedId=localStorage.getItem('ti4-cloned-voice-id');
+  if(savedId){
+    showVoiceReady(savedId);
+  }
+}
+
+function showVoiceReady(voiceId) {
+  const status=el('vcStatus'); const icon=el('vcStatusIcon'); const text=el('vcStatusText');
+  const readyActs=el('vcReadyActions'); const setupUI=el('vcSetupUI'); const sum=el('sum-voice');
+  status.className='vc-status ready';
+  icon.textContent='🎤';
+  text.textContent='Your cloned voice is active ('+voiceId.slice(0,8)+'…)';
+  readyActs.style.display='';
+  setupUI.style.display='none';
+  if(sum) sum.textContent='Active';
+}
+
+function showVoiceNone() {
+  const status=el('vcStatus'); const icon=el('vcStatusIcon'); const text=el('vcStatusText');
+  const readyActs=el('vcReadyActions'); const setupUI=el('vcSetupUI'); const sum=el('sum-voice');
+  status.className='vc-status none';
+  icon.textContent='🔇';
+  text.textContent='No voice cloned — using default voice';
+  readyActs.style.display='none';
+  setupUI.style.display='';
+  if(sum) sum.textContent='Not set';
+  // Reset recording UI
+  el('vcRecordingUI').style.display='none';
+  el('vcProgress').style.display='none';
+  el('vcRecordBtn').style.display='';
+}
+
+function removeClonedVoice() {
+  localStorage.removeItem('ti4-cloned-voice-id');
+  showVoiceNone();
+  showToast('Voice clone removed',1500);
+}
+
+async function startVoiceClone() {
+  // If already have a clone, reset UI first
+  if(localStorage.getItem('ti4-cloned-voice-id')){
+    el('vcReadyActions').style.display='none';
+    el('vcSetupUI').style.display='';
+    el('vcProgress').style.display='none';
+  }
+
+  try {
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    vcChunks=[];
+    vcMediaRecorder=new MediaRecorder(stream,{mimeType:'audio/webm;codecs=opus'});
+    vcMediaRecorder.ondataavailable=e=>{if(e.data.size>0)vcChunks.push(e.data);};
+    vcMediaRecorder.onstop=()=>{stream.getTracks().forEach(t=>t.stop());};
+    vcMediaRecorder.start(250);
+
+    // Show recording UI
+    el('vcRecordBtn').style.display='none';
+    el('vcRecordingUI').style.display='';
+    vcStartTime=Date.now();
+    updateVCTimer();
+    vcTimerInterval=setInterval(updateVCTimer,500);
+  } catch(err) {
+    showToast('Microphone access denied: '+err.message,3000);
+  }
+}
+
+function updateVCTimer() {
+  const elapsed=Math.floor((Date.now()-vcStartTime)/1000);
+  const m=Math.floor(elapsed/60);
+  const s=elapsed%60;
+  el('vcTimer').textContent=m+':'+(s<10?'0':'')+s;
+}
+
+async function stopVoiceRecording() {
+  if(!vcMediaRecorder||vcMediaRecorder.state==='inactive')return;
+  clearInterval(vcTimerInterval);
+
+  const elapsed=Math.floor((Date.now()-vcStartTime)/1000);
+  if(elapsed<5){
+    showToast('Record at least 5 seconds for a good clone',2000);
+    return;
+  }
+
+  // Stop and wait for final data
+  await new Promise(resolve=>{
+    vcMediaRecorder.onstop=()=>{
+      vcMediaRecorder.stream.getTracks().forEach(t=>t.stop());
+      resolve();
+    };
+    vcMediaRecorder.stop();
+  });
+
+  el('vcRecordingUI').style.display='none';
+  const prog=el('vcProgress');
+  prog.style.display='';
+  prog.textContent='⏳ Cloning your voice…';
+
+  try {
+    const blob=new Blob(vcChunks,{type:'audio/webm'});
+
+    // Send as multipart/form-data — server proxies it straight to ElevenLabs
+    const form=new FormData();
+    form.append('name','TI4 Player '+(S.myFaction||'Voice'));
+    form.append('description','Cloned via TI4 Advisor');
+    form.append('remove_background_noise','true');
+    form.append('files',blob,'voice-sample.webm');
+
+    const resp=await fetch('/api/clone-voice',{
+      method:'POST',
+      body:form
+    });
+
+    const data=await resp.json();
+    if(!resp.ok) throw new Error(data.error?.message||'Clone failed');
+
+    localStorage.setItem('ti4-cloned-voice-id',data.voice_id);
+    prog.style.display='none';
+    showVoiceReady(data.voice_id);
+    showToast('Voice cloned! The advisor will speak in your voice.',2500);
+  } catch(err) {
+    prog.textContent='';
+    prog.style.display='none';
+    el('vcRecordBtn').style.display='';
+    showToast('Clone failed: '+err.message,3000);
+  }
+}
 
 // ════════════════════════════════════════
 // WIN THREAT MONITOR
@@ -2577,10 +3144,13 @@ function updateGameHeader() {
   if (S.myFaction) {
     header.classList.add('game-active');
     el('gs-faction').textContent = S.myFaction;
-    el('gs-round').textContent = 'Round ' + (el('roundNum')?.value || 1);
-    el('gs-vp').textContent = (el('myVP')?.value || 0) + ' VP';
+    el('gs-round').textContent = 'Round: ' + (el('roundNum')?.value || 1);
+    el('gs-vp').textContent = 'My VP: ' + (el('myVP')?.value || 0);
   } else {
     header.classList.remove('game-active');
+    el('gs-round').textContent = 'Round: ' + (el('roundNum')?.value || 1);
+    el('gs-vp').textContent = 'My VP: 0';
+    el('gs-faction').textContent = 'Player ' + (el('playerCount')?.value || 6);
   }
 }
 
@@ -2663,9 +3233,10 @@ function renderQuickStrip(tabName) {
   _currentTab = tabName || _currentTab;
   const strip = el('quickStrip');
   if (!strip) return;
-  const prompts = TAB_PROMPTS[_currentTab] || TAB_PROMPTS.setup;
+  const promptSet = S.coachMode ? COACH_TAB_PROMPTS : TAB_PROMPTS;
+  const prompts = promptSet[_currentTab] || promptSet.setup;
   strip.innerHTML = prompts.map((p, i) =>
-    `<button class="qs-btn${i < 2 ? '' : ' context'}" onclick="quickAsk(${JSON.stringify(p.q)})">${p.label}</button>`
+    `<button class="qs-btn${i < 2 ? '' : ' context'}" onclick="quickAsk(${JSON.stringify(p.q).replace(/"/g,'&quot;')})">${p.label}</button>`
   ).join('');
 }
 
@@ -2688,11 +3259,369 @@ function scrollToBottom() {
 }
 
 // ════════════════════════════════════════
+// PLANET TRACKER
+// ════════════════════════════════════════
+function buildPlanetDatalist() {
+  const dl=el('planetlist'); if(!dl) return;
+  dl.innerHTML='';
+  PLANETS.forEach(p=>{
+    const o=document.createElement('option');
+    o.value=p.n;
+    o.textContent=p.n+' ('+p.r+'R/'+p.i+'I'+(p.t?' '+p.t:'')+(p.s?' '+p.s+'-skip':'')+')';
+    dl.appendChild(o);
+  });
+}
+
+function addPlanet() {
+  const inp=el('planetAddInput'); if(!inp) return;
+  const name=inp.value.trim(); if(!name) return;
+  // Check if already added
+  if(S.planets.find(p=>p.name.toLowerCase()===name.toLowerCase())){showToast('Planet already tracked');return;}
+  // Look up in database
+  const db=PLANETS.find(p=>p.n.toLowerCase()===name.toLowerCase());
+  const planet={
+    name:db?db.n:name, r:db?db.r:0, i:db?db.i:0,
+    trait:db?db.t:'', techSkip:db?db.s:'', exhausted:false
+  };
+  S.planets.push(planet);
+  inp.value='';
+  renderPlanets(); updateSums();
+}
+
+function renderPlanets() {
+  const list=el('planetList'); if(!list) return;
+  list.innerHTML='';
+  S.planets.forEach((p,idx)=>{
+    const row=document.createElement('div');
+    row.className='planet-row'+(p.exhausted?' exhausted':'');
+    let traitHtml=p.trait?'<span class="planet-trait '+p.trait+'">'+p.trait.charAt(0).toUpperCase()+'</span>':'';
+    let skipHtml=p.techSkip?'<span class="planet-skip '+p.techSkip+'">'+p.techSkip+'</span>':'';
+    row.innerHTML='<span class="planet-name">'+p.name+'</span>'
+      +'<span class="planet-stat res">'+p.r+'</span>'
+      +'<span class="planet-stat inf">'+p.i+'</span>'
+      +traitHtml+skipHtml
+      +'<button class="planet-toggle '+(p.exhausted?'exhausted':'ready')+'" onclick="togglePlanetExhaust('+idx+')">'+(p.exhausted?'Exhausted':'Ready')+'</button>'
+      +'<button class="planet-rm" onclick="removePlanet('+idx+')" title="Remove">✕</button>';
+    list.appendChild(row);
+  });
+  updatePlanetSummary();
+}
+
+function togglePlanetExhaust(idx) {
+  if(!S.planets[idx]) return;
+  S.planets[idx].exhausted=!S.planets[idx].exhausted;
+  renderPlanets(); updateSums();
+}
+
+function removePlanet(idx) {
+  S.planets.splice(idx,1);
+  renderPlanets(); updateSums();
+}
+
+function readyAllPlanets() {
+  S.planets.forEach(p=>p.exhausted=false);
+  renderPlanets(); updateSums();
+  showToast('All planets readied ✓',1200);
+}
+
+function exhaustAllPlanets() {
+  S.planets.forEach(p=>p.exhausted=true);
+  renderPlanets(); updateSums();
+  showToast('All planets exhausted',1200);
+}
+
+function updatePlanetSummary() {
+  const sumBar=el('planetSummary');
+  if(!sumBar) return;
+  if(!S.planets.length){sumBar.style.display='none';return;}
+  sumBar.style.display='flex';
+  const totalR=S.planets.reduce((s,p)=>s+p.r,0);
+  const totalI=S.planets.reduce((s,p)=>s+p.i,0);
+  const readyR=S.planets.filter(p=>!p.exhausted).reduce((s,p)=>s+p.r,0);
+  const readyI=S.planets.filter(p=>!p.exhausted).reduce((s,p)=>s+p.i,0);
+  el('ps-ready-res').textContent=readyR; el('ps-total-res').textContent=totalR;
+  el('ps-ready-inf').textContent=readyI; el('ps-total-inf').textContent=totalI;
+  el('sum-planets').textContent=S.planets.length+' · R:'+readyR+'/'+totalR+' I:'+readyI+'/'+totalI;
+}
+
+function getBuildAdvice() {
+  if(!S.planets.length){showToast('Add planets first');return;}
+  const ready=S.planets.filter(p=>!p.exhausted);
+  const readyR=ready.reduce((s,p)=>s+p.r,0);
+  const readyI=ready.reduce((s,p)=>s+p.i,0);
+  const q='Build Advice Request:\n\nMy ready planets ('+ready.length+' of '+S.planets.length+'):\n'
+    +ready.map(p=>p.name+' ('+p.r+'R/'+p.i+'I'+(p.trait?' '+p.trait:'')+(p.techSkip?' '+p.techSkip+'-skip':'')+')').join('\n')
+    +'\n\nTotal ready: '+readyR+' resources, '+readyI+' influence'
+    +'\n\nGiven my faction, tech tree, fleet positions, and objectives — what should I build and where? Be specific about unit counts and placement.';
+  quickAsk(q);
+}
+
+// ════════════════════════════════════════
+// FLEET TRACKER
+// ════════════════════════════════════════
+function addFleetSystem() {
+  const inp=el('fleetAddInput'); if(!inp) return;
+  const name=inp.value.trim(); if(!name) return;
+  if(S.fleets.find(f=>f.system.toLowerCase()===name.toLowerCase())){showToast('System already tracked');return;}
+  const ships={};
+  FLEET_SHIP_TYPES.forEach(t=>ships[t.k]=0);
+  S.fleets.push({system:name,ships:ships});
+  inp.value='';
+  renderFleets(); updateSums();
+}
+
+function renderFleets() {
+  const list=el('fleetList'); if(!list) return;
+  list.innerHTML='';
+  S.fleets.forEach((fleet,fi)=>{
+    const sys=document.createElement('div'); sys.className='fleet-system';
+    // Summary line
+    const counts=FLEET_SHIP_TYPES.filter(t=>fleet.ships[t.k]>0).map(t=>fleet.ships[t.k]+'×'+t.d);
+    const sumText=counts.length?counts.join(', '):'Empty';
+    const hdr=document.createElement('div'); hdr.className='fleet-sys-hdr';
+    hdr.innerHTML='<span class="fleet-sys-name">'+fleet.system+'</span>'
+      +'<span class="fleet-sys-sum">'+sumText+'</span>'
+      +'<button class="fleet-sys-rm" onclick="event.stopPropagation();removeFleetSystem('+fi+')" title="Remove">✕</button>';
+    hdr.onclick=()=>{const grid=sys.querySelector('.fleet-grid');if(grid)grid.style.display=grid.style.display==='none'?'grid':'none';};
+    sys.appendChild(hdr);
+    // Ship grid
+    const grid=document.createElement('div'); grid.className='fleet-grid';
+    FLEET_SHIP_TYPES.forEach(t=>{
+      const unit=document.createElement('div'); unit.className='fleet-unit';
+      unit.innerHTML='<span class="fleet-unit-name">'+t.d+'</span>'
+        +'<div class="fleet-unit-ctr">'
+        +'<button class="resctr-btn" onclick="adjFleetShip('+fi+',\''+t.k+'\',-1)">−</button>'
+        +'<span class="resctr-val" id="fleet-'+fi+'-'+t.k+'">'+fleet.ships[t.k]+'</span>'
+        +'<button class="resctr-btn" onclick="adjFleetShip('+fi+',\''+t.k+'\',1)">+</button>'
+        +'</div>';
+      grid.appendChild(unit);
+    });
+    sys.appendChild(grid);
+    list.appendChild(sys);
+  });
+  el('sum-fleet').textContent=S.fleets.length+' system'+(S.fleets.length!==1?'s':'');
+}
+
+function adjFleetShip(fi,shipKey,delta) {
+  if(!S.fleets[fi]) return;
+  S.fleets[fi].ships[shipKey]=Math.max(0,S.fleets[fi].ships[shipKey]+delta);
+  const valEl=el('fleet-'+fi+'-'+shipKey);
+  if(valEl) valEl.textContent=S.fleets[fi].ships[shipKey];
+  // Update summary
+  const sys=el('fleetList')?.children[fi];
+  if(sys){
+    const sumEl=sys.querySelector('.fleet-sys-sum');
+    if(sumEl){
+      const counts=FLEET_SHIP_TYPES.filter(t=>S.fleets[fi].ships[t.k]>0).map(t=>S.fleets[fi].ships[t.k]+'×'+t.d);
+      sumEl.textContent=counts.length?counts.join(', '):'Empty';
+    }
+  }
+}
+
+function removeFleetSystem(fi) {
+  S.fleets.splice(fi,1);
+  renderFleets(); updateSums();
+}
+
+// ════════════════════════════════════════
+// COACH MODE
+// ════════════════════════════════════════
+const COACH_SYSTEM = `You are a friendly, patient TI4 (Twilight Imperium 4th Edition) coach for newer players. You have the full TI4 rulebook and PoK rules above.
+
+YOUR TEACHING STYLE:
+- Use plain, everyday language — avoid competitive jargon unless you define it first
+- Give concrete examples: "For instance, if you have 3 resources ready, you could build 1 Cruiser (2 resources) and 1 Infantry (free)"
+- Always explain the WHY behind advice: "You want to exhaust Bereg (3 resources) for building because resources are what pay for ships and ground forces"
+- Break complex sequences into numbered steps
+- When explaining rules, quote the specific rule simply, then rephrase in plain English
+- Relate concepts to things a new player would understand
+- Be encouraging — there are no dumb questions in TI4
+- Use headers and bullets for clarity
+- If a concept has a common misplay, warn about it: "⚠ Common mistake: many new players forget that..."
+- Reference the player's actual game state to make examples concrete
+
+YOUR ROLE:
+- Help the player understand WHY things work the way they do, not just WHAT to do
+- Teach them to think for themselves by explaining the reasoning
+- When giving strategic advice, explain the tradeoffs so they can make informed decisions
+- Use ALL game state data provided — but explain what each piece means
+- Be warm and encouraging, like a patient friend teaching at game night
+
+VOICE SUMMARY:
+At the end of EVERY response, include a <speak_summary> tag with a brief, natural-sounding summary (2-4 sentences) of your advice — as if you're a buddy at game night giving the quick version. Keep it casual and encouraging, skip rules citations, and focus on what the player should do next. Example: <speak_summary>Okay so the main thing here is you want to move your carrier into that empty system first, then drop your guys on the planet. Don't forget to put a command token down when you activate!</speak_summary>`;
+
+const COACH_WELCOME_PROMPTS = [
+  {label:'How Movement Works',q:'Explain how movement works in TI4 in simple terms. How do I move ships? What are command tokens for? Give me a step-by-step example.'},
+  {label:'Command Tokens 101',q:'Explain command tokens to me like I\'m brand new. What are the three pools, when do I spend them, and why do they matter so much?'},
+  {label:'Combat Basics',q:'Walk me through how space combat works step by step. What dice do I roll? When do ships die? Use a simple example.'},
+  {label:'Action Phase Guide',q:'What happens during the action phase? What are my options each turn? When should I pass?'},
+  {label:'Status Phase Steps',q:'Walk me through the status phase step by step. What happens and in what order? What should I remember to do?'},
+  {label:'How to Score VP',q:'How do I actually win? Explain the different ways to get Victory Points — public objectives, secret objectives, Mecatol Rex, and Support for the Throne.'},
+  {label:'Strategy Cards',q:'Explain the 8 strategy cards. What does each one do, and which ones are best for a beginner? When do I pick them?'},
+  {label:'Agenda Phase',q:'How does the Agenda Phase work? When does it happen? How do I vote, and why should I care about politics?'},
+  {label:'My Faction Abilities',q:'Explain my faction\'s abilities, strengths, and weaknesses in simple beginner-friendly terms. What should I focus on?'},
+  {label:'Mechs & Ground Forces',q:'What are mechs and how do they differ from infantry? When should I use ground forces vs ships?'}
+];
+
+const COACH_TAB_PROMPTS = {
+  setup:[
+    {label:'My Faction for Beginners',q:'Explain my faction in beginner-friendly terms. What are my unique abilities, what should I build, and what\'s my goal?'},
+    {label:'Round 1 for Newbies',q:'I\'m new to this. Walk me through Round 1 step by step — what should I do in my first few turns?'},
+    {label:'What Should I Build?',q:'As a beginner, what ships and ground forces should I focus on building? Explain what each unit type does.'},
+    {label:'Explain My Slice',q:'Look at my game setup and explain my starting position in simple terms. What planets should I grab first?'},
+    {label:'Basic Strategy Tips',q:'Give me 5 basic strategy tips that every new TI4 player should know.'},
+  ],
+  table:[
+    {label:'Am I Winning?',q:'Look at the VP standings and explain where I stand. Am I doing well? What should I focus on next?'},
+    {label:'Explain Objectives',q:'Look at the revealed public objectives and explain each one in simple terms. Which ones can I score and how?'},
+    {label:'Planet Strategy',q:'Look at my planets. Explain resources vs influence and when I should exhaust vs save them.'},
+    {label:'Who\'s Dangerous?',q:'In simple terms, who at the table should I be worried about and why? What should I watch for?'},
+    {label:'Trade for Beginners',q:'How does trading work? When should I trade, and what\'s a fair deal?'},
+  ],
+  tech:[
+    {label:'Tech Tree Explained',q:'Explain the technology system in simple terms. What are the four colors, what do prerequisites mean, and what should I research first?'},
+    {label:'Best Beginner Techs',q:'What are the must-have technologies for a beginner? Explain why each one is good in plain language.'},
+    {label:'Skip vs Must-Have',q:'Which technologies are traps that I should skip, and which ones are essential? Explain simply.'},
+    {label:'Unit Upgrades',q:'What are unit upgrade technologies? Which ones matter most and why? Should I rush them?'},
+  ],
+  actions:[
+    {label:'What Cards to Play',q:'Look at my action cards and explain what each one does in simple terms. When should I play them?'},
+    {label:'Voting Guide',q:'Explain how to approach the current agenda. What should I vote for and why? Keep it simple.'},
+    {label:'Combat Tips',q:'I might be in combat soon. Walk me through what to expect and give me tips for my first fight.'},
+    {label:'When to Pass',q:'When should I pass vs take another action? Explain the strategic thinking behind passing early or late.'},
+  ],
+  journal:[
+    {label:'Review My Game',q:'Look at my journal entries and tell me what I did well and what I can improve. Be encouraging!'},
+    {label:'What to Do Next',q:'Based on my game so far, what should my plan be for the next round? Explain the reasoning.'},
+    {label:'Learning Moments',q:'What are the key learning moments from my game so far? What rules or strategies am I using well or missing?'},
+  ]
+};
+
+function toggleCoachMode() {
+  S.coachMode=!S.coachMode;
+  applyCoachModeUI();
+  showToast(S.coachMode?'🎓 Coach Mode ON — beginner-friendly teaching':'Coach Mode OFF — competitive advisor',1800);
+  // Refresh quick strip
+  renderQuickStrip(_currentTab);
+  // Refresh welcome screen if visible
+  const welcome=el('welcomescreen');
+  if(welcome) buildWelcomeScreen();
+}
+
+function applyCoachModeUI() {
+  const toggle=el('coachToggle');
+  const banner=el('coachBanner');
+  const chatPH=el('chatPH');
+  if(toggle) toggle.classList.toggle('active',S.coachMode);
+  if(banner) banner.classList.toggle('vis',S.coachMode);
+  if(chatPH) chatPH.classList.toggle('coach-active',S.coachMode);
+  if(el('chatTitle')) el('chatTitle').textContent=S.coachMode?'Coach Mode':'Strategy Command';
+}
+
+const WELCOME_GRID_ITEMS = [
+  {icon:'🏛',label:'Faction Analysis',q:'Give me a full faction breakdown — strengths, weaknesses, tech path, and win condition.'},
+  {icon:'🎯',label:'Opening Strategy',q:'What is my ideal opening strategy for Round 1?'},
+  {icon:'⚙',label:'Tech Path',q:'What technology path should I prioritize and why?'},
+  {icon:'🏆',label:'Win Condition',q:'What is my win condition and VP strategy?'},
+  {icon:'⚖',label:'Political Threats',q:'What political threats should I watch for in the Agenda Phase?'},
+  {icon:'🃏',label:'Strategy Cards',q:'Which Strategy Card should I take this round and why?'},
+  {icon:'⚠',label:'Threat Assessment',q:'Who is my biggest threat and how do I handle them?'},
+  {icon:'💰',label:'Trade Meta',q:'Walk me through the trade negotiation meta — what should I offer and demand?'},
+];
+const COACH_GRID_ITEMS = [
+  {icon:'🚀',label:'How Movement Works',q:'Explain how movement works in TI4 in simple terms. How do I move ships? What are command tokens for?'},
+  {icon:'🎛',label:'Command Tokens',q:'Explain command tokens to me like I\'m brand new. What are the three pools?'},
+  {icon:'⚔',label:'Combat Basics',q:'Walk me through how space combat works step by step.'},
+  {icon:'▶',label:'Action Phase',q:'What happens during the action phase? What are my options each turn?'},
+  {icon:'🏆',label:'How to Score VP',q:'How do I actually win? Explain the different ways to get Victory Points.'},
+  {icon:'🃏',label:'Strategy Cards',q:'Explain the 8 strategy cards. What does each one do?'},
+  {icon:'🗳',label:'Agenda Phase',q:'How does the Agenda Phase work? When does it happen?'},
+  {icon:'⬡',label:'My Faction',q:'Explain my faction\'s abilities, strengths, and weaknesses in simple beginner-friendly terms.'},
+];
+
+function buildWelcomeScreen() {
+  const msgs=el('chatmsgs'); if(!msgs) return;
+  const existing=el('welcomescreen'); if(existing) existing.remove();
+  if(msgs.querySelectorAll('.msg').length>0) return;
+  const welcome=document.createElement('div');
+  welcome.className='welcome'; welcome.id='welcomescreen';
+  const items = S.coachMode ? COACH_GRID_ITEMS : WELCOME_GRID_ITEMS;
+  const gridHTML = items.map(p =>
+    '<button class="qbtn-card" onclick="quickAsk('+JSON.stringify(p.q).replace(/"/g,'&quot;')+')">'
+    +'<span class="qcard-icon">'+p.icon+'</span>'+p.label+'</button>'
+  ).join('');
+  const textBtns = (S.coachMode ? COACH_WELCOME_PROMPTS : WELCOME_GRID_ITEMS).map(p =>
+    '<button class="qbtn" onclick="quickAsk('+JSON.stringify(p.q).replace(/"/g,'&quot;')+')">'+p.label+'</button>'
+  ).join('');
+  if(S.coachMode) {
+    welcome.innerHTML='<div class="sigil">🎓</div><h2>Welcome, Commander! Let\'s Learn Together</h2>'
+      +'<p>I\'m your TI4 coach. Ask me anything — no question is too basic.</p>';
+  } else {
+    welcome.innerHTML='<div class="sigil">⬡</div><h2>Awaiting Orders, Supreme Commander</h2>'
+      +'<p>Configure all five tabs for maximum advisor intelligence, then ask anything.</p>';
+  }
+  welcome.innerHTML += '<div class="qbtns">'+textBtns+'</div>'
+    +'<div class="qbtns-grid">'+gridHTML+'</div>'
+    +'<div class="welcome-dots"><span class="welcome-dot active"></span><span class="welcome-dot"></span><span class="welcome-dot"></span></div>';
+  msgs.prepend(welcome);
+}
+
+// ════════════════════════════════════════
+// COMBAT PHOTO ANALYZER
+// ════════════════════════════════════════
+let combatPhotoData = null;
+
+function handleCombatPhoto(event) {
+  const file=event.target.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=(e)=>{
+    const dataUrl=e.target.result;
+    combatPhotoData={base64:dataUrl.split(',')[1],mediaType:file.type||'image/jpeg'};
+    el('combatPhotoThumb').src=dataUrl;
+    el('combatPhotoEmpty').style.display='none';
+    el('combatPhotoLoaded').style.display='block';
+    el('sum-combat-photo').textContent='Photo ready';
+  };
+  reader.readAsDataURL(file);
+  event.target.value='';
+}
+
+function clearCombatPhoto() {
+  combatPhotoData=null;
+  el('combatPhotoEmpty').style.display='block';
+  el('combatPhotoLoaded').style.display='none';
+  el('combatPhotoThumb').src='';
+  el('sum-combat-photo').textContent='—';
+}
+
+const COMBAT_PROMPTS = {
+  space: 'Analyze this photo of a space combat. Identify ALL ships on both sides. Apply my faction abilities, technologies, and any relevant action cards. Calculate:\n1. Win probability for each side\n2. Expected casualties\n3. How many combat rounds this will likely take\n4. Key modifiers in play (faction abilities, tech bonuses, etc.)\nBe specific with numbers.',
+  ground: 'Analyze this photo for ground combat. Identify all infantry, mechs, and relevant ground forces on both sides. Apply my faction bonuses, technologies, and abilities. Calculate:\n1. Win probability\n2. Expected surviving forces\n3. Bombardment effects if applicable\n4. Any special faction ground combat abilities in play',
+  attack: 'Look at this combat situation. Given my faction, technologies, objectives, and overall game position — should I attack? Give me a direct YES or NO with ONE sentence of reasoning. Then briefly explain the risk/reward.',
+  retreat: 'Analyze this combat for retreat options. When should I retreat, and where? Consider:\n1. Can I retreat (Skilled Retreat action card, Gravity Drive, etc.)?\n2. Which direction gives the best strategic position?\n3. What do I lose by fighting vs retreating?\n4. Is there a timing window where retreat is optimal?',
+  bombard: 'Analyze the bombardment situation in this photo. Calculate:\n1. How many bombardment dice I roll (which ships have bombardment?)\n2. Expected hits from bombardment\n3. Can they use Planetary Shield?\n4. Should I bombard before or is there a reason to hold?'
+};
+
+function combatAnalyze(type) {
+  if(!combatPhotoData){showToast('Take a photo first');return;}
+  const prompt=COMBAT_PROMPTS[type];
+  // Set the photo as the main photoData so sendMsg picks it up
+  photoData={base64:combatPhotoData.base64,mediaType:combatPhotoData.mediaType};
+  el('imgthumb').src='data:'+combatPhotoData.mediaType+';base64,'+combatPhotoData.base64;
+  el('imgpreview').classList.add('vis');
+  el('userinput').value=prompt;
+  sendMsg();
+}
+
+// ════════════════════════════════════════
 // INIT
 // ════════════════════════════════════════
 buildFacGrids();
 buildTETracker();
 buildVPOPanel();
+buildPlanetDatalist();
+renderPlanets();
+renderFleets();
 renderQuickStrip('setup');
 initScrollToBottom();
 updateGameHeader();
@@ -2707,6 +3636,8 @@ renderAC();
 renderJournal();
 rebuildResTable();
 renderPromLedger();
+applyCoachModeUI();
+initVoiceCloneUI();
 updateSums();
 
 // Try auto-load saved state
